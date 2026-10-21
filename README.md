@@ -1,34 +1,28 @@
 # swkotor1-reconstruction
 
-An unofficial reverse-engineered executable reconstruction project for **Star Wars: Knights of the Old Republic**, targeting the **GOG Windows release, game version 1.03**.
+This project reconstructs the **GOG Windows 1.03** version of **Star Wars: Knights of the Old Republic** from its executable. This repository is intended to house the reconstructed source code. You must purchase the original game and supply its assets.
 
-This public repository currently contains documentation and a rights notice only. It does not provide a playable release or implementation source code.
+## Supported version
 
-## Target and verification
+The project targets the English **GOG Windows 1.03** release. The original `swkotor.exe` is a 32-bit executable with file and product version **1.0.3.0** and a size of **4,042,752 bytes**.
 
-The following facts were checked on 2026-10-21 by reading the local original installation's executable and metadata, without executing the game or installer:
+Original executable SHA-256:
 
-| Item | Verified value and evidence |
-| --- | --- |
-| Distribution | GOG Windows, English; installed GOG metadata identifies game ID `1207666283` |
-| Game patch version | `1.03`, reported by GOG's installed registry metadata and corroborated by the installed `SWKotORv103.txt` patch notes |
-| Executable | `swkotor.exe`, Windows x86, 4,042,752 bytes |
-| Executable file and product version | Both version resources report `1, 0, 3, 0` (`1.0.3.0`) |
-| Executable SHA-256 | `9c10e0450a6eeca417e036e3cde7474fed1f0a92aab018446d156944dea91435` |
-| Installed GOG build ID | `52316137315118251`, reported by `goggame-1207666283.info` and GOG's installed registry metadata |
-| GOG offline installer version/build | Unknown; an original offline installer package was not verified |
+```text
+9c10e0450a6eeca417e036e3cde7474fed1f0a92aab018446d156944dea91435
+```
 
-The game patch version, executable version resources, and GOG build ID are distinct identifiers. The installed build ID is not a verified offline installer version. The hash identifies the specific original executable examined; it does not establish compatibility with every GOG download, other releases, or modified installations. Compatibility with this target remains subject to testing.
+Use this hash to identify the target executable. Compatibility is still being tested; other releases and modified executables may differ.
 
 ## Original game required
 
-You must separately purchase and lawfully possess the original game and supply its assets locally. This repository distributes no original game resources, proprietary binaries, middleware, raw decompiler exports, or implementation code. No original game files are uploaded here.
+You must separately purchase and lawfully possess the original game and supply its assets locally. This repository distributes no original game resources, proprietary binaries, middleware, or raw decompiler exports.
 
 ## Project status
 
-The maintainer reports that most gameplay has been reconstructed, with minigames remaining, and describes other remaining functions as including unused Neverwinter multiplayer remnants, debugging, and cheats. These are reported progress and classification statements, not an independently audited inventory or proof of complete gameplay. No complete-playthrough or full-compatibility claim is made.
+The maintainer reports that most gameplay has been reconstructed, with minigames remaining, along with functions described as unused Neverwinter multiplayer remnants, debugging, and cheats. This progress has not been independently audited, and full gameplay compatibility remains unconfirmed.
 
-Planned documentation includes reconstruction provenance, compatibility evidence and limitations, and intentional omissions with their rationale. Those documents and their supporting audits are not yet published here.
+Planned documentation will cover reconstruction provenance, compatibility, and intentional omissions.
 
 ## Rights and affiliation
 
