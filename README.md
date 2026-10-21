@@ -12,17 +12,13 @@ Original executable SHA-256:
 9c10e0450a6eeca417e036e3cde7474fed1f0a92aab018446d156944dea91435
 ```
 
-Use this hash to identify the target executable. Compatibility is still being tested; other releases and modified executables may differ.
+Use this hash to identify the target executable. Other releases and modified executables may differ.
 
 ## Original game required
 
 You must separately purchase and lawfully possess the original game and supply its assets locally. This repository distributes no original game resources, proprietary binaries, middleware, or raw decompiler exports.
 
-## Project status
-
-The maintainer reports that most gameplay has been reconstructed, with minigames remaining, along with functions described as unused Neverwinter multiplayer remnants, debugging, and cheats. This progress has not been independently audited, and full gameplay compatibility remains unconfirmed.
-
-Planned documentation will cover reconstruction provenance, compatibility, and intentional omissions.
+See [STATUS.md](STATUS.md) for current progress and remaining work.
 
 ## Rights and affiliation
 
@@ -30,4 +26,4 @@ This project is unofficial and is not affiliated with or endorsed by the game's 
 
 The original game, its trademarks, assets, and other third-party materials remain the property of their respective rights holders. All rights reserved by the respective rights holders. This project does not claim ownership of those rights or grant permission to redistribute proprietary game materials.
 
-See [LICENSE](LICENSE) for the rights and reservation notice. No implementation source-code license has been chosen; any future source publication and license require a separate determination of the relevant rights and permissions.
+The project uses the [MIT License](LICENSE) for any rights its contributors hold. This does not grant rights to original KOTOR code, assets, trademarks, or other third-party material.
