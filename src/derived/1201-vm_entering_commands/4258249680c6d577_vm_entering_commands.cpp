@@ -1,0 +1,5 @@
+#include "af76e3a25a37f24f_vm_entering_commands.hpp"
+namespace recovered_vm_entering_commands {
+U entering(U self,Ports&p){const U mode=p.read(self+4);U result=p.read(0x746644);if(mode==1){const U app=p.read(0x7a39fc);const U id=p.read(self+8);const U server=p.read(app+8);const U obj=p.object(server,id);if(obj){const U type=p.read8(obj+8);U slot=0,offset=0;switch(type){case 3:slot=0x20;offset=0x14c;break;case 4:slot=0x28;offset=0x1d4;break;case 7:slot=0x40;offset=0x29c;break;case 9:slot=0x48;offset=0x35c;break;case 10:slot=0x18;offset=0x324;break;case 11:slot=0x50;offset=0x250;break;case 13:slot=0x5c;offset=0x2e0;break;default:break;}if(slot){const U casted=p.cast(obj,slot);if(casted)result=p.read(casted+offset);}}}const U vm=p.read(0x7a3a00);return p.push_object(vm,result)?0:static_cast<U>(-2000);}
+U is_pc(U scratch,Ports&p){U vm=p.read(0x7a3a00);if(!p.pop_object(vm,scratch))return static_cast<U>(-2001);const U app=p.read(0x7a39fc);const U id=p.read(scratch);const U server=p.read(app+8);const U player=p.player(server,id);vm=p.read(0x7a3a00);return p.push_integer(vm,player?1:0)?0:static_cast<U>(-2000);}
+}

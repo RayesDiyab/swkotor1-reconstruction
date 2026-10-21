@@ -1,0 +1,461 @@
+[
+  {
+    "group": "warning",
+    "prefix": "const char",
+    "name": "warning_mode_0074e5a8",
+    "address": 7660968,
+    "count": 3,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "warning",
+    "prefix": "const char",
+    "name": "warning_path_0074e5ac",
+    "address": 7660972,
+    "count": 21,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "warning",
+    "prefix": "const char",
+    "name": "warning_prefix_0074e5c4",
+    "address": 7660996,
+    "count": 25,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "warning",
+    "prefix": "const char",
+    "name": "warning_message_format_0074e5e0",
+    "address": 7661024,
+    "count": 128,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "warning",
+    "prefix": "const char",
+    "name": "warning_source_format_0074e660",
+    "address": 7661152,
+    "count": 106,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "warning",
+    "prefix": "const char",
+    "name": "warning_empty_0073d71c",
+    "address": 7591708,
+    "count": 1,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "const std::uint16_t",
+    "name": "ctype_with_eof_0075e530",
+    "address": 7726384,
+    "count": 257,
+    "width": 2,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "char",
+    "name": "empty_00833fe4",
+    "address": 8601572,
+    "count": 4,
+    "width": 1,
+    "bss": true
+  },
+  {
+    "group": "locale",
+    "prefix": "char",
+    "name": "decimal_point_007a3258",
+    "address": 8008280,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e404",
+    "address": 7726084,
+    "count": 9,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e410",
+    "address": 7726096,
+    "count": 20,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e424",
+    "address": 7726116,
+    "count": 9,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e430",
+    "address": 7726128,
+    "count": 3,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e434",
+    "address": 7726132,
+    "count": 3,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e438",
+    "address": 7726136,
+    "count": 9,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e444",
+    "address": 7726148,
+    "count": 9,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e450",
+    "address": 7726160,
+    "count": 8,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e458",
+    "address": 7726168,
+    "count": 10,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e464",
+    "address": 7726180,
+    "count": 7,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e46c",
+    "address": 7726188,
+    "count": 5,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e474",
+    "address": 7726196,
+    "count": 5,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e47c",
+    "address": 7726204,
+    "count": 6,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e484",
+    "address": 7726212,
+    "count": 6,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e48c",
+    "address": 7726220,
+    "count": 9,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e498",
+    "address": 7726232,
+    "count": 8,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4a0",
+    "address": 7726240,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4a4",
+    "address": 7726244,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4a8",
+    "address": 7726248,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4ac",
+    "address": 7726252,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4b0",
+    "address": 7726256,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4b4",
+    "address": 7726260,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4b8",
+    "address": 7726264,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4bc",
+    "address": 7726268,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4c0",
+    "address": 7726272,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4c4",
+    "address": 7726276,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4c8",
+    "address": 7726280,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4cc",
+    "address": 7726284,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4d0",
+    "address": 7726288,
+    "count": 9,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4dc",
+    "address": 7726300,
+    "count": 7,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4e4",
+    "address": 7726308,
+    "count": 9,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4f0",
+    "address": 7726320,
+    "count": 10,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e4fc",
+    "address": 7726332,
+    "count": 8,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e504",
+    "address": 7726340,
+    "count": 7,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e50c",
+    "address": 7726348,
+    "count": 7,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e514",
+    "address": 7726356,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e518",
+    "address": 7726360,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e51c",
+    "address": 7726364,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e520",
+    "address": 7726368,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e524",
+    "address": 7726372,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e528",
+    "address": 7726376,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  },
+  {
+    "group": "locale",
+    "prefix": "static const char",
+    "name": "data_0075e52c",
+    "address": 7726380,
+    "count": 4,
+    "width": 1,
+    "bss": false
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "name": "source_007990F0",
+    "va": "007990f0",
+    "kind": "cstring",
+    "size": 3283
+  },
+  {
+    "name": "source_00790E70",
+    "va": "00790e70",
+    "kind": "cstring",
+    "size": 973
+  },
+  {
+    "name": "source_00794600",
+    "va": "00794600",
+    "kind": "cstring",
+    "size": 2928
+  },
+  {
+    "name": "source_00797488",
+    "va": "00797488",
+    "kind": "cstring",
+    "size": 1061
+  },
+  {
+    "name": "source_00798CC8",
+    "va": "00798cc8",
+    "kind": "cstring",
+    "size": 1057
+  },
+  {
+    "name": "source_0079BC40",
+    "va": "0079bc40",
+    "kind": "cstring",
+    "size": 1738
+  },
+  {
+    "name": "source_007A0B10",
+    "va": "007a0b10",
+    "kind": "cstring",
+    "size": 548
+  }
+]

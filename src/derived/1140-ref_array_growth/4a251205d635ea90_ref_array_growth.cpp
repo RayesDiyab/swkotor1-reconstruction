@@ -1,0 +1,2 @@
+#include "b818a80e8adc7f69_ref_array_growth.hpp"
+namespace recovered_ref_array_growth{void grow(U s,U capacity,U scratch,Ports&p){U old=p.read(s);p.write(s+8,capacity);U data=p.allocate(capacity*16);if(data&&static_cast<std::int32_t>(capacity-1)>=0){for(U i=0;i<capacity;++i)p.construct(data+i*16);}U count=p.read(s+4);p.write(s,data);for(U i=0,offset=0;static_cast<std::int32_t>(i)<static_cast<std::int32_t>(count);++i,offset+=16){p.assign(p.read(s)+offset,scratch,old+offset);count=p.read(s+4);}if(old)p.release(old);}}

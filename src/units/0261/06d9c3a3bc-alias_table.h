@@ -1,0 +1,38 @@
+#pragma once
+// Data-only reconstruction of all33 original005E7760 call argument triples.
+struct AliasRecord {const char *key,*relative,*fallback;};
+static constexpr AliasRecord alias_table[33]={
+{"HD0",".\\","d:\\"},
+{"CD0","d:\\","d:\\"},
+{"OVERRIDE",".\\override","d:\\override"},
+{"ERRORTEX",".\\errortex","d:\\errortex"},
+{"TEMP",".\\temp","d:\\temp"},
+{"MODULES",".\\modules","d:\\modules"},
+{"NWMFILES",".\\nwm","d:\\nwm"},
+{"LOGS",".\\logs","d:\\logs"},
+{"LOCALVAULT",".\\localvault","d:\\localvault"},
+{"DMVAULT",".\\dmvault","d:\\dmvault"},
+{"SERVERVAULT",".\\servervault","d:\\servervault"},
+{"SAVES",".\\saves","u:\\"},
+{"MUSIC",".\\music","d:\\music"},
+{"STREAMMUSIC",".\\streammusic","d:\\streammusic"},
+{"MOVIES",".\\movies","d:\\movies"},
+{"TEMPCLIENT",".\\tempclient","d:\\tempclient"},
+{"CURRENTGAME",".\\currentgame","d:\\currentgame"},
+{"HAK",".\\hak","d:\\hak"},
+{"TEXTUREPACKS",".\\texturepacks","d:\\texturepacks"},
+{"STREAMWAVES",".\\streamwaves","d:\\streamwaves"},
+{"DOWNLOADS",".\\downloads","t:\\"},
+{"OPTIONS",".\\","t:\\"},
+{"AMBIENT",".\\ambient","d:\\ambient"},
+{"PATCH",".\\patch","d:\\patch"},
+{"PORTRAITS",".\\portraits","d:\\portraits"},
+{"MUSIC",".\\music","d:\\music"},
+{"CURRENTGAME",".\\currentgame","d:\\currentgame"},
+{"GAMEINPROGRESS",".\\gameinprogress","z:\\gameinprogress"},
+{"FUTUREGAME",".\\futuregame","z:\\futuregame"},
+{"RIMS",".\\rims","d:\\rims"},
+{"RIMSXBOX",".\\rimsxbox","d:\\rimsxbox"},
+{"REBOOTDATA",".\\rebootdata","d:\\rebootdata"},
+{"LIPS",".\\lips","d:\\lips"}
+};

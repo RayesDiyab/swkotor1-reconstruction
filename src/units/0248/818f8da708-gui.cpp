@@ -1,0 +1,35 @@
+#include "ca45871aaa-normal.h"
+using namespace menu_normal_40_49;
+Gui* __thiscall Gui::construct_0062fed0(){
+ put(0xe8,0);put(0xec,0);put(0xf0,0);
+ for(unsigned i=0;i<50;++i){unsigned o=0x1c0+0x30*i;for(unsigned d:{0xfffffff8u,0xfffffffcu,0u,0x10u,0xcu,8u})put(o+d,0);put(o+4,0x3f800000);}
+ providers.string_construct_005b3190(bytes+0xb18,nullptr);providers.list_004b25d0(bytes+0xb44,nullptr);providers.list_004b25d0(bytes+0xb48,nullptr);providers.list_string_0062b510(bytes+0xb4c,nullptr);
+ providers.vector_006fb55f(bytes+0xb58,8,8,providers.string_construct_005b3190,providers.string_destroy_005e5c20);
+ providers.ref_default_00405ed0(bytes+0xbe0,nullptr);put(0xc0c,0);put(0xc10,0);put(0xc14,0);
+ void* manager=*providers.manager_007a39fc;U32 clientBits;std::memcpy(&clientBits,static_cast<U8*>(manager)+4,4);
+ void* options=providers.get_options_005ed700(reinterpret_cast<void*>(clientBits),nullptr);providers.camera_0061b6f0(options,nullptr,3);
+ void* a=providers.allocate_006fa7e6(0x404);void* first=nullptr;
+ if(a){U32 count=64;std::memcpy(a,&count,4);first=static_cast<U8*>(a)+4;providers.vector_006fb55f(first,16,64,providers.callback_0059ea90,providers.callback_0059ea30);}
+ put(0xf8,reinterpret_cast<U32>(first));
+ a=providers.allocate_006fa7e6(0x404);void* second=nullptr;
+ if(a){U32 count=64;std::memcpy(a,&count,4);second=static_cast<U8*>(a)+4;providers.vector_006fb55f(second,16,64,providers.callback_006285b0,providers.callback_00628600);}
+ put(0xfc,reinterpret_cast<U32>(second));put(0xbc4,get(0xbc4)&0xfffffffe);put8(0xbc0,0);put8(0xbc1,0);put8(0xbc8,0);
+ for(unsigned o:{0xb0u,0x3cu,0x100u,0x104u,0x108u,0x110u,0x10cu,0x2cu,0x34u,0x30u,0x60u,0x64u,0x68u,0x6cu,0x80u,0x4cu,0x50u,0x54u,0x58u,0x70u,0x74u,0x5cu,0x40u,0x44u,0x48u,0x78u,0x84u,0x88u,0x90u,0x94u,0x98u,0x9cu,0xa4u,0xa8u,0xacu,8u})put(o,0);
+ for(unsigned o=0x0c;o<=0x28;o+=4)put(o,0);
+ for(unsigned o=0x118;o<=0x15c;o+=4)put(o,0);put(0x114,0);
+ for(unsigned o:{0xb34u,0xb20u,0xb24u,0xb2cu,0xb28u,0x168u,0x160u,0x198u,0x19cu,0x18cu,0x190u,0x194u,0x1a0u,0x1a4u,0x1a8u,0x1acu,0x38u})put(o,0);
+ put16(0x164,0x2772);put(0x180,0xffffffff);
+ for(unsigned o:{0x184u,0x170u,0x174u,0x178u,0x17cu})put(o,0x7f000000);put(0xb14,0);
+ providers.assign_005e5140(bytes+0xb18,nullptr,providers.empty_0073d71c);
+ for(unsigned o:{0xb4u,0xc0u,0xc4u,0x1b0u,0xe4u,0xf4u,0xb40u,0x16cu,0xc8u,0xccu,0xd0u,0xd4u,0xb38u,0xb3cu,0xb50u,0xb54u,0xb98u})put(o,0);
+ put(0,1);put(0xba4,0x7f000000);put(0xba8,0);put16(0xbac,0);put(0xd8,1);
+ for(unsigned o:{0xdcu,0xe0u,0xbb0u,0xbb4u,0xbbcu,0xbb8u,0xbccu,0xbd0u,0xbd4u,0xbd8u})put(o,0);put(0xbdc,0x7f000000);
+ Ref result;(void)providers.ref_assign_00406290(reinterpret_cast<Ref*>(bytes+0xbe0),nullptr,&result,providers.empty_0073d71c);
+ for(unsigned o:{0xbf0u,0xbf4u,0xbf8u,0x188u})put(o,0x7f000000);
+ for(unsigned o:{0xbfcu,0xc00u,0xc04u,0xc08u,0xc0cu,0xc10u,0xc14u})put(o,0);
+ put(0xc18,0x7f000000);put(0xc1c,1);
+
+ put(0xc20,0);
+
+ return this;
+}

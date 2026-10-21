@@ -1,0 +1,4 @@
+#include "54829d4168562b84_server_admin_status.hpp"
+namespace kotor::server_mainloop {
+void admin_status_00579920(Memory&m,AdminStatusPorts&p,Word self,Word id,Word scratch){p.empty(scratch+8);p.empty(scratch+16);Word state=p.state(m.read(m.read(0x7a39fc)+8));if(!(state&65535)){Word idle=m.read(0x7a1f20),prefix=m.read(0x7a1f14);p.format2(scratch+8,0x7493b4,prefix,idle);p.send(self,id,scratch+8);}else{Word result=p.name(m.read(m.read(0x7a39fc)+8),scratch+24);p.assign(scratch+16,result);p.destroy(scratch+24);if((state&65535)==1){Word name=p.cstr(scratch+16),prefix=m.read(0x7a1f14),loaded=m.read(0x7a1f1c);p.format3(scratch+8,0x7493a8,prefix,loaded,name);p.send(self,id,scratch+8);}else if((state&65535)==2){Word name=p.cstr(scratch+16),running=m.read(0x7a1f24),prefix=m.read(0x7a1f14);p.format3(scratch+8,0x7493a8,prefix,running,name);p.send(self,id,scratch+8);}}p.destroy(scratch+16);p.destroy(scratch+8);}
+}

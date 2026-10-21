@@ -1,0 +1,2 @@
+#pragma once
+namespace recovered_stats_attack_bonus{using U=unsigned;struct Ports{virtual~Ports()=default;virtual U read(U)=0;virtual U byte(U)=0;virtual U half(U)=0;virtual U equipment(U,U)=0;virtual U base_rule(U)=0;virtual U item_rule(U)=0;virtual U feat(U,U)=0;virtual U finesse(U,U)=0;virtual U incapacitated(U)=0;virtual U effect_attack(U,U)=0;virtual U base_attack(U)=0;virtual U weapon_size(U,U)=0;};U melee(U,U,U,U,U,Ports&);U ranged(U,U,U,U,Ports&);}

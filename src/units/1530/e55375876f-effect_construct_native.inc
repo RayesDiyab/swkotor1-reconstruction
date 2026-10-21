@@ -1,0 +1,2 @@
+struct NativeEffectConstruct:EffectConstructPorts{NativeMemory&m;explicit NativeEffectConstruct(NativeMemory&v):m(v){}void empty(Word a)override{m.write(a,0);m.write(a+4,0);}Word allocate(Word a)override{return word(::operator new(a));}void zero(Word a,Word b)override{std::memset(ptr(a),0,b);}void literal(Word a,Word b)override{if(b!=0x73d71c)required(b);GuiAssign005e5140(ptr(a),nullptr,"");}};
+Word native_effect_construct(Word a,Word b){NativeMemory m;NativeEffectConstruct p(m);return effect_construct_00503e40(m,p,a,b);}

@@ -1,0 +1,5 @@
+#include "41dc684441f7f4d1_item_equip_armor.hpp"
+#include <cstring>
+extern "C"{extern void*kotor_cell_rules_007a3a28;void* __fastcall kotor_m15b_base_item_array_get_base_item_005b31a0(void*,void*,int);void* __fastcall recovered_equipment_item_005a4c20(void*,void*,unsigned);}
+namespace{using U=unsigned;void*ptr(U a){return reinterpret_cast<void*>(a);}U word(void*p){return reinterpret_cast<U>(p);}U rd(U a){U v;std::memcpy(&v,ptr(a),4);return v;}struct Native:recovered_item_equip_armor::Ports{U read(U a)override{return rd(a);}U byte(U a)override{return *static_cast<unsigned char*>(ptr(a));}void write_byte(U a,U v)override{*static_cast<unsigned char*>(ptr(a))=static_cast<unsigned char>(v);}U equipment(U a,U slot)override{return word(recovered_equipment_item_005a4c20(ptr(a),nullptr,slot));}U rule(U a)override{return word(kotor_m15b_base_item_array_get_base_item_005b31a0(ptr(rd(word(kotor_cell_rules_007a3a28)+0x34)),nullptr,static_cast<int>(rd(a+12))));}};}
+extern "C" void __fastcall recovered_creature_armor_004ece80(void*self,void*,void*,unsigned,unsigned){Native p;recovered_item_equip_armor::update(word(self),p);}

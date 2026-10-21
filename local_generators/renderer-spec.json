@@ -1,0 +1,8 @@
+[
+ {"name": "arb_vertex_base_0078f600", "va": "0078f600", "kind": "cstring", "size": 1751},
+ {"name": "arb_vertex_base_00791240", "va": "00791240", "kind": "cstring", "size": 4978},
+ {"name": "ati_program_suffix_0078fe18", "va": "0078fe18", "kind": "cstring", "size": 160},
+ {"name": "nv_program_suffix_0078fd78", "va": "0078fd78", "kind": "cstring", "size": 160},
+ {"name": "framebuffer_program_0078de48", "va": "0078de48", "kind": "cstring", "size": 711},
+ {"name": "framebuffer_program_0078db80", "va": "0078db80", "kind": "cstring", "size": 711}
+]

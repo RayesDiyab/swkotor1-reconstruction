@@ -1,0 +1,3 @@
+#include "8f4443275e618b09_ai_registration.hpp"
+namespace recovered_ai_registration{void append_unique(U a,U id,Ports&p){U count=p.read(a+4);U found=0;if(static_cast<std::int32_t>(count)>0){U data=p.read(a);for(U i=0;i<count;++i)if(p.read(data+4*i)==id)++found;}if(found)return;U capacity=p.read(a+8);if(count==capacity)p.grow(a,capacity?capacity*2:16);U i=p.read(a+4);p.write(p.read(a)+4*i,id);p.write(a+4,p.read(a+4)+1);}
+U add(U self,U object,U level,Ports&p){if(static_cast<std::int32_t>(level)<0||static_cast<std::int32_t>(level)>4||!object)return 0;if(p.read(object+0x78)!=0xffffffff)p.remove(self,object);append_unique(self+4+level*16,p.read(object+4),p);p.write(object+0x78,level);return 1;}}

@@ -1,0 +1,2 @@
+#include "89bde49e4d5dc603_gff_quaternion.hpp"
+namespace kotor::server_mainloop{Word gff_quaternion_004121b0(Memory&m,GffQuaternionPorts&p,Word self,Word out,Word root,Word label,Word status,Word fallback,Word s){Word source=fallback,success=0;if(root&&label){Word index=p.label(self,root,label);Word field=p.field(self,root,index);if(field&&m.read(field)==16){Word data=p.data(self,field,s);if(data&&m.read(s)>=16){source=data;success=1;}}}m.write(status,success);for(Word i=0;i<16;i+=4)m.write(out+i,m.read(source+i));return out;}}

@@ -1,0 +1,3 @@
+extern "C" void* __fastcall kotor_fastcall_004ae750(void*,void*,unsigned);
+struct NativeEffectCreator:EffectCreatorPorts{NativeMemory&m;explicit NativeEffectCreator(NativeMemory&v):m(v){}Word object(Word a,Word b)override{return word(kotor_fastcall_004ae750(ptr(a),nullptr,b));}Word call(Word a,Word slot)override{Word fn=m.read(m.read(a)+slot);if(slot==0xb8){using F=unsigned(__fastcall*)(void*,void*);return reinterpret_cast<F>(fn)(ptr(a),nullptr);}using F=void*(__fastcall*)(void*,void*);return word(reinterpret_cast<F>(fn)(ptr(a),nullptr));}};
+void native_effect_creator(Word a,Word b){NativeMemory m;NativeEffectCreator p(m);effect_creator_00503a00(m,p,a,b);}

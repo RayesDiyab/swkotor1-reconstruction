@@ -1,0 +1,2 @@
+#pragma once
+namespace recovered_creature_remove{using U=unsigned;struct Ports{virtual~Ports()=default;virtual U read(U)=0;virtual void write(U,U)=0;virtual void release(U)=0;virtual U area(U)=0;virtual void detach(U,U)=0;virtual void notify_old_area(U)=0;virtual U objects()=0;virtual U lookup(U,U,U)=0;virtual U success()=0;virtual U cast(U)=0;virtual void remove_associate(U)=0;virtual void set_area(U,U)=0;virtual void position(U,U,U,U,U)=0;};void clear_perception(U,Ports&);void remove(U,U,U,Ports&);}

@@ -1,0 +1,7 @@
+#include "400c6a13b5eacd1b_module_date.hpp"
+namespace kotor::server_mainloop {
+void server_date_004b2320(Memory&m,ModuleDatePorts&p,Word self,Word year,Word month,Word day,Word hour,Word minute,Word second,Word ms){m.write(year,m.read(self+0x1009c));p.write_byte(month,m.read8(self+0x100a0));p.write_byte(day,m.read8(self+0x100a1));p.write_byte(hour,m.read8(self+0x100a2));m.write16(minute,m.read16(self+0x100a4));m.write16(second,m.read16(self+0x100a6));m.write16(ms,m.read16(self+0x100a8));}
+Word timer_milliseconds_004adcf0(Memory&m,Word self,Word hour,Word minute,Word second,Word ms){Word scale=m.read8(self+0x38);Word out=hour<=23?scale*hour*60000u:scale*0x150ea0u;out+=minute<=59?minute*60000u:0x360420u;out+=second<=59?second*1000u:0xdac0u;return out+ms;}
+void timer_offset_004adde0(Memory&m,ModuleDatePorts&p,Word self,Word day,Word ms,Word update){if(update==1)p.update_004adbd0(self);Word hi=m.read(self+0x10),lo=m.read(self+0xc);Wide milliseconds=((Wide(hi)<<32)|lo)/1000;Word span=m.read(self+0x3c);Wide quotient=milliseconds/span;Wide remainder=milliseconds%span;m.write(self+0x30,day-static_cast<Word>(quotient));m.write(self+0x34,ms-static_cast<Word>(remainder));}
+void timer_date_004ae3e0(Memory&m,ModuleDatePorts&p,Word self,Word year,Word month,Word day,Word hour,Word minute,Word second,Word ms,Word update){Word date=year<=32000?year*336u:0x6dec0u;date+=month>=1&&month<=12?(month-1)*28u:140u;if(day>=1&&day<=28)date+=day-1;Word time=timer_milliseconds_004adcf0(m,self,hour,minute,second,ms);timer_offset_004adde0(m,p,self,date,time,update);}
+}

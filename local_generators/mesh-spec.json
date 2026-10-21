@@ -1,0 +1,50 @@
+[
+  {
+    "name": "arb_skin_program_0078e8c8",
+    "va": "0078e8c8",
+    "kind": "cstring",
+    "size": 1835
+  },
+  {
+    "name": "arb_program_0078eff8",
+    "va": "0078eff8",
+    "kind": "cstring",
+    "size": 1537
+  },
+  {
+    "name": "nv_program_00799dc8",
+    "va": "00799dc8",
+    "kind": "cstring",
+    "size": 1101
+  },
+  {
+    "name": "nv_program_0079a218",
+    "va": "0079a218",
+    "kind": "cstring",
+    "size": 994
+  },
+  {
+    "name": "nv_program_0079a600",
+    "va": "0079a600",
+    "kind": "cstring",
+    "size": 880
+  },
+  {
+    "name": "nv_program_0079a970",
+    "va": "0079a970",
+    "kind": "cstring",
+    "size": 438
+  },
+  {
+    "name": "nv_program_0079ab28",
+    "va": "0079ab28",
+    "kind": "cstring",
+    "size": 574
+  },
+  {
+    "name": "nv_program_0079b358",
+    "va": "0079b358",
+    "kind": "cstring",
+    "size": 591
+  }
+]

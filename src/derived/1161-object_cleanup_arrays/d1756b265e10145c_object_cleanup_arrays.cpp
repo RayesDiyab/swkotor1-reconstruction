@@ -1,0 +1,5 @@
+#include "3a811e00597a845f_object_cleanup_arrays.hpp"
+namespace recovered_object_cleanup_arrays{
+void strings(U s,Ports&p){U count=p.read(s+0x1a4);for(U i=0;static_cast<std::int32_t>(i)<static_cast<std::int32_t>(count);++i){U child=p.read(p.read(s+0x1a0)+i*4);if(child){p.string_destroy(child);p.release(child);p.write(p.read(s+0x1a0)+i*4,0);}count=p.read(s+0x1a4);}U data=p.read(s+0x1a0);if(data){p.release(data);p.write(s+0x1a0,0);p.write(s+0x1a8,0);}p.write(s+0x1a4,0);}
+void locals(U s,Ports&p){U count=p.read(s+4);for(U i=0,offset=0;static_cast<std::int32_t>(i)<static_cast<std::int32_t>(count);++i,offset+=16){U record=p.read(s)+offset;if(p.read(record+8)==3){U child=p.read(record+12);if(child){p.string_destroy(child);p.release(child);}}record=p.read(s)+offset;if(p.read(record+8)==5){U child=p.read(record+12);if(child){/* Original4015A0 is an empty RET0. */p.release(child);}}count=p.read(s+4);}U data=p.read(s);if(data){U n=p.read(data-4);p.records(data,n);p.release(data-4);}p.write(s,0);}
+}

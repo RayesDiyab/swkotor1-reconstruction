@@ -1,0 +1,3 @@
+#pragma once
+#include <cstdint>
+namespace recovered_owner_events{using U=std::uint32_t;struct Ports{virtual ~Ports()=default;virtual U read(U)=0;virtual void write(U,U)=0;virtual U allocate(U)=0;virtual void release(U)=0;virtual void grow(U,U)=0;virtual void state_query()=0;virtual void time(U,U,U)=0;virtual U debug()=0;virtual void trace(U,U,U,U)=0;virtual U list_get(U,U)=0;virtual void list_next(U,U)=0;virtual void list_before(U,U,U)=0;virtual void list_append(U,U)=0;};U construct(U,Ports&);U before(U,U,U,Ports&);void integer(U,U,U,Ports&);void object(U,U,U,Ports&);U add_time(U,U,U,U,U,U,U,Ports&);U compare(U,U,U,U,U,Ports&);U insert(U,U,U,U,U,U,U,U,Ports&);U enqueue(U,U,U,U,U,U,U,U,Ports&);}

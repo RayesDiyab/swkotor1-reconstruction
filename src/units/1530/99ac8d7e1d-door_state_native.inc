@@ -1,0 +1,2 @@
+struct NativeDoorState final:recovered_door_state::Ports{NativeMemory m;unsigned read(unsigned a)override{return m.read(a);}void byte(unsigned a,unsigned b)override{*static_cast<unsigned char*>(ptr(a))=static_cast<unsigned char>(b);}void animation(unsigned a,unsigned b)override{using F=void(__fastcall*)(void*,void*,unsigned);reinterpret_cast<F>(m.read(m.read(a)+0x7c))(ptr(a),nullptr,b);}};
+extern "C" void __fastcall recovered_door_state_00589600(void*self,void*,unsigned value,unsigned delayed){NativeDoorState p;recovered_door_state::set(word(self),value,delayed,p);}

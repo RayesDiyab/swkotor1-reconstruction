@@ -1,0 +1,1 @@
+// [M47 compose] service-client30-6 body moved to unit service-client30-6-rev2 (core47/client30-6/client_normal.cpp, lane-m47-core rev2 D76 fix) because it needs include roots this existing unit cannot gain; this TU defines nothing.

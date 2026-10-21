@@ -1,0 +1,7 @@
+#include "30c5df36e65268d9_faction_member_helpers.hpp"
+namespace kotor::server_mainloop {
+Word faction_lookup_0052b3b0(Memory&m,Word self,Word id){if(static_cast<int>(id)<0)return 0;Word list=m.read(self+0x24);if(static_cast<int>(id)>=static_cast<int>(m.read(list+4)))return 0;return m.read(m.read(list)+id*4);}
+Word creature_faction_00513fc0(Memory&m,Word self){Word inner=m.read(m.read(m.read(0x7a39fc)+8)+4),stats=m.read(self+0xa74),id=m.read(stats+0x78),manager=m.read(inner+0x10054);return faction_lookup_0052b3b0(m,manager,id);}
+void unique_append_006449d0(Memory&m,FactionMemberHelperPorts&p,Word self,Word value){Word count=m.read(self+4),matches=0;if(static_cast<int>(count)>0){Word data=m.read(self);for(Word i=0;i<count;++i)if(m.read(data+i*4)==value)++matches;if(matches)return;}Word capacity=m.read(self+8);if(count==capacity)p.grow(self,capacity?capacity*2:16);Word live=m.read(self+4),data=m.read(self);m.write(data+live*4,value);m.write(self+4,m.read(self+4)+1);}
+void faction_notify_005be9c0(Memory&m,FactionMemberHelperPorts&p,Word self,Word id,Word s){m.write(s,id);Word message=p.message(m.read(m.read(0x7a39fc)+8));Word count=m.read(self+4),i=0;while(static_cast<int>(i)<static_cast<int>(count)){Word target=m.read(m.read(self)+i*4);Word player=p.player(m.read(m.read(0x7a39fc)+8),target);if(player){target=m.read(m.read(self)+i*4);Word playerId=m.read(player+4);p.send(message,playerId,1,s,3,target);}count=m.read(self+4);++i;}}
+}

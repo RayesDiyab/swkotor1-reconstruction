@@ -1,0 +1,3 @@
+#include "e9340e6520a6ac23_stats_attack_helpers.hpp"
+#include <cstdint>
+namespace recovered_stats_attack_helpers{U finesse(U self,U item,Ports&p){if(!item)return 0;U id=p.read(item+12);if(id!=8&&id!=9&&id!=10)return 0;U restricted=p.restricted(p.read(self+0x24));int dex=static_cast<std::int8_t>(p.byte(self+0xec));if(restricted&&dex>=0)dex=0;int strength=static_cast<std::int8_t>(p.byte(self+0xea));return dex>strength?1:0;}U weapon_size(U self,U item,Ports&p){U id=p.read(item+12);U size=p.read(self+0x4f8);U rule=p.rule(id);U result=p.byte(rule+0x1b)-size;return static_cast<std::int32_t>(result)<-2||static_cast<std::int32_t>(result)>1?0xfffffff6u:result;}}

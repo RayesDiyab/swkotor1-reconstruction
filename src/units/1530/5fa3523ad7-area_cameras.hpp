@@ -1,0 +1,3 @@
+#pragma once
+#include "3b4eb8c727-server_mainloop.hpp"
+namespace kotor::server_mainloop{struct AreaCameraPorts{virtual ~AreaCameraPorts()=default;virtual void list(Word,Word,Word,Word)=0;virtual Word count(Word,Word)=0;virtual Word gui(Word)=0;virtual void camera_count(Word,Word)=0;virtual void element(Word,Word,Word,Word)=0;virtual Word integer(Word,Word,Word,Word,Word)=0;virtual void aggregate(Word,Word,Word,Word,Word,Word,Word)=0;virtual Word floating(Word,Word,Word,Word,Word)=0;virtual void insert(Word,Word,Word,Word,Word,Word,Word,Word,Word)=0;};Word area_cameras_00505eb0(Memory&,AreaCameraPorts&,Word,Word,Word,Word);}

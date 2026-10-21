@@ -1,0 +1,3 @@
+#pragma once
+#include <cstdint>
+namespace recovered_item_owner {using U=std::uint32_t;struct Ports{virtual ~Ports()=default;virtual U read(U)=0;virtual U byte(U)=0;virtual void write(U,U)=0;virtual void half(U,U)=0;virtual U invalid()=0;virtual U module()=0;virtual U lookup(U)=0;virtual U cast_item(U)=0;virtual U cast_creature(U)=0;virtual U creature(U)=0;virtual U placeable(U)=0;virtual U allocate(U)=0;virtual U event_construct(U,bool)=0;virtual void event_object(U,U,U)=0;virtual void event_int(U,U,U)=0;virtual void enqueue(U,U,U)=0;virtual void signal(U,U,U)=0;virtual void plot(U,U)=0;};void set(U,U,U,U,U,Ports&);}

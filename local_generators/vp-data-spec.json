@@ -1,0 +1,77 @@
+[
+  {
+    "name": "arb_flat_vp_0078feb8",
+    "va": "0078feb8",
+    "kind": "cstring"
+  },
+  {
+    "name": "arb_env_vp_00790300",
+    "va": "00790300",
+    "kind": "cstring"
+  },
+  {
+    "name": "arb_emlm_vp_007908b8",
+    "va": "007908b8",
+    "kind": "cstring"
+  },
+  {
+    "name": "arb_skin_vp_00792658",
+    "va": "00792658",
+    "kind": "cstring"
+  },
+  {
+    "name": "arb_skin_vp_007931c8",
+    "va": "007931c8",
+    "kind": "cstring"
+  },
+  {
+    "name": "arb_skin_cube_vp_007938c8",
+    "va": "007938c8",
+    "kind": "cstring"
+  },
+  {
+    "name": "arb_skin_vp_00795170",
+    "va": "00795170",
+    "kind": "cstring"
+  },
+  {
+    "name": "arb_skin_vp_00796020",
+    "va": "00796020",
+    "kind": "cstring"
+  },
+  {
+    "name": "arb_skin_vp_007978b0",
+    "va": "007978b0",
+    "kind": "cstring"
+  },
+  {
+    "name": "nv_skin_vp_0079b5a8",
+    "va": "0079b5a8",
+    "kind": "cstring"
+  },
+  {
+    "name": "nv_skin_vp_0079ce58",
+    "va": "0079ce58",
+    "kind": "cstring"
+  },
+  {
+    "name": "nv_skin_vp_0079d720",
+    "va": "0079d720",
+    "kind": "cstring"
+  },
+  {
+    "name": "nv_skin_sphere_vp_0079e958",
+    "va": "0079e958",
+    "kind": "cstring"
+  },
+  {
+    "name": "nv_skin_cube_vp_0079f128",
+    "va": "0079f128",
+    "kind": "cstring"
+  },
+  {
+    "name": "nv_blur_vp_0079fe50",
+    "va": "0079fe50",
+    "kind": "cstring"
+  }
+]

@@ -1,0 +1,18 @@
+// 0886-gates (Claude): effect-duration ports bound to real bodies (exact original ABI, RET checked).
+extern "C" {
+unsigned __fastcall kotor_fastcall_004ae1b0(void*,void*,float);                                   // 004AE1B0 GetCalendarDayFromSeconds RET 4 (claude_0886_bodies_party)
+unsigned __fastcall kotor_fastcall_004ae200(void*,void*,float);                                   // 004AE200 GetTimeOfDayFromSeconds RET 4 (claude_0886_bodies_party)
+unsigned __fastcall kotor_fastcall_004adf50(void*,void*,unsigned,unsigned,unsigned,unsigned,unsigned*,unsigned*); // 004ADF50 AddWorldTimes RET 18h (w4-creature_anim)
+void __fastcall kotor_fastcall_00503750(void*,void*,unsigned,unsigned);                           // 00503750 CGameEffect::SetExpiryTime RET 8 (claude_0886_bodies_party)
+}
+extern "C" void __fastcall recovered_effect_destroy_00503590(void*,void*);                         // W1
+extern "C" unsigned __fastcall recovered_object_remove_effect_004d06c0(void*,void*,unsigned,unsigned);  // W1
+extern "C" void __cdecl live_free(void*);                                                            // 006FA390
+struct NativeEffectInsert:EffectInsertPorts{void grow(Word a,Word b)override{menu_list_growth::allocate_005e03c0(static_cast<kotor_reconstruction::ArrayMutations*>(ptr(a)),nullptr,b);}};
+struct NativeEffectApply:EffectApplyPorts{NativeMemory&m;explicit NativeEffectApply(NativeMemory&v):m(v){}
+Word timer(Word a)override{return word(kotor_fastcall_004aede0(ptr(a),nullptr));}void fields(Word a,Word b,Word c)override{frame_GetWorldTime_004ade40(ptr(a),nullptr,static_cast<unsigned*>(ptr(b)),static_cast<unsigned*>(ptr(c)));}Word ai(Word a)override{return m.read(m.read(a+4)+0x10044);}Word dispatch(Word a,Word b,Word c,Word d)override{Word receiver=m.read(a+0x58);using F=unsigned(__fastcall*)(void*,void*,void*,void*,unsigned);return reinterpret_cast<F>(m.read(m.read(receiver)+8))(ptr(receiver),nullptr,ptr(b),ptr(c),d);}Word integer(Word a,Word b)override{return m.read(m.read(a+0x34)+b*4);}
+Word duration_first(Word a,Word b)override{float f;std::memcpy(&f,&b,4);return kotor_fastcall_004ae1b0(ptr(a),nullptr,f);}Word duration_second(Word a,Word b)override{float f;std::memcpy(&f,&b,4);return kotor_fastcall_004ae200(ptr(a),nullptr,f);}void combine(Word a,Word b,Word c,Word d,Word e,Word f,Word g)override{(void)kotor_fastcall_004adf50(ptr(a),nullptr,b,c,d,e,static_cast<unsigned*>(ptr(f)),static_cast<unsigned*>(ptr(g)));}void expiry(Word a,Word b,Word c)override{kotor_fastcall_00503750(ptr(a),nullptr,b,c);}
+void insert(Word a,Word b,Word c)override{NativeEffectInsert p;effect_insert_00616940(m,p,a,b,c);}void changed(Word a)override{using F=void(__fastcall*)(void*,void*);reinterpret_cast<F>(m.read(m.read(a)+0xd8))(ptr(a),nullptr);}void added(Word a,Word b)override{using F=void(__fastcall*)(void*,void*,void*);reinterpret_cast<F>(m.read(m.read(a)+0xdc))(ptr(a),nullptr,ptr(b));}
+Word object(Word a,Word b)override{return word(kotor_fastcall_004ae750(ptr(a),nullptr,b));}Word base(Word a)override{using F=void*(__fastcall*)(void*,void*);return word(reinterpret_cast<F>(m.read(m.read(a)+0x10))(ptr(a),nullptr));}void append(Word a,Word b)override{native_unique_append(a,b);}void remove(Word a,Word b,Word c)override{(void)recovered_object_remove_effect_004d06c0(ptr(a),nullptr,b,c);}void destroy(Word a)override{recovered_effect_destroy_00503590(ptr(a),nullptr);}void release(Word a)override{live_free(ptr(a));}
+};
+void native_effect_apply(Word a,Word b,Word c,Word d){NativeMemory m;NativeEffectApply p(m);alignas(8) unsigned char s[0x24];effect_apply_004d14f0(m,p,a,b,c,d,word(s));}

@@ -1,0 +1,4 @@
+extern "C" unsigned __fastcall kotor_fastcall_005eda50(void*,void*,unsigned);
+extern "C" void* __fastcall kotor_fastcall_005ed580(void*,void*,unsigned);
+struct NativeObjectRenderLink:ObjectRenderLinkPorts{NativeMemory&m;explicit NativeObjectRenderLink(NativeMemory&v):m(v){}Word client_id(Word a,Word b)override{return kotor_fastcall_005eda50(ptr(a),nullptr,b);}Word client_object(Word a,Word b)override{return word(kotor_fastcall_005ed580(ptr(a),nullptr,b));}Word virtual_render(Word a)override{using F=void*(__thiscall*)(void*);return word(reinterpret_cast<F>(m.read(m.read(a)+0xc))(ptr(a)));}void back_reference(Word a,Word b)override{m.write(a+0xf8,b);}};
+extern "C" void* __fastcall recovered_object_render_004cc2b0(void*self,void*){NativeMemory m;NativeObjectRenderLink p(m);return ptr(object_render_link_004cc2b0(m,p,word(self)));}

@@ -1,0 +1,5 @@
+#include "46ebc5f8f3043012_creature_remove.hpp"
+namespace recovered_creature_remove{
+void clear_perception(U self,Ports&p){U index=p.read(self+0x924)-1;while(static_cast<int>(index)>=0){U entry=p.read(p.read(self+0x920)+index*4);if(p.read(entry)!=p.read(self+4)){U count=p.read(self+0x924)-1;p.write(self+0x924,count);U at=index;while(static_cast<int>(at)<static_cast<int>(count)){U array=p.read(self+0x920);p.write(array+at*4,p.read(array+at*4+4));count=p.read(self+0x924);++at;}if(entry)p.release(entry);}--index;}}
+void remove(U self,U mode,U scratch,Ports&p){if(p.area(self)){U id=p.read(self+4);U old=p.area(self);p.detach(old,id);}if(!mode){clear_perception(self,p);if(p.area(self))p.notify_old_area(self);}U objects=p.objects();for(U i=0;static_cast<int>(i)<static_cast<int>(p.read(self+0x328));++i){U id=p.read(p.read(self+0x324)+i*4);if((p.lookup(objects,id,scratch)&255)==(p.success()&255)){if(p.cast(p.read(scratch)))p.remove_associate(p.cast(p.read(scratch)));}}p.set_area(self,0);p.write(scratch+4,0);p.write(scratch+8,0);p.write(scratch+12,0);p.position(self,scratch+4,1,1,0);}
+}

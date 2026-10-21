@@ -1,0 +1,6 @@
+#include "9082b031cccb6149_vm_scalar_live.hpp"
+namespace recovered_vm_scalar {
+void add(Ports&p,U s,U type){U capacity=p.read(s+8);if(p.read(s)==capacity){capacity+=0x100;p.write(s+8,capacity);U words=p.allocate(capacity*4);capacity=p.read(s+8);U tags=p.allocate(capacity);U depth=p.read(s);if(depth){U oldwords=p.read(s+0x10);p.copy(words,oldwords,depth*4);depth=p.read(s);U oldtags=p.read(s+0xc);p.copy(tags,oldtags,depth);}U old=p.read(s+0xc);if(old)p.release(old);old=p.read(s+0x10);if(old)p.release(old);p.write(s+0x10,words);p.write(s+0xc,tags);}U depth=p.read(s);if(depth&0x80000000u)return;U tags=p.read(s+0xc);p.write_byte(tags+depth,type);bool scalar=type==5||type==3||type==4||type==6;bool engine=type>=0x10&&type<=0x19;if(!scalar&&(!engine||!p.read(s+0x14)))return;depth=p.read(s);U words=p.read(s+0x10);p.write(words+depth*4,type==6?0x7f000000:0);p.write(s,p.read(s)+1);}
+U push(Ports&p,U vm,U type,U bits){U s=vm+0x1ac;add(p,s,type);U depth=p.read(s),words=p.read(vm+0x1bc);p.write(words+depth*4-4,bits);return 1;}
+U pop(Ports&p,U vm,U type,U output){U depth=p.read(vm+0x1ac);if(depth==0||(depth&0x80000000u))return 0;U tags=p.read(vm+0x1b8);U tag=p.byte(tags+depth-1);U top=depth-1;if(tag!=type)return 0;U words=p.read(vm+0x1bc);U value=p.read(words+top*4);p.write(output,value);p.shrink(vm+0x1ac,top);return 1;}
+}

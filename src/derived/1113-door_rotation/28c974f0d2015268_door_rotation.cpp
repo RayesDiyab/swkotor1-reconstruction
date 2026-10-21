@@ -1,0 +1,2 @@
+#include "a94f6f3edf6b69e3_door_rotation.hpp"
+namespace recovered_door_rotation{void rotate(U self,U a,U b,U c,U d,U s,Ports&p){p.write(self+0x3b0,a);p.write(self+0x3b4,b);p.write(self+0x3b8,c);p.write(self+0x3bc,d);if(p.derive(a,b,c,d,s)){U out=p.normalize(s+12,s);p.write(s,p.read(out));p.write(s+4,p.read(out+4));p.write(s+8,p.read(out+8));}else{p.write(s,0);p.write(s+4,0x3f800000);p.write(s+8,0);}p.orientation(self,s);}}

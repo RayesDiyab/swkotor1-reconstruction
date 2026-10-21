@@ -1,0 +1,10 @@
+#include "b0acb14032-waypoint_placement.hpp"
+#include "50af928f4c-creature_area_access.hpp"
+#include <cstring>
+extern "C"{void* __fastcall recovered_object_area_004cb120(void*,void*);void __fastcall recovered_object_position_004cd1a0(void*,void*,void*,unsigned,unsigned,unsigned);unsigned __fastcall recovered_area_insert_0050dfd0(void*,void*,unsigned,unsigned);void __fastcall frame_LogStringDtor_005e5c20(void*,void*);__declspec(noreturn)void __cdecl kotor_unreachable_trap(unsigned long,const char*);}
+// stale-stubs G3: 0050DC40 CSWSArea::RemoveObjectFromArea (claude_combat_spell_mine).
+extern "C"{unsigned __fastcall kotor_fastcall_0050dc40(void*,void*,unsigned);}
+namespace{using U=unsigned;void*ptr(U a){return reinterpret_cast<void*>(a);}U word(void*p){return reinterpret_cast<U>(p);}struct Native:recovered_waypoint_placement::Ports,recovered_creature_area_access::Ports{U read(U a)override{U v;std::memcpy(&v,ptr(a),4);return v;}void write(U a,U v)override{std::memcpy(ptr(a),&v,4);}U invalid()override{return 0x7f000000;}U area(U a)override{return word(recovered_object_area_004cb120(ptr(a),nullptr));}void remove(U a,U id)override{(void)kotor_fastcall_0050dc40(ptr(a),nullptr,id);}void set_area(U a,U b)override{recovered_creature_area_access::set(a,b,*this);}void position(U a,U b,U c,U d,U e)override{recovered_object_position_004cd1a0(ptr(a),nullptr,ptr(b),c,d,e);}void string_zero(U a)override{write(a,0);write(a+4,0);}void string_destroy(U a)override{frame_LogStringDtor_005e5c20(ptr(a),nullptr);}void insert(U a,U b,U c)override{(void)recovered_area_insert_0050dfd0(ptr(a),nullptr,b,c);}};}
+extern "C" void __fastcall recovered_waypoint_place_005c8580(void*self,void*,unsigned area,unsigned x,unsigned y,unsigned z,unsigned flag){Native p;alignas(4)unsigned scratch[5];recovered_waypoint_placement::place(word(self),area,x,y,z,flag,word(scratch),p);}
+
+extern "C" void __fastcall recovered_item_remove_area_005538a0(void*self,void*){Native p;unsigned scratch[3];recovered_waypoint_placement::detach(word(self)+0x10,word(scratch),p);}

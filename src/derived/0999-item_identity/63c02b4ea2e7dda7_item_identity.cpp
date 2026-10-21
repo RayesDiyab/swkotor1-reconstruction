@@ -1,0 +1,2 @@
+#include "c30926a71ec1987c_item_identity.hpp"
+namespace recovered_item_identity{void reset(U self,U id,Ports&p){U old=p.read(self+0x26c);if(old){p.release(p.read(old+12));p.write(old+12,0);p.release(old);p.write(self+0x26c,0);}U rule=p.rule(p.read(self+12));if(p.read(rule+0x70)){U a=p.allocate(24);if(a){p.write(a+16,0);p.write(a+20,0);p.write(a+12,0);p.write(a,id);U flags=p.read(a+8)&~1u;p.write(a+4,0);p.write(a+8,flags);}p.write(self+0x26c,a);}}}

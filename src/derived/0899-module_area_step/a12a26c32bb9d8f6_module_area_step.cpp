@@ -1,0 +1,5 @@
+#include "b383e4bb5ca93587_module_area_step.hpp"
+namespace kotor::server_mainloop {
+void party_reset_005639c0(Memory&m,Word self){for(Word i=0;i<9;++i)m.write(self+0xc+4*i,0x7f000000);}
+Word module_area_step_004c5720(Memory&m,AreaStepPorts&p,Word self,Word index,Word){Word saved=m.read(self+0x1c8);Word id=saved?m.read(self+0x40):index;Word allocated=p.allocate(0x2d4),area=0;if(allocated)area=p.construct_0050cf80(allocated,self+0x30,0,saved?id:0x7f000000);if(!area){p.release_00409b80(m.read(self+8));p.release_path_004c44d0(self,self+0x5c);return 3;}if(!p.load_0050e190(area,m.read(self+0x1c8))){p.release_00409b80(m.read(self+8));p.release_path_004c44d0(self,self+0x5c);p.destroy(area,1);return 4;}if(!m.read(self+0x1c8))m.write(self+0x40,m.read(area+0x120));Word manager=m.read(0x7a39fc);Word loading=m.read(manager+0x14);Word next=index+1;m.write(loading+8,next);manager=m.read(0x7a39fc);Word server=m.read(manager+8);p.message_date_0056c910(p.message_getter_004aedb0(server),next,0xffffffff);return 0;}
+}

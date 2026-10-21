@@ -1,0 +1,2 @@
+#pragma once
+namespace recovered_crossing_insert{using U=unsigned;struct Ports{virtual~Ports()=default;virtual U read(U)=0;virtual void write(U,U)=0;virtual U projection(U,U)=0;virtual bool greater(U,U,U,U)=0;virtual void vector_insert(U,U,U,U,U)=0;virtual U allocate(U)=0;virtual void release(U)=0;virtual void vector_grow(U,U)=0;};void insert(U,U,U,U,U,U,Ports&);void vector_insert(U,U,U,U,U,Ports&);}

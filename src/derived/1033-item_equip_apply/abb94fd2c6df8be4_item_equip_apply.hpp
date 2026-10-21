@@ -1,0 +1,3 @@
+#pragma once
+#include <cstdint>
+namespace recovered_item_equip_apply{using U=std::uint32_t;struct Ports{virtual ~Ports()=default;virtual U read(U)=0;virtual U byte(U)=0;virtual void write(U,U)=0;virtual void half(U,U)=0;virtual void remove(U,U)=0;virtual void properties(U,U,U,U)=0;virtual void store(U,U,U)=0;virtual void combat(U,U,U,U)=0;virtual void refresh(U)=0;virtual U gui()=0;virtual void animate(U,U,U)=0;virtual U weight(U)=0;virtual U allocate(U)=0;virtual U event_construct(U)=0;virtual U module()=0;virtual void event_object(U,U,U)=0;virtual void enqueue(U,U,U)=0;virtual U ai()=0;virtual void apply_property(U,U,U,U,U,U)=0;};U contains(U,U,Ports&);void properties(U,U,U,U,Ports&);U equip(U,U,U,U,U,U,Ports&);}

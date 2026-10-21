@@ -1,0 +1,6 @@
+#include "69eeb0eaf3fc6b23_creature_movement_rate.hpp"
+namespace kotor::server_mainloop {
+void creature_movement_rate_005a5680(Memory&m,CreatureMovementPorts&p,Word self,Word rate,Word s){auto table=[&](Word off){return m.read(m.read(m.read(0x7a3a28)+0xb8)+off);};if(rate==7){p.empty(s+0x18);p.empty(s+0x10);p.literal(s+0x20,0x74a830);Word found=p.table_string(table(0x0c),m.read16(self+0x186),s+0x20,s+0x18);p.destroy(s+0x20);if(found){Word count=m.read(table(0x20)+0x24);rate=0;if(static_cast<int>(count)>0)do{p.literal(s+0x20,0x74a828);Word valid=p.table_string(table(0x20),rate,s+0x20,s+0x10);p.destroy(s+0x20);if(valid){Word first=p.lower(s+0x10,s+0x30),second=p.lower(s+0x18,s+0x28);Word same=p.equal(second,first);p.destroy(s+0x28);p.destroy(s+0x30);if(same)break;}count=m.read(table(0x20)+0x24);++rate;if(static_cast<int>(rate)>=static_cast<int>(count))break;}while(true);if(static_cast<int>(rate)>=static_cast<int>(m.read(table(0x20)+0x24)))rate=0;}else rate=0;p.destroy(s+0x10);p.destroy(s+0x18);}
+ m.write(self+0x194,rate);Word column=m.read(0x7a2248);p.table_float(table(0x20),rate,column,self+0x19c);column=m.read(0x7a2244);Word live=m.read(self+0x194);p.table_float(table(0x20),live,column,self+0x198);if(rate==1)m.write16(m.read(self+0x24)+0x9f0,0xfffd);
+}
+}

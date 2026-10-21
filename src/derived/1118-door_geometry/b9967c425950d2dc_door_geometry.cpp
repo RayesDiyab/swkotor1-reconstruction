@@ -1,0 +1,2 @@
+#include "5f448c4429339ca8_door_geometry.hpp"
+namespace recovered_door_geometry{U calculate(U self,U x,U y,U z,U a,U b,U c,U d,Ports&p){U index=p.read(0x74c394);U mesh=p.read(self+0x32c+index*4);p.write(mesh+0x20,x);p.write(mesh+0x24,y);p.write(mesh+0x28,z);index=p.read(0x74c394);mesh=p.read(self+0x32c+index*4);U q0=p.read(self+0x3b0),q1=p.read(self+0x3b4),q2=p.read(self+0x3b8),q3=p.read(self+0x3bc);p.write(mesh+0x38,q0);p.write(mesh+0x3c,q1);p.write(mesh+0x40,q2);p.write(mesh+0x44,q3);index=p.read(0x74c394);mesh=p.read(self+0x32c+index*4);return p.geometry(mesh,a,b,c,d);}}

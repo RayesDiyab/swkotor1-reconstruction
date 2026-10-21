@@ -1,0 +1,2 @@
+#include "94614cba567c3d5a_item_equip_feats.hpp"
+namespace recovered_item_equip_feats{U rule_feat(U rule,U index,Ports&p){index&=255;if(index>=p.byte(rule+0x80))return 0xffff;return p.half(p.read(rule+0x7c)+2*index);}U check(U self,U item,U,Ports&p){U rule=p.rule(p.read(item+12));if(!p.read(rule+4))return 0;if(p.feat(p.read(self+0xa74),0x5d))return 1;U count=p.byte(p.rule(p.read(item+12))+0x80);for(U i=0;i<count;){U f=rule_feat(p.rule(p.read(item+12)),i,p);if(!p.feat(p.read(self+0xa74),f))return 0;++i;count=p.byte(p.rule(p.read(item+12))+0x80);}return 1;}}

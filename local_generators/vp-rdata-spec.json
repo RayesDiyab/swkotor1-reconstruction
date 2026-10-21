@@ -1,0 +1,77 @@
+[
+  {
+    "name": "program_end_00743950",
+    "va": "00743950",
+    "kind": "cstring"
+  },
+  {
+    "name": "fmt_nv_light_y_00743aa0",
+    "va": "00743aa0",
+    "kind": "cstring"
+  },
+  {
+    "name": "fmt_nv_light_x_00743ad0",
+    "va": "00743ad0",
+    "kind": "cstring"
+  },
+  {
+    "name": "fmt_nv_point_00743b00",
+    "va": "00743b00",
+    "kind": "cstring"
+  },
+  {
+    "name": "fmt_arb_light_y_00743bb0",
+    "va": "00743bb0",
+    "kind": "cstring"
+  },
+  {
+    "name": "fmt_arb_light_x_00743c18",
+    "va": "00743c18",
+    "kind": "cstring"
+  },
+  {
+    "name": "fmt_arb_point_00743c80",
+    "va": "00743c80",
+    "kind": "cstring"
+  },
+  {
+    "name": "text_nv_head_00743da0",
+    "va": "00743da0",
+    "kind": "cstring"
+  },
+  {
+    "name": "text_arb_head_00743e68",
+    "va": "00743e68",
+    "kind": "cstring"
+  },
+  {
+    "name": "text_nv_tail_007439c0",
+    "va": "007439c0",
+    "kind": "cstring"
+  },
+  {
+    "name": "text_nv_alpha_007439e8",
+    "va": "007439e8",
+    "kind": "cstring"
+  },
+  {
+    "name": "text_nv_add_007439fc",
+    "va": "007439fc",
+    "kind": "cstring"
+  },
+  {
+    "name": "text_arb_tail_00743a20",
+    "va": "00743a20",
+    "kind": "cstring"
+  },
+  {
+    "name": "text_arb_alpha_00743a44",
+    "va": "00743a44",
+    "kind": "cstring"
+  },
+  {
+    "name": "text_arb_add_00743a6c",
+    "va": "00743a6c",
+    "kind": "cstring"
+  }
+]

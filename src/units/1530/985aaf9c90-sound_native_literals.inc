@@ -1,0 +1,31 @@
+const char* sound_literal(Word a){switch(a){
+case 0x7474f8:return "SoundList";
+case 0x744c24:return "ObjectId";
+case 0x747494:return "TemplateResRef";
+case 0x7474e8:return "GeneratedType";
+case 0x745d68:return "ZPosition";
+case 0x745d74:return "YPosition";
+case 0x745d80:return "XPosition";
+case 0x747a28:return "Tag";
+case 0x749d58:return "Active";
+case 0x74c250:return "Positional";
+case 0x747798:return "Looping";
+case 0x74c248:return "Volume";
+case 0x74c23c:return "VolumeVrtn";
+case 0x74c234:return "Times";
+case 0x74c224:return "PitchVariation";
+case 0x74c21c:return "Hours";
+case 0x744cb8:return "Interval";
+case 0x74c20c:return "IntervalVrtn";
+case 0x74c200:return "MinDistance";
+case 0x74c1f4:return "MaxDistance";
+case 0x74c1e8:return "Continuous";
+case 0x74c1e0:return "Random";
+case 0x74c1d0:return "FixedVariance";
+case 0x74c1c0:return "RandomPosition";
+case 0x74c1b0:return "RandomRangeX";
+case 0x74c1a0:return "RandomRangeY";
+case 0x74c198:return "Sounds";
+case 0x7442c8:return "Sound";
+case 0x74c25c:return "UTS ";
+default:required(a);}}

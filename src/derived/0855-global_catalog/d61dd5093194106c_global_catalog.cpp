@@ -1,0 +1,9 @@
+#include "14fdd219482b44da_global_catalog.hpp"
+#include <cstring>
+namespace recovered_global_catalog {
+namespace {unsigned rd(void*p,unsigned o){unsigned v;std::memcpy(&v,(char*)p+o,4);return v;}void wr(void*p,unsigned o,unsigned v){std::memcpy((char*)p+o,&v,4);}}
+unsigned hash_00528e50(void*self,String*name,Ports&p){unsigned crc=0;for(int i=0;i<p.length(name);++i){const unsigned c=static_cast<unsigned>(p.uppercase(p.character(name,i)));crc=(crc>>8)^rd(self,0xb268+((c^crc)&255)*4);}return crc%1775;}
+int insert_00528ec0(void*self,String*name,unsigned type,unsigned index,Ports&p){unsigned slot=hash_00528e50(self,name,p);auto*base=static_cast<char*>(self);if(base[slot*24]){wr(self,0xb668,rd(self,0xb668)+1);unsigned next=(slot+1)%1775,steps=1;while(next!=slot){if(!base[next*24]){slot=next;break;}next=(next+1)%1775;++steps;}wr(self,0xb66c,rd(self,0xb66c)+steps);if(static_cast<std::int32_t>(steps)>static_cast<std::int32_t>(rd(self,0xb670)))wr(self,0xb670,steps);}const char*src=p.text(name);char*dst=base+slot*24;do{*dst++=*src;}while(*src++);const auto encoded=static_cast<std::uint16_t>((type<<14)^(index&0x3fff));std::memcpy(base+slot*24+22,&encoded,2);return static_cast<int>(slot);}
+int register_category(void*self,String*name,unsigned type,Ports&p){static const unsigned limits[4]={900,500,100,5};const unsigned offset=0xb258+type*4;unsigned count=rd(self,offset);if(static_cast<std::int32_t>(count)>=static_cast<std::int32_t>(limits[type]))return -1;int result=insert_00528ec0(self,name,type,count,p);wr(self,offset,rd(self,offset)+1);return result;}
+int find_00529030(void*self,String*name,Ports&p){unsigned first=hash_00528e50(self,name,p),slot=first;auto*base=static_cast<char*>(self);while(base[slot*24]&&!p.equal_nc(name,base+slot*24)){slot=(slot+1)%1775;if(slot==first)break;}return p.equal_nc(name,base+slot*24)?static_cast<int>(slot):-1;}
+}

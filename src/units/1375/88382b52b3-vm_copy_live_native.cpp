@@ -1,0 +1,9 @@
+extern "C" void __cdecl live_free(void*); // 1118 single heap: CRT free -> game CRT heap _live_free 006FA390
+#include "fe87bbd536-vm_copy_live.hpp"
+#include "4768021300-startup_string.h"
+#include <cstdlib>
+#include <cstring>
+#include <new>
+extern "C" void __fastcall recovered_vm_stack_shrink_005d21f0(void*,void*,int);
+namespace {using U=unsigned;void*ptr(U a){return reinterpret_cast<void*>(a);}U word(void*p){return reinterpret_cast<U>(p);}struct Native:recovered_vm_copy::Ports{U read(U a)override{U v;std::memcpy(&v,ptr(a),4);return v;}U byte(U a)override{return *static_cast<unsigned char*>(ptr(a));}void write(U a,U v)override{std::memcpy(ptr(a),&v,4);}void write_byte(U a,U v)override{*static_cast<unsigned char*>(ptr(a))=static_cast<unsigned char>(v);}U allocate(U n)override{return word(::operator new(n));}void release(U a)override{::live_free(ptr(a));}void copy(U a,U b,U n)override{std::memcpy(ptr(a),ptr(b),n);}void shrink(U a,U n)override{recovered_vm_stack_shrink_005d21f0(ptr(a),nullptr,static_cast<int>(n));}void destroy_string(U a)override{static_cast<kotor_reconstruction::StartupString*>(ptr(a))->~StartupString();}U construct_string(U a)override{return word(new(ptr(a))kotor_reconstruction::StartupString());}void assign_string(U a,U b)override{(void)static_cast<kotor_reconstruction::StartupString*>(ptr(a))->Assign005e5c50(static_cast<kotor_reconstruction::StartupString*>(ptr(b)));}void destroy_engine(U f,U impl,U type,U value)override{using F=void(__thiscall*)(void*,int,U);reinterpret_cast<F>(f)(ptr(impl),static_cast<int>(type),value);}U copy_engine(U f,U impl,U type,U value)override{using F=U(__thiscall*)(void*,int,U);return reinterpret_cast<F>(f)(ptr(impl),static_cast<int>(type),value);}};}
+extern "C" void __fastcall recovered_vm_copy_stack_005d1c40(void*stack,void*,int source,int destination){Native p;recovered_vm_copy::copy(p,word(stack),static_cast<unsigned>(source),static_cast<unsigned>(destination));}

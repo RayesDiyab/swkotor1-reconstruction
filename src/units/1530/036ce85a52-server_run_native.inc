@@ -1,0 +1,13 @@
+extern "C" void __fastcall recovered_move_player_to_area_004b3d10(void*,void*,void*); extern "C" unsigned __fastcall recovered_load_primary_player_004b5f50(void*,void*,void*); extern "C" unsigned __fastcall recovered_end_start_new_module_0056cc50(void*,void*,unsigned); extern "C" void __fastcall recovered_create_party_00565760(void*,void*); // 1127 W2 t4b
+struct NativeAdminStatus:AdminStatusPorts{NativeMemory&m;NativeServerInfo text;explicit NativeAdminStatus(NativeMemory&v):m(v),text(v){}
+void empty(Word a)override{text.empty(a);}void destroy(Word a)override{text.destroy(a);}Word state(Word a)override{return m.read16(m.read(a+4)+0x10008);}
+Word name(Word a,Word out)override{Word inner=m.read(a+4);if(server_internal_get_module_004b14f0(ptr(inner),nullptr))WindowCopy005e5b00(ptr(out),nullptr,ptr(m.read(inner+0x10004)+0xfc));else text.empty(out);return out;}
+void assign(Word a,Word b)override{text.assign(a,b);}Word cstr(Word a)override{return text.cstr(a);}
+void format2(Word out,Word fmt,Word a,Word b)override{if(fmt!=0x7493b4)required(fmt);kotor_reconstruction::StartupFormat005e5680(static_cast<kotor_reconstruction::StartupString*>(ptr(out)),"%s.%s",static_cast<const char*>(ptr(a)),static_cast<const char*>(ptr(b)));}
+void format3(Word out,Word fmt,Word a,Word b,Word c)override{if(fmt!=0x7493a8)required(fmt);kotor_reconstruction::StartupFormat005e5680(static_cast<kotor_reconstruction::StartupString*>(ptr(out)),"%s.%s %s",static_cast<const char*>(ptr(a)),static_cast<const char*>(ptr(b)),static_cast<const char*>(ptr(c)));}
+void send(Word a,Word b,Word c)override{NativeServerJoin p(m);(void)status_packet_00579890(m,p,a,b,c);}
+};
+struct NativeRun:RunPorts{NativeMemory&m;NativeServerInfo text;explicit NativeRun(NativeMemory&v):m(v),text(v){}
+void empty(Word a)override{text.empty(a);}void destroy(Word a)override{text.destroy(a);}void player_status(Word a,Word b)override{NativeModuleMessage p(m);(void)player_status_00568310(m,p,a,b);}void admin_status(Word a,Word b)override{NativeAdminStatus p(m);unsigned char scratch[0x20];admin_status_00579920(m,p,a,b,word(scratch));}
+Word at(Word a,Word b)override{return text.at(a,b);}void next(Word a,Word b)override{text.next(a,b);}void login_player(Word a,Word b)override{recovered_move_player_to_area_004b3d10(ptr(a),nullptr,ptr(b));}Word module(Word a)override{return word(server_internal_get_module_004b14f0(ptr(a),nullptr));}void select_player(Word a,Word b)override{(void)recovered_load_primary_player_004b5f50(ptr(a),nullptr,ptr(b));}void party_ready(Word a)override{recovered_create_party_00565760(ptr(a),nullptr);}Word messages(Word a)override{return m.read(m.read(a+4)+0x10010);}void begin_game(Word a,Word b)override{(void)recovered_end_start_new_module_0056cc50(ptr(a),nullptr,b);}
+};

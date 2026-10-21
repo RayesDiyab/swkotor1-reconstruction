@@ -1,0 +1,3 @@
+#pragma once
+#include <cstdint>
+namespace recovered_item_fields{using U=std::uint32_t;struct Ports{virtual ~Ports()=default;virtual U read(U)=0;virtual U byte(U)=0;virtual void write(U,U)=0;virtual void put_byte(U,U)=0;virtual U scalar(U type,U gff,U root,const char*,U status,U fallback)=0;virtual void identity(U,U)=0;virtual U string(U,U,U,const char*,U,U)=0;virtual void tag(U,U)=0;virtual void string_destroy(U)=0;virtual U localized(U,U,U,const char*,U,U)=0;virtual void localized_assign(U,U)=0;virtual void localized_destroy(U)=0;virtual U rule(U)=0;virtual void container(U,U,U)=0;virtual void continuation(U,U,U)=0;};void prefix(U,U,U,U,Ports&);}

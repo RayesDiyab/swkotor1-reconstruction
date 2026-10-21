@@ -1,0 +1,8 @@
+#include "139f9fd1e91b7c00_ai_master.hpp"
+#include <cstring>
+namespace kotor_reconstruction{struct ArrayMutations;}
+namespace menu_list_growth{void __fastcall allocate_005e03c0(kotor_reconstruction::ArrayMutations*,void*,unsigned);}
+namespace kotor_renderer_gl{void __fastcall deleteAt_006857a0(kotor_reconstruction::ArrayMutations*,void*,int);}
+namespace{using U=unsigned;void*ptr(U a){return reinterpret_cast<void*>(a);}struct Memory:kotor::character_load::Memory{U read(U a)const override{U v;std::memcpy(&v,ptr(a),4);return v;}void write(U a,U v)override{std::memcpy(ptr(a),&v,4);}std::uint8_t read_byte(U a)const override{return *static_cast<std::uint8_t*>(ptr(a));}void write_byte(U a,std::uint8_t v)override{std::memcpy(ptr(a),&v,1);}void write_short(U a,std::uint16_t v)override{std::memcpy(ptr(a),&v,2);}};struct Ports:kotor::ai_master::Ports{void grow_005e03c0(U a,U n)override{menu_list_growth::allocate_005e03c0(static_cast<kotor_reconstruction::ArrayMutations*>(ptr(a)),nullptr,n);}void remove_index_006857a0(U a,U index)override{kotor_renderer_gl::deleteAt_006857a0(static_cast<kotor_reconstruction::ArrayMutations*>(ptr(a)),nullptr,static_cast<int>(index));}};}
+extern "C" unsigned __fastcall recovered_ai_level_004b08a0(void*self,void*,void*object,unsigned level){Memory m;Ports p;return kotor::ai_master::set_level_004b08a0(m,p,reinterpret_cast<U>(self),reinterpret_cast<U>(object),level);}
+extern "C" unsigned __fastcall recovered_ai_remove_004af3d0(void*self,void*,void*object){Memory m;Ports p;return kotor::ai_master::remove_object_004af3d0(m,p,reinterpret_cast<U>(self),reinterpret_cast<U>(object));}

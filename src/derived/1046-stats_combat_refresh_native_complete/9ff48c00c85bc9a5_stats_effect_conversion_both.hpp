@@ -1,0 +1,2 @@
+#pragma once
+namespace recovered_stats_effect_conversion{using U=unsigned;struct Ports{virtual~Ports()=default;virtual U read(U)=0;virtual U half(U)=0;virtual void write(U,U)=0;virtual void put_byte(U,U)=0;virtual U integer(U,U)=0;virtual U rules_race()=0;virtual U allocate(U)=0;virtual U modifier(U)=0;virtual void grow(U,U)=0;virtual U log_round(U)=0;};void convert(U self,U list,Ports&);void convert_second(U self,U list,Ports&);}

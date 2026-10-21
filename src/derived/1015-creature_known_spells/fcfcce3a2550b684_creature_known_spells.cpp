@@ -1,0 +1,4 @@
+#include "03928656204715b8_creature_known_spells.hpp"
+namespace kotor::server_mainloop {
+void creature_known_spells_005aeb30(Memory&m,CreatureKnownSpellPorts&p,Word self,Word gff,Word root,Word s){m.write(s+0x10,self);if(!p.list(gff,s+0x34,root,0x74535c)||!m.read8(self+0x89))return;Word index=0;do{if(p.element(gff,s+0x5c,s+0x34,index)){p.empty(s+0x18);Word counter=0;p.format(s+0x18,0x73edd0,0x74ac6c,0);Word label=p.text(s+0x18);if(p.list(gff,s+0x20,s+0x5c,label)&&p.count(gff,s+0x20)){Word i=0;do{if(p.element(gff,s+0x58,s+0x20,i)){Word spell=p.short_read(gff,s+0x58,0x74ac64,s+0x14,0xffff)&65535;if(spell!=0xffffffff)p.add(m.read(s+0x10),index,spell);}++counter;i=counter&65535;if(i>=p.count(gff,s+0x20))break;}while(true);self=m.read(s+0x10);}p.destroy(s+0x18);}Word count=m.read8(self+0x89);++index;if(static_cast<int>(index)>=static_cast<int>(count))break;}while(true);}
+}

@@ -1,0 +1,392 @@
+[
+  {
+    "output": "projectile/object_projectile_literals.cpp",
+    "prefix": [
+      "#include \"object_projectile_literals.h\"",
+      "#include \"object_projectile_providers.h\"",
+      "extern \"C\" {"
+    ],
+    "suffix": [
+      "}"
+    ],
+    "objects": [
+      {
+        "name": "object_projectile_literal_0073d700",
+        "va": "0073d700",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_0073d708",
+        "va": "0073d708",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_0073d764",
+        "va": "0073d764",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_0073d770",
+        "va": "0073d770",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_0073dfec",
+        "va": "0073dfec",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_0073e320",
+        "va": "0073e320",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_0073e40c",
+        "va": "0073e40c",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_0073e46c",
+        "va": "0073e46c",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_0073e798",
+        "va": "0073e798",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_0073e9ac",
+        "va": "0073e9ac",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00740c00",
+        "va": "00740c00",
+        "size": 5,
+        "type": "char",
+        "align": null
+      },
+      {
+        "name": "object_projectile_literal_00740c84",
+        "va": "00740c84",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00740c88",
+        "va": "00740c88",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_007415bc",
+        "va": "007415bc",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_007415f8",
+        "va": "007415f8",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00741be0",
+        "va": "00741be0",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00741c38",
+        "va": "00741c38",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00741c3c",
+        "va": "00741c3c",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00743318",
+        "va": "00743318",
+        "size": 7,
+        "type": "char",
+        "align": null
+      },
+      {
+        "name": "object_projectile_literal_007455dc",
+        "va": "007455dc",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00745e50",
+        "va": "00745e50",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00746633",
+        "va": "00746633",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00746637",
+        "va": "00746637",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_0074666c",
+        "va": "0074666c",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00747504",
+        "va": "00747504",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00747b84",
+        "va": "00747b84",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00747da8",
+        "va": "00747da8",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00749d80",
+        "va": "00749d80",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_0074b2e0",
+        "va": "0074b2e0",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_0075147c",
+        "va": "0075147c",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00753d98",
+        "va": "00753d98",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_007554b4",
+        "va": "007554b4",
+        "size": 8,
+        "type": "char",
+        "align": null
+      },
+      {
+        "name": "object_projectile_literal_007554bc",
+        "va": "007554bc",
+        "size": 5,
+        "type": "char",
+        "align": null
+      },
+      {
+        "name": "object_projectile_literal_00757c94",
+        "va": "00757c94",
+        "size": 4,
+        "type": "char",
+        "align": null
+      },
+      {
+        "name": "object_projectile_literal_00757c98",
+        "va": "00757c98",
+        "size": 12,
+        "type": "char",
+        "align": null
+      },
+      {
+        "name": "object_projectile_literal_00757ca4",
+        "va": "00757ca4",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00757ca8",
+        "va": "00757ca8",
+        "size": 8,
+        "type": "unsigned char",
+        "align": 8
+      },
+      {
+        "name": "object_projectile_literal_00757cac",
+        "va": "00757cac",
+        "size": 11,
+        "type": "char",
+        "align": null
+      },
+      {
+        "name": "object_projectile_literal_00757e10",
+        "va": "00757e10",
+        "size": 6,
+        "type": "char",
+        "align": null
+      },
+      {
+        "name": "object_projectile_literal_00757e18",
+        "va": "00757e18",
+        "size": 14,
+        "type": "char",
+        "align": null
+      }
+    ]
+  },
+  {
+    "output": "font/debug_font_0078d498.h",
+    "prefix": [
+      "#pragma once",
+      "namespace kotor_debug_font {"
+    ],
+    "suffix": [
+      "}"
+    ],
+    "objects": [
+      {
+        "name": "glyphs_0078d498",
+        "va": "0078d498",
+        "size": 1235,
+        "type": "unsigned char",
+        "align": 4,
+        "storage": "const"
+      }
+    ]
+  },
+  {
+    "output": "projectile/projectile_model_literals.inc",
+    "prefix": [],
+    "suffix": [],
+    "objects": [
+      {
+        "name": "kProjectile_00759268",
+        "va": "00759268",
+        "size": 11,
+        "type": "char",
+        "storage": "constexpr"
+      },
+      {
+        "name": "kDefault_0073df6c",
+        "va": "0073df6c",
+        "size": 8,
+        "type": "char",
+        "storage": "constexpr"
+      },
+      {
+        "name": "kTravel01_00759298",
+        "va": "00759298",
+        "size": 9,
+        "type": "char",
+        "storage": "constexpr"
+      },
+      {
+        "name": "kImpact01_0075928c",
+        "va": "0075928c",
+        "size": 9,
+        "type": "char",
+        "storage": "constexpr"
+      },
+      {
+        "name": "kThrowout_00759280",
+        "va": "00759280",
+        "size": 9,
+        "type": "char",
+        "storage": "constexpr"
+      },
+      {
+        "name": "kThrowback_00759274",
+        "va": "00759274",
+        "size": 10,
+        "type": "char",
+        "storage": "constexpr"
+      },
+      {
+        "name": "kEmpty_0073d71c",
+        "va": "0073d71c",
+        "size": 1,
+        "type": "char",
+        "storage": "constexpr"
+      }
+    ]
+  },
+  {
+    "output": "vfx/lightsaber_literals.inc",
+    "prefix": [],
+    "suffix": [],
+    "objects": [
+      {
+        "name": "hand_name",
+        "va": "0074f334",
+        "size": 6,
+        "type": "char",
+        "storage": "const"
+      },
+      {
+        "name": "target_name",
+        "va": "00743318",
+        "size": 7,
+        "type": "char",
+        "storage": "const"
+      }
+    ]
+  }
+]

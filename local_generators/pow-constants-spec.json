@@ -1,0 +1,86 @@
+[
+  {
+    "symbol": "task8_pow_const_0073ede8",
+    "va": 7597544,
+    "size": 16,
+    "const": true,
+    "sha256": "aef93a080066f24bc073da99f2b2df1db7a12a3f5f73867e26af863ad52fadbe"
+  },
+  {
+    "symbol": "task8_pow_const_0073edf8",
+    "va": 7597560,
+    "size": 16,
+    "const": true,
+    "sha256": "8bf35e3a0ec08d7bdb342f913c45c2dd7ca8d4e42cb77acf0c063fba6ef88d8b"
+  },
+  {
+    "symbol": "task8_pow_const_00741df8",
+    "va": 7609848,
+    "size": 16,
+    "const": true,
+    "sha256": "826064dcf66bf465ea9e8ef6914cd5ed0f9662a53315b23d281a7b7c3c0f7090"
+  },
+  {
+    "symbol": "task8_pow_const_0074dc58",
+    "va": 7658584,
+    "size": 32,
+    "const": true,
+    "sha256": "16279635ab60517f12d5e82f7cc3945c3adf40452da3ceaefef7b9ceaa08291e"
+  },
+  {
+    "symbol": "task8_pow_const_0075a960",
+    "va": 7711072,
+    "size": 15008,
+    "const": true,
+    "sha256": "a2069a1ccafa56c06007378afca6fd14780b63fb66fdd0ba1274ca3f5a9c1d9f"
+  },
+  {
+    "symbol": "task8_pow_const_007a2780",
+    "va": 8005504,
+    "size": 16,
+    "const": true,
+    "sha256": "ea59455d40a8b05748bc9508c1e3a446b10ffed75ac33249d0708311dd2c86c5"
+  },
+  {
+    "symbol": "task8_pow_const_007a2788",
+    "va": 8005512,
+    "size": 16,
+    "const": true,
+    "sha256": "11c011fd48a0cb78e9980ab125aa7219f4a5ce07cc42b9419a6190120a19d84d"
+  },
+  {
+    "symbol": "task8_pow_const_007a30e0",
+    "va": 8007904,
+    "size": 20,
+    "const": false,
+    "sha256": "00fe6f426334ad5091788f42bf9c4b4fe6983d241df6efef81f701217df1314c"
+  },
+  {
+    "symbol": "task8_pow_const_007a3110",
+    "va": 8007952,
+    "size": 16,
+    "const": true,
+    "sha256": "ff62b4af226e98ac4948a384ec7f4436d27c6bf7bac3e028ee22543b7dfdb8ec"
+  },
+  {
+    "symbol": "task8_pow_const_007a32b0",
+    "va": 8008368,
+    "size": 16,
+    "const": true,
+    "sha256": "6ace709b080bed5f6d0e73b22b686aa04fb22ea2b2acf571962c5d87b9f12ffb"
+  },
+  {
+    "symbol": "task8_pow_const_007a32b8",
+    "va": 8008376,
+    "size": 16,
+    "const": true,
+    "sha256": "900612115860442b39686d239d67a6f643f8233a85489b83e22fb6075c157ce7"
+  },
+  {
+    "symbol": "task8_pow_const_007a32d0",
+    "va": 8008400,
+    "size": 16,
+    "const": true,
+    "sha256": "37fbffbe51d328195ed177e0d7301764d1e0ed33722f349283d137992747b29c"
+  }
+]

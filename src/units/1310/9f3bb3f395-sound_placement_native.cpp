@@ -1,0 +1,9 @@
+#include "833d323c70-sound_placement.hpp"
+#include "50af928f4c-creature_area_access.hpp"
+#include <cstring>
+namespace kotor_menu_window_cells{extern void* volatile manager_007a39fc;}
+extern "C"{void* __fastcall recovered_object_area_004cb120(void*,void*);unsigned __fastcall recovered_area_insert_0050dfd0(void*,void*,unsigned,unsigned);void* __fastcall server_get_module_004ae6b0(void*,void*);unsigned __fastcall recovered_module_register_tag_004c7de0(void*,void*,void*,unsigned);__declspec(noreturn)void __cdecl kotor_unreachable_trap(unsigned long,const char*);}
+// stale-stubs G3: 0050DC40 CSWSArea::RemoveObjectFromArea (claude_combat_spell_mine).
+extern "C"{unsigned __fastcall kotor_fastcall_0050dc40(void*,void*,unsigned);}
+namespace{using U=unsigned;void*ptr(U a){return reinterpret_cast<void*>(a);}U word(void*p){return reinterpret_cast<U>(p);}struct Native:recovered_sound_placement::Ports,recovered_creature_area_access::Ports{U read(U a)override{U v;std::memcpy(&v,ptr(a),4);return v;}void write(U a,U v)override{std::memcpy(ptr(a),&v,4);}U invalid()override{return 0x7f000000;}U area(U a)override{return word(recovered_object_area_004cb120(ptr(a),nullptr));}void remove(U a,U id)override{(void)kotor_fastcall_0050dc40(ptr(a),nullptr,id);}void set_area(U a,U b)override{recovered_creature_area_access::set(a,b,*this);}void insert(U a,U b,U c)override{(void)recovered_area_insert_0050dfd0(ptr(a),nullptr,b,c);}U server()override{return read(word(kotor_menu_window_cells::manager_007a39fc)+8);}U module(U a)override{return word(server_get_module_004ae6b0(ptr(a),nullptr));}void tag(U a,U b,U c)override{(void)recovered_module_register_tag_004c7de0(ptr(a),nullptr,ptr(b),c);}};}
+extern "C" void __fastcall recovered_sound_place_005c8950(void*self,void*,unsigned area,unsigned flag){Native p;recovered_sound_placement::place(word(self),area,flag,p);}

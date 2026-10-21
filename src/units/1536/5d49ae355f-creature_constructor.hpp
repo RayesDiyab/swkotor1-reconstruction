@@ -1,0 +1,3 @@
+#pragma once
+#include <cstdint>
+namespace recovered_server_creature{using U=std::uint32_t;struct Ports{virtual ~Ports()=default;virtual U read(U)=0;virtual void write(U,U)=0;virtual void byte(U,U)=0;virtual void half(U,U)=0;virtual U cell(U)=0;virtual U vtable()=0;virtual U allocate(U)=0;virtual void base(U,U,U,U)=0;virtual void string_empty(U)=0;virtual void action_empty(U)=0;virtual U child(U address,U self,U owner,U argument)=0;virtual U server(U address)=0;virtual void register_ai(U,U,U)=0;virtual void priority(U,U)=0;virtual void literal(U,const char*)=0;virtual std::int32_t random()=0;virtual void time(U,U,U)=0;virtual void effect(U,U,U,U,U,U)=0;virtual void update(U,U)=0;};U construct(U,U,U,U,Ports&);}

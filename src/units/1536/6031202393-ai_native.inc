@@ -1,0 +1,1 @@
+struct Ai:recovered_ai_registration::Ports{M m;U read(U a)override{return m.read(a);}void write(U a,U v)override{m.write(a,v);}void grow(U a,U n)override{menu_list_growth::allocate_005e03c0(static_cast<kotor_reconstruction::ArrayMutations*>(ptr(a)),nullptr,n);}void remove(U a,U object)override{(void)recovered_ai_remove_004af3d0(ptr(a),nullptr,ptr(object));}};

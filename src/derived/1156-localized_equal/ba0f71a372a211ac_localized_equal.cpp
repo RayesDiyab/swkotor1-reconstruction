@@ -1,0 +1,7 @@
+#include "7263538fd6de5ece_localized_equal.hpp"
+namespace recovered_localized_equal{
+U uncached(U self,U language,U out,U gender,U scratch,Ports&p){U low=language?(gender&255):0;gender=(gender&0xffffff00)|low;if(p.raw(p.read(self),language*2+low,out))return 1;p.string_construct(scratch);p.ref_construct(scratch+8);U talk=p.talk(),ok=0;if(talk){U id=p.read(self+4);if(p.fetch(talk,id,scratch,gender)){p.assign(out,scratch);ok=1;}}p.string_destroy(scratch);return ok;}
+U internal_equal(U self,U other,U scratch,Ports&p){U count=p.read(self+4);if(count!=p.read(p.read(other)+4))return 0;U a=p.allocate(8);if(a)a=p.string_construct(a);U b=p.allocate(8);if(b)b=p.string_construct(b);U list=p.read(self),node=p.read(list),entry=node?p.read(node+8):0;p.write(scratch,p.read(list));U result=1;while(entry){U id=p.read(entry);p.assign(a,entry+4);(void)uncached(other,id,b,0,scratch+4,p);if(p.different(a,b)){result=0;break;}entry=p.next(p.read(self),scratch);}if(a){p.string_destroy(a);p.release(a);}if(b){p.string_destroy(b);p.release(b);}return result;}
+U equal(U self,U other,U scratch,Ports&p){U a=p.read(self),count=p.read(a+8);if(count){U b=p.read(other);if(p.read(b+8))return p.read(self+4)==p.read(other+4);if(p.read(b+4))return 0;return p.read(self+4)==p.read(other+4);}U b=p.read(other);if(p.read(b+8)){if(p.read(a+4))return 0;return p.read(self+4)==p.read(other+4);}if(!internal_equal(a,other,scratch,p))return 0;return p.read(self+4)==p.read(other+4);}
+U different(U a,U b,U scratch,Ports&p){return equal(a,b,scratch,p)?0:1;}
+}

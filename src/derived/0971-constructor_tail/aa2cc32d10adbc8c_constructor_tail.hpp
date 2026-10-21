@@ -1,0 +1,3 @@
+#pragma once
+#include <cstdint>
+namespace recovered_constructor_tail{using U=std::uint32_t;struct Ports{virtual ~Ports()=default;virtual U read(U)=0;virtual U half(U)=0;virtual U byte(U)=0;virtual void write(U,U)=0;virtual void put_half(U,U)=0;virtual void put_byte(U,U)=0;virtual U server()=0;virtual U player_id(U)=0;virtual U player(U,U)=0;virtual U at(U,U)=0;virtual void next(U,U)=0;virtual U cell(U)=0;virtual U effect_value(U,U)=0;virtual void remove(U,U,U)=0;virtual U allocate(U)=0;virtual U construct_effect(U,U)=0;virtual void creator(U,U)=0;virtual void effect_integer(U,U,U)=0;virtual void apply(U,U,U,U)=0;};void update_timer(U,U,U,Ports&);void recompute(U,Ports&);void enable(U,U,Ports&);}

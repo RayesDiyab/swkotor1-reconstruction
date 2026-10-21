@@ -1,0 +1,3 @@
+#pragma once
+#include <cstdint>
+namespace recovered_trigger_constructor {using U=std::uint32_t;struct Ports{virtual~Ports()=default;virtual U read(U)=0;virtual void write(U,U)=0;virtual void byte(U,U)=0;virtual void half(U,U)=0;virtual void base(U,U,U,U)=0;virtual U table()=0;virtual void localized(U)=0;virtual void string(U)=0;virtual void literal(U,const char*)=0;virtual void destroy_string(U)=0;virtual void construct_string(U,const char*)=0;virtual U ai()=0;virtual void register_ai(U,U,U)=0;virtual U rules()=0;virtual U table_float(U,U,U,U)=0;virtual void state(U,U)=0;};U construct(U,U,U,Ports&);}

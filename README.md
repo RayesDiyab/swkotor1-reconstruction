@@ -18,7 +18,7 @@ Use this hash to identify the target executable. Other releases and modified exe
 
 You must separately purchase and lawfully possess the original game and supply its assets locally. This repository distributes no original game resources, proprietary binaries, middleware, or raw decompiler exports.
 
-See [STATUS.md](STATUS.md) for current progress and remaining work.
+See [BUILDING.md](BUILDING.md) for build instructions, [STATUS.md](STATUS.md) for current progress and [CONTRIBUTING.md](CONTRIBUTING.md) for bug reports and source contributions.
 
 ## Rights and affiliation
 

@@ -1,0 +1,2 @@
+#include "eb464e3b1b1e86b0_placeable_finish.hpp"
+namespace recovered_placeable_finish{void finish(U s,Ports&p){if(!p.byte(s+0x258))return;p.write(s+0x1ec,1);U storage=p.allocate(0x8c),effect=storage?p.construct(storage,1):0;U type=p.constant(0x746684),flags=p.half(effect+0xa);p.write_half(effect+8,type);p.write_half(effect+0xa,(flags&0xfff8)|p.constant(0x7473c4));p.integer(effect,0,p.constant(0x746890));p.integer(effect,1,p.byte(s+0x258));p.write(effect+0x20,0);p.apply(s,effect,0,0);p.write(s+0x1ec,0);}}

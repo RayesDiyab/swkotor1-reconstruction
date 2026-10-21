@@ -1,0 +1,2 @@
+#pragma once
+namespace recovered_mesh_crossings{using U=unsigned;struct Projection{U bits,status;};struct Ports{virtual~Ports()=default;virtual U read(U)=0;virtual void write(U,U)=0;virtual void prepare(U,U,U)=0;virtual U project(U,U,U)=0;virtual U compare(U,U)=0;virtual Projection previous(U,U,U)=0;virtual void interpolate(U,U,U,U,U,U)=0;virtual bool forward(U,U,U)=0;virtual void insert(U,U,U,U,U,U)=0;};U count(U,U,U,U,U,Ports&);}

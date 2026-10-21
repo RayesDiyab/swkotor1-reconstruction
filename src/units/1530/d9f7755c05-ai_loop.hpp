@@ -1,0 +1,6 @@
+#pragma once
+#include "3b4eb8c727-server_mainloop.hpp"
+namespace kotor::server_mainloop {
+struct AiLoopPorts{virtual ~AiLoopPorts()=default;virtual void world_time(Word,Word,Word)=0;virtual Wide time(Word)=0;virtual Word object(Word,Word)=0;virtual Word creature(Word)=0;virtual Word action(Word,Word)=0;virtual Word compare(Word,Word,Word,Word,Word)=0;virtual Word pop(Word)=0;virtual void free(Word)=0;virtual Word lookup(Word,Word,Word)=0;virtual void object_event(Word,Word,Word,Word,Word,Word)=0;virtual Word area(Word)=0;virtual Word module(Word)=0;virtual void area_event(Word,Word,Word,Word,Word,Word)=0;virtual void module_event(Word,Word,Word,Word,Word,Word)=0;virtual void cleanup(Word,Word,Word)=0;virtual void clear_string(Word)=0;virtual void update(Word)=0;virtual void slow(Word,Word,Word,Word,Word)=0;virtual Word render(Word)=0;virtual Word render_object(Word)=0;virtual Word dirty(Word,Word)=0;virtual void clear_dirty(Word,Word)=0;virtual void render_size(Word,Word,Word)=0;virtual void render_position(Word,Word,Word,Word)=0;virtual void render_orientation(Word,Word)=0;virtual Word spill_float(Word)=0;virtual Word server_module(Word)=0;virtual void module_update(Word)=0;};
+void ai_loop_004b0b70(Memory&,AiLoopPorts&,Word self,Word scratch);
+}
