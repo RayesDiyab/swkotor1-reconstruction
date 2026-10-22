@@ -77,7 +77,9 @@ public:
 
     char pad_0x124[0x158 - 0x124];
     CExoString m_sTag;                                      // 0x158
-    char pad_0x160[0x1f4 - 0x160];
+    char pad_0x160[0x1dc - 0x160];
+    int m_n1DC;                                             // 0x1dc (name guessed)
+    char pad_0x1e0[0x1f4 - 0x1e0];
     CSWVarTable m_VarTable;                                 // 0x1f4
     CSWSAreaProperties* m_pProperties;                      // 0x208 (name guessed)
 };
@@ -259,7 +261,8 @@ public:
     CExoString m_sTag;                                      // 0x18
     char pad_0x20[0x50 - 0x20];
     int m_bDialogPaused;                                    // 0x50 (name guessed)
-    char pad_0x54[0x90 - 0x54];
+    unsigned long m_oid54;                                  // 0x54 (name guessed)
+    char pad_0x58[0x90 - 0x58];
     Vector m_vPosition;                                     // 0x90
     Vector m_vOrientation;                                  // 0x9c
     char pad_0xa8[0xd4 - 0xa8];
@@ -296,6 +299,10 @@ public:
     CExoLocString m_lsModuleName;                           // 0x64
     char pad_0x6c[0x9c - 0x6c];
     CSWVarTable m_VarTable;                                 // 0x9c
+    char pad_0xb0[0x148 - 0xb0];
+    int m_n148;                                             // 0x148 (name guessed)
+    char pad_0x14c[0x1f8 - 0x14c];
+    CExoString m_sTag;                                      // 0x1f8
 };
 
 class CSWSObject : public CGameObject {
@@ -339,6 +346,7 @@ public:
     unsigned short GetAQActionIDByID(unsigned short nActionId, int bAlternate); // 0x0057A2B0
     void SpeakOneLinerConversation(CExoString& sResRef, unsigned long oidTalkTo); // 0x004CB220 (name guessed)
     void SetListenExpression(CExoString& sPattern, int nNumber); // 0x004CF8F0
+    int GetEffectCount(unsigned long nMask);                // 0x004CAFE0 (name guessed)
 
     // AI actions (0x0057B290-0x0057CF00).
     unsigned long AIActionPauseDialog(class CSWSObjectActionNode* pNode);
@@ -376,6 +384,7 @@ public:
     void PostLoad();                                        // 0x004F1C40
     void LoadCreatureState(CResGFF* pRes, CResStruct* pStruct); // 0x004F17D0
     int GetGold();                                          // 0x004EDD60
+    int GetCreatureValue518B30();                           // 0x00518B30 (name guessed)
     CSWSFaction* GetFaction();                              // 0x00513FC0
     class CItemRepository* GetItemRepository(int bArg);     // 0x004EF770
     int SaveCreature(CResGFF* pRes, CResStruct* pStruct);   // 0x00500610

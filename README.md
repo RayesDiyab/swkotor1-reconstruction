@@ -4,7 +4,7 @@ This project reconstructs the **GOG Windows 1.03** version of **Star Wars: Knigh
 
 ![Reconstruction progress: playable build and MSVC 7.0 matching track](matching/assets/progress.svg)
 
-*Playable-build milestones follow [STATUS.md](STATUS.md). The matching track is described in [matching/README.md](matching/README.md).*
+*This project has two builds from one source: the playable build in `src/` and a byte-identical MSVC 7.0 matching build in `matching/`. See [STRUCTURE.md](STRUCTURE.md). Playable-build milestones follow [STATUS.md](STATUS.md).*
 
 ## Supported version
 

@@ -82,6 +82,8 @@ class CSWGuiManager;
 
 class CSWGuiPanel : public CSWGuiObject {
 public:
+    virtual void v34(); virtual void v38();
+    virtual void HandleInputEvent(int nEvent, int bDown);       // 0x3c
     CSWGuiControl* GetControl(int nIndex);          // 0x0040ba00
     void GetLocalMouseCoords(int* pX, int* pY);     // 0x0040ba20
     int m_bUpdateFonts;                             // 0x14
@@ -217,6 +219,8 @@ class CSWGuiEditText : public CSWGuiText {
 public:
     CSWGuiEditText();                               // 0x004173d0
     void SetFocus(int bFocus);                      // 0x00416530
+    void RemoveLastChar();                          // 0x004162e0
+    void AddNewChar(const char* sChar);             // 0x004163a0
     __forceinline ~CSWGuiEditText() {}
     short m_nMaxLength;             // 0x70
     unsigned long m_bFlag0 : 1;     // 0x74
@@ -387,6 +391,10 @@ public:
     virtual void Draw(float fDelta);                            // 0x38
     virtual void HandleInputEvent(int nEvent, int bDown);       // 0x3c
     virtual void Load(CResGFF* pGFF, CResStruct* pStruct);      // 0x48
+    virtual void CopyStyle(const CSWGuiExtent& extent, CSWGuiButtonToggle* pFrom); // 0xa0
+    virtual void SetStyle(const CSWGuiExtent& extent, CSWGuiTextParams* pText, CSWGuiBorderParams* pBorder,
+                          CSWGuiBorderParams* pHilight, CSWGuiBorderParams* pSelected,
+                          CSWGuiBorderParams* pHilightSelected); // 0xa4
     int m_nToggleEvent;                             // 0x1c4
     unsigned long m_bSelected : 1;                  // 0x1c8
     CSWGuiBorder m_cSelected;                       // 0x1cc
@@ -395,6 +403,8 @@ public:
 
 class CSWGuiRadioButton : public CSWGuiButton {
 public:
+    virtual void HandleMouseOver(int bOver);                    // 0x0c
+    virtual void HandleLMouseUp();                              // 0x1c
     virtual void HandleLMouseDown();                            // 0x18
 };
 
@@ -459,6 +469,9 @@ public:
     virtual void HandleLMouseDown();                            // 0x18
     virtual void Draw(float fDelta);                            // 0x38
     virtual void HandleInputEvent(int nEvent, int bDown);       // 0x3c
+    virtual void CopyStyle(const CSWGuiExtent& extent, CSWGuiSlider* pFrom); // 0x98
+    virtual void SetStyle(const CSWGuiExtent& extent, CSWGuiBorderParams* pBorder, CSWGuiBorderParams* pThumb,
+                          const CResRef& cImage);       // 0x9c
     void SetMaxValue(int nMax);                     // 0x00417ec0
     void SetValue(int nValue);                      // 0x00417ee0
     int HitCheckSlider(int x, int y);               // 0x00419060
@@ -483,6 +496,7 @@ public:
     virtual int IsSelectable();                                 // 0x80
     virtual void UpdateFont();                                  // 0x8c
     virtual void Initialize(const CSWGuiExtent& extent, CSWGuiTextParams* pText, CSWGuiBorderParams* pBorder); // 0x98
+    virtual void HandleChar(int nChar);             // 0x9c
     void SetFocus();
     virtual void Load(CResGFF* pGFF, CResStruct* pStruct);      // 0x48
     CSWGuiBorder m_cBorder;                         // 0x6c

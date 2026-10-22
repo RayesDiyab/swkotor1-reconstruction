@@ -80,7 +80,11 @@ public:
     virtual void v00();
     virtual void Release(int bDelete);              // 0x04
     virtual void v08();
-    virtual int GetWidth();                         // 0x0c
+    virtual int GetHeight();                        // 0x0c
+    virtual int GetWidth();                         // 0x10
+    virtual void v14();
+    virtual void Draw(int nX, int nY, int nWidth, int nHeight, unsigned char nFlip,
+                      float fRotate, const Vector* pColor, float fAlpha); // 0x18
 };
 
 class CAurGUIString {
@@ -183,8 +187,12 @@ public:
     void SetCornerImage(const CResRef& cResRef, int bForce);
     void SetEdgeImage(const CResRef& cResRef, int bForce);
     void SetFillImage(const CResRef& cResRef, int bForce);
+    void SetCornerImage(const CResRef& cResRef) { SetCornerImage(cResRef, 0); }
+    void SetEdgeImage(const CResRef& cResRef) { SetEdgeImage(cResRef, 0); }
+    void SetFillImage(const CResRef& cResRef) { SetFillImage(cResRef, 0); }
     void SetBorder(CSWGuiBorder* pBorder);
     int GetCornerSize();
+    int GetInset() { return m_nPulse < GetCornerSize() ? m_nPulse : GetCornerSize(); }
     void SetFlags(int b2, int b3, int b4);
 
     int m_nCornerSize;                              // 0x00
@@ -211,6 +219,10 @@ public:
     virtual void Load(CResGFF* pGFF, CResStruct* pStruct, const CExoString& sName); // 0x10
     void Initialize(const CSWGuiExtent& extent, const CSWGuiBorderParams& params);
     CSWGuiExtent GetInnerExtent();                  // 0x00415240
+    void DrawFillTiled(int nHeight, int nWidth, int nX, int nY, float fAlpha,
+                       const Vector* pColor);       // 0x004155b0
+    void DrawFillCentered(int nHeight, int nWidth, int nX, int nY, float fAlpha,
+                          const Vector* pColor);    // 0x004157f0
 
     CSWGuiBorderParams m_cParams;                   // 0x14
     CAurGUIImage* m_pCorner;                        // 0x68
@@ -224,9 +236,11 @@ public:
                       const Vector& vColor);
     CSWGuiImageParams& operator=(const CSWGuiImageParams& p);
     void SetImage(const CResRef& cResRef, int bForce);
+    void SetImage(const CResRef& cResRef) { SetImage(cResRef, 0); }
     void SetN6(int n);
     void SetB1(int b);
     void SetOwner(CSWGuiImage* pImage);
+    float GetRotation() const { return m_f10; }
 
     CResRef m_cResRef;                              // 0x00
     float m_f10;                                    // 0x10
@@ -247,6 +261,7 @@ public:
     virtual void SetExtent(const CSWGuiExtent& extent); // 0x04 (0x00415b70)
     virtual void Draw(float fDelta);                // 0x0c (0x00415c90)
     virtual void Load(CResGFF* pGFF, CResStruct* pStruct, const CExoString& sName); // 0x10
+    void Initialize(const CSWGuiExtent& extent, const CSWGuiImageParams& params);
 
     CSWGuiExtent m_cInner;                          // 0x14
     CAurGUIImage* m_pImage;                         // 0x24
@@ -270,6 +285,7 @@ public:
     void SetStrRef(int nStrRef);
     void SetAlignment(int nAlign);
     void SetOwner(CSWGuiText* pText);
+    void SetHilight(int b) { m_bHilight = b; }
 
     CExoString m_sText;                             // 0x00
     int m_nStrRef;                                  // 0x08

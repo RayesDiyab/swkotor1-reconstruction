@@ -85,7 +85,7 @@ int CSWGuiBorderParams::GetCornerSize()
         return m_nCornerSize;
     }
     if (m_pBorder && m_pBorder->m_pCorner && m_pBorder->m_pEdge) {
-        return m_pBorder->m_pCorner->GetWidth();
+        return m_pBorder->m_pCorner->GetHeight();
     }
     return 0;
 }
@@ -712,3 +712,5 @@ void __cdecl UpdateGuiHilightPulse(float fDelta)
     }
     g_fGuiHilightAlpha = fFrom + ((0.75f - g_fGuiHilightTimer) * 1.3333334f) * (fTo - fFrom);
 }
+
+// FUNCTION: SWKOTOR 0x004168a0 SYMBOL: ??_GCSWGuiBorder@@UAEPAXI@Z

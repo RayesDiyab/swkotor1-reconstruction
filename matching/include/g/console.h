@@ -37,7 +37,7 @@ class funcholder_void : public funcholder {
 public:
     void (__cdecl* m_pfn)();                    // +0x04
 
-    funcholder_void(void (__cdecl* pfn)());
+    funcholder_void(void (__cdecl* pfn)()) { m_pfn = pfn; }
     virtual ~funcholder_void();
     virtual void Call(char* szArgs);
     virtual void Query(char* szArgs);
@@ -47,6 +47,7 @@ class funcholder_str : public funcholder {
 public:
     void (__cdecl* m_pfn)(char*);               // +0x04
 
+    funcholder_str(void (__cdecl* pfn)(char*)) { m_pfn = pfn; }
     virtual void Call(char* szArgs);
 };
 
@@ -54,6 +55,7 @@ class funcholder_int : public funcholder {
 public:
     void (__cdecl* m_pfn)(int);                 // +0x04
 
+    funcholder_int(void (__cdecl* pfn)(int)) { m_pfn = pfn; }
     virtual void Call(char* szArgs);
 };
 
@@ -63,6 +65,9 @@ public:
     char m_szName[0x50];                        // +0x00
     funcholder* m_pHolder;                      // +0x50
 
+    ConsoleFunc(char* szName, void (__cdecl* pfn)());
+    ConsoleFunc(char* szName, void (__cdecl* pfn)(char*));
+    ConsoleFunc(char* szName, void (__cdecl* pfn)(int));
     ~ConsoleFunc();
 };
 
@@ -83,6 +88,18 @@ public:
     char* m_pData;          // +0x0c
     int m_nRemaining;       // +0x10
     int m_nBufferSize;      // +0x14
+    void* m_pHandle;        // +0x18 (loader handle of in-memory data)
+
+    AurRes(int nBufferSize)
+    {
+        m_pFile = 0;
+        m_nLine = -1;
+        m_nBufferSize = nBufferSize;
+        m_pBuffer = 0;
+        m_pData = 0;
+        m_nRemaining = 0;
+        m_pHandle = 0;
+    }
 };
 
 template <class T>
@@ -91,6 +108,23 @@ public:
     T* element;
     int num;
     int array_size;
+
+    void Allocate(int n);                       // 0x005e03c0 (AurRes*)
+    void Remove(T t);                           // 0x00445080
+    void Add(T t)
+    {
+        if (num == array_size)
+            Allocate(array_size ? array_size * 2 : 8);
+        element[num++] = t;
+    }
+    int Contains(T t)
+    {
+        int n = 0;
+        for (int i = 0; i < num; i++)
+            if (element[i] == t)
+                n++;
+        return n;
+    }
 };
 
 extern CExoArrayList<AurRes*> g_lAurResStack;   // 0x007b8fd8

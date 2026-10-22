@@ -764,3 +764,33 @@ int CSWVirtualMachineCommands::ExecuteCommandGetTalentValue(int nCommandId, int 
     }
     return bSuccess ? 0 : VIRTUAL_MACHINE_ERROR_STACK_OVERFLOW;
 }
+
+extern const int EFFECT_TYPE_INVALIDEFFECT_DWORD;           // 0x0074667C (0, compared as a dword)
+extern const unsigned short DURATION_TYPE_7473B8;           // 0x007473B8
+extern const unsigned short DURATION_TYPE_7473BC;           // 0x007473BC
+extern const unsigned short DURATION_TYPE_7473C0;           // 0x007473C0
+extern const unsigned short DURATION_TYPE_7473C4;           // 0x007473C4
+extern const unsigned short DURATION_TYPE_7473C8;           // 0x007473C8
+
+// FUNCTION: SWKOTOR 0x0053EE00
+int CSWVirtualMachineCommands::ExecuteCommandGetIsEffectValid(int nCommandId, int nParameters)
+{
+    CGameEffect* pEffect = NULL;
+    if (!g_pVirtualMachine->StackPopEngineStructure(ENGINE_STRUCTURE_EFFECT, (void**)&pEffect)) {
+        return VIRTUAL_MACHINE_ERROR_STACK_UNDERFLOW;
+    }
+    int bValid = 1;
+    if (pEffect == NULL || pEffect->m_nType == EFFECT_TYPE_INVALIDEFFECT_DWORD || pEffect->m_n20 == 0) {
+        bValid = 0;
+    }
+        if (pEffect->m_nDurationType != DURATION_TYPE_7473B8 && pEffect->m_nDurationType != DURATION_TYPE_7473C0 &&
+        pEffect->m_nDurationType != DURATION_TYPE_7473C4 && pEffect->m_nDurationType != DURATION_TYPE_7473BC &&
+        pEffect->m_nDurationType != DURATION_TYPE_7473C8) {
+        bValid = 0;
+    }
+    if (!g_pVirtualMachine->StackPushInteger(bValid)) {
+        return VIRTUAL_MACHINE_ERROR_STACK_OVERFLOW;
+    }
+    delete pEffect;
+    return 0;
+}

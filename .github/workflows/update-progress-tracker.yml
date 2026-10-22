@@ -6,6 +6,7 @@ on:
     paths:
       - 'matching/status.csv'
       - 'matching/functions.csv'
+      - 'matching/crt_libcmt.csv'
       - 'matching/tools/render_banner.py'
       - 'build-manifest.json'
   workflow_dispatch:

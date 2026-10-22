@@ -33,12 +33,21 @@ public:
     void SetObjectID(int nIndex, unsigned long oid);        // 0x005036F0
     void SetCreator(unsigned long oid);                     // 0x00503A00
 
+    unsigned short GetDurationType() { return m_nDurationType; }
     void SetSubType_Supernatural() { m_nSubType = (m_nSubType & 0xffe7) | 0x8; }
 
     unsigned __int64 m_nID;                                 // 0x00
     unsigned short m_nType;                                 // 0x08
-    unsigned short m_nSubType;                              // 0x0a
-    char pad_0xc[0x8c - 0xc];
+    union {
+        unsigned short m_nSubType;                          // 0x0a
+        struct {
+            unsigned short m_nDurationType : 3;             // 0x0a (low 3 bits)
+            unsigned short m_nSubTypeHigh : 13;
+        };
+    };
+    char pad_0xc[0x20 - 0xc];
+    int m_n20;                                              // 0x20 (name guessed)
+    char pad_0x24[0x8c - 0x24];
 };
 #pragma pack(pop)
 

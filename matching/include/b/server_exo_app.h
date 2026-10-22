@@ -56,6 +56,7 @@ public:
     void SetExportAllCharactersPending(int bPending);                   // 0x004AECE0
     class CSWSDoor* GetDoorByGameObjectID(unsigned long nId);           // 0x004AE7C0
     int GetModuleLanguage();                                            // 0x004AE820
+    CExoString GetLastConversation();                                   // 0x004AEFE0 (name guessed)
     CFactionManager* GetFactionManager() { return m_pInternal->m_pFactionManager; }
 
     CServerExoAppInternal* m_pInternal;                                 // 0x4
@@ -74,6 +75,10 @@ public:
 class CWorldTimer {
 public:
     void GetWorldTime(unsigned long* pDay, unsigned long* pTime);       // 0x004ADE40
+    unsigned long GetWorldTimeHour();                                   // 0x004AE090
+    unsigned long GetWorldTimeMinute();                                 // 0x004AE0D0
+    unsigned long GetWorldTimeSecond();                                 // 0x004AE110
+    unsigned long GetWorldTimeMillisecond();                            // 0x004AE140
 
     char pad_0x0[0x38];
     unsigned char m_nMinutesPerHour;                                    // 0x38

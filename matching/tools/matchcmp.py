@@ -286,8 +286,9 @@ def main():
                         help="MSVC 7.0 root containing BIN and INCLUDE")
     parser.add_argument("--exe", default=os.environ.get("KOTOR_ORIGINAL_EXE"),
                         help="original swkotor.exe (GOG 1.03)")
-    parser.add_argument("--function-table", default=os.environ.get("KOTOR_FUNCTION_TABLE"),
-                        help="optional CSV of function starts (address column)")
+    parser.add_argument("--function-table",
+                        default=os.environ.get("KOTOR_FUNCTION_TABLE", ROOT / "matching" / "functions.csv"),
+                        help="CSV of function starts (address column); default matching/functions.csv")
     args = parser.parse_args()
     global MSVC, EXE
     if not args.msvc or not args.exe:
@@ -298,7 +299,8 @@ def main():
     for p in (Path(x).resolve() for x in args.paths):
         sources += sorted(p.rglob("*.cpp")) if p.is_dir() else [p]
     pe = pefile.PE(str(EXE), fast_load=True)
-    extents = function_extents(pe, args.function_table)
+    table = args.function_table if args.function_table and Path(args.function_table).exists() else None
+    extents = function_extents(pe, table)
     start_wineserver()
     from concurrent.futures import ThreadPoolExecutor
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:

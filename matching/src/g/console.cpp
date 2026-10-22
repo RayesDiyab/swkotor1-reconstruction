@@ -199,9 +199,11 @@ void funcholder_void::Query(char* szArgs)
 // FUNCTION: SWKOTOR 0x0044c010 SYMBOL: ??_Gfuncholder_void@@UAEPAXI@Z
 void DeleteFuncHolderVoid(funcholder_void* p) { delete p; }
 
-funcholder_void::funcholder_void(void (__cdecl* pfn)())
+// Not in the original's text here: instantiates funcholder_void's vtable (and
+// so its ??_G above) in this unit now that the constructor is inline.
+funcholder* NewFuncHolderVoid(void (__cdecl* pfn)())
 {
-    m_pfn = pfn;
+    return new funcholder_void(pfn);
 }
 
 // FUNCTION: SWKOTOR 0x0044c030

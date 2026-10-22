@@ -42,6 +42,8 @@ PLAYABLE = [
 BG, BORDER = "#090909", "#343434"
 TEXT, MUTED, DIM = "#f4f4f5", "#c9c9c9", "#8a8a8a"
 MATCH_COLOR, NEAR_COLOR, PLAY_COLOR = "#5be3a8", "#c9963a", "#6ba8ff"
+LIB_COLOR = "#4aa8d8"
+LIBRARY = ROOT / "matching" / "crt_libcmt.csv"   # stock LIBCMT.LIB functions
 TODO_COLOR, CG_COLOR, PENDING = "#272727", "#4a3f6b", "#3a3a3a"
 STATE_COLOR = {"done": PLAY_COLOR, "open": NEAR_COLOR, "todo": PENDING}
 
@@ -68,7 +70,12 @@ def previous_status(report: Path, current: dict[int, str]) -> dict[int, str] | N
 
 
 def load_functions(status: dict[int, str], table: Path) -> list[tuple[int, int, str]]:
-    """(start, size, category): M byte-identical, N attempt, T to do, CG."""
+    """(start, size, category): M byte-identical, L identical to the stock
+    VS.NET 2002 LIBCMT.LIB (linked, no source needed), N attempt, T to do, CG."""
+    library = set()
+    if LIBRARY.exists():
+        with LIBRARY.open(encoding="utf-8") as source:
+            library = {int(r["address"], 16) for r in csv.DictReader(source)}
     with table.open(encoding="utf-8") as source:
         levels = {int(r["address"], 16): "CG" if r.get("kind") == "eh" else ""
                   for r in csv.DictReader(source)}
@@ -80,13 +87,13 @@ def load_functions(status: dict[int, str], table: Path) -> list[tuple[int, int, 
         end = starts[index + 1] if index + 1 < len(starts) else TEXT_END
         state = status.get(start)
         category = ("M" if state == "MATCH" else "CG" if levels[start] == "CG"
-                    else "N" if state else "T")
+                    else "L" if start in library else "N" if state else "T")
         functions.append((start, max(0, min(end, TEXT_END) - start), category))
     return functions
 
 
 def byte_totals(functions, low=0, high=1 << 32) -> dict[str, int]:
-    totals = dict.fromkeys(("M", "N", "T", "CG"), 0)
+    totals = dict.fromkeys(("M", "L", "N", "T", "CG"), 0)
     for start, size, category in functions:
         overlap = min(start + size, high) - max(start, low)
         if overlap > 0:
@@ -101,9 +108,11 @@ def mix(color_a: str, color_b: str, t: float) -> str:
 
 
 def cell_color(totals: dict) -> str:
-    game = totals["M"] + totals["N"] + totals["T"]
+    game = totals["M"] + totals["L"] + totals["N"] + totals["T"]
     if game == 0:
         return CG_COLOR if totals["CG"] else "#161616"
+    if totals["L"] > totals["M"]:
+        return mix("#173444", LIB_COLOR, totals["L"] / game)
     if totals["M"]:
         return mix("#1f4a3a", MATCH_COLOR, totals["M"] / game)
     if totals["N"]:
@@ -128,11 +137,11 @@ def heading(add, y, text) -> None:
 
 
 def render(functions, units: int, old_status: dict[int, str] | None) -> str:
-    counts = {c: sum(1 for f in functions if f[2] == c) for c in ("M", "N", "T", "CG")}
-    matched, near = counts["M"], counts["N"]
-    total = matched + near + counts["T"]
+    counts = {c: sum(1 for f in functions if f[2] == c) for c in ("M", "L", "N", "T", "CG")}
+    matched, library, near = counts["M"], counts["L"], counts["N"]
+    total = matched + library + near + counts["T"]
     code = byte_totals(functions, TEXT_START, TEXT_END)
-    game_bytes = code["M"] + code["N"] + code["T"]
+    game_bytes = code["M"] + code["L"] + code["N"] + code["T"]
     match_pct = matched / total * 100
     byte_pct = code["M"] / game_bytes * 100 if game_bytes else 0.0
 
@@ -175,7 +184,8 @@ def render(functions, units: int, old_status: dict[int, str] | None) -> str:
     heading(add, 186, "Matching track (matching/) — byte-identical rebuild with MSVC 7.0 "
                       "(Visual Studio .NET 2002, cl 13.00.9466)")
     metrics = [
-        (23, f"{match_pct:.1f}%", "of functions byte-identical", f"{matched:,} / {total:,} functions"),
+        (23, f"{match_pct:.1f}%", "of functions byte-identical",
+         f"{matched:,} / {total:,} functions · +{library:,} stock LIBCMT"),
         (333, f"{byte_pct:.1f}%", "of code bytes byte-identical", "weighted by function size"),
         (643, f"{near:,}", "attempts not yet identical", "kept for later passes"),
     ]
@@ -184,12 +194,13 @@ def render(functions, units: int, old_status: dict[int, str] | None) -> str:
         add(f'<text x="{x}" y="228" font-size="34" font-weight="700" fill="{color}">{value}</text>')
         add(f'<text x="{x}" y="250" font-size="13" fill="{MUTED}">{escape(label)}</text>')
         add(f'<text x="{x}" y="266" font-size="12" fill="{DIM}">{escape(detail)}</text>')
-    stacked_bar(add, 23, 282, 916, 14, [(matched / total, MATCH_COLOR), (near / total, NEAR_COLOR)])
+    stacked_bar(add, 23, 282, 916, 14, [(matched / total, MATCH_COLOR), (library / total, LIB_COLOR),
+                                        (near / total, NEAR_COLOR)])
 
     map_top = 336
     add(f'<text x="23" y="{map_top - 10}" font-size="12" fill="{MUTED}">'
         f'Address map of .text — each cell is 4 KiB of code</text>')
-    key = [(MATCH_COLOR, "byte-identical"), (NEAR_COLOR, "attempt"),
+    key = [(MATCH_COLOR, "byte-identical"), (LIB_COLOR, "stock LIBCMT"), (NEAR_COLOR, "attempt"),
            (CG_COLOR, "compiler-generated"), (TODO_COLOR, "not started")]
     kx = 939
     for color, text in reversed(key):
@@ -214,13 +225,14 @@ def render(functions, units: int, old_status: dict[int, str] | None) -> str:
             f'width="{pitch_x - 2:.1f}" height="{size_y}" rx="2" fill="{cell_color(totals)}"/>')
     foot = map_top + rows * pitch_y + 22
     add(f'<text x="23" y="{foot}" font-size="12" fill="{DIM}">Byte-identical: compiled with MSVC 7.0 and '
-        f'compared with the original by matching/tools/matchcmp.py. Function count excludes '
-        f'{counts["CG"]:,} compiler-generated EH funclets.</text>')
+        f'compared by matchcmp.py. Stock LIBCMT: identical to VS.NET 2002 LIBCMT.LIB. '
+        f'Excludes {counts["CG"]:,} compiler-generated EH funclets.</text>')
     height = foot + 18
 
     desc = (f"Playable build reaches Taris after completing the Endar Spire. Matching track: "
             f"{matched:,} of {total:,} functions ({match_pct:.1f}%) and {byte_pct:.1f}% of code bytes "
-            f"rebuild byte-identical with MSVC 7.0.")
+            f"rebuild byte-identical with MSVC 7.0; {library:,} more are identical to the stock "
+            f"VS.NET 2002 LIBCMT.LIB.")
     body = "\n    ".join(parts)
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="960" height="{height}" viewBox="0 0 960 {height}" role="img" aria-labelledby="card-title card-desc">
   <title id="card-title">KOTOR reconstruction progress</title>

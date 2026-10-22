@@ -5,7 +5,9 @@
 This directory holds a second, independent track: C++ source that compiles
 with the original toolchain to the **same machine code** as the GOG 1.03
 `swkotor.exe`, function by function. It does not change or replace the
-playable build under `src/` and is not part of `build.py`.
+playable build under `src/` and is not part of `build.py`. How the two
+builds relate, and the plan to bring matched code into the playable build, is
+in [STRUCTURE.md](../STRUCTURE.md).
 
 `swkotor.exe`'s Rich header names the toolchain: Visual Studio .NET 2002
 (MSVC 7.0, `cl` 13.00.9466), linked 2004-02-12. With that compiler and
@@ -14,14 +16,15 @@ the original.
 
 ## Status
 
-When this directory was added, 5,592 functions were annotated and 5,096 of
-them were byte-identical. The other 496 are best attempts (`NONMATCH`) kept
-for later passes. `status.csv` records every function's current result, and
+When this directory was added, 5,755 functions were annotated and 5,251 of
+them were byte-identical. The other 504 are best attempts (`NONMATCH`) kept
+for later passes. Another 395 functions are identical to the stock
+`LIBCMT.LIB` and need no source (see below). `status.csv` records every function's current result, and
 the tracker above is rebuilt from it.
 
 ## Layout
 
-- `src/<bucket>/*.cpp`: annotated sources. Each bucket (`a`..`m`) covers an
+- `src/<bucket>/*.cpp`: annotated sources. Each bucket (`a`..`n`) covers an
   address range of the executable. The buckets only exist so that parallel
   work never touched the same files. `src/pilot1..3` are the first
   experiments.
@@ -29,6 +32,9 @@ the tracker above is rebuilt from it.
   at their original offsets, virtuals in vtable order, and callees declared
   but not defined.
 - `tools/matchcmp.py`: the compile-and-compare tool.
+- `tools/libmatch.py`, `crt_libcmt.csv`: stock library functions in the exe.
+- `tools/symbolmap.py`, `symbols.csv`: symbol-to-address map, the bridge to
+  the playable build.
 - `tools/render_banner.py`, `assets/progress.svg`: the progress tracker.
 - `status.csv`, `functions.csv`: the tracker's inputs.
 
@@ -76,11 +82,10 @@ python .\matching\tools\matchcmp.py --msvc "C:\Tools\msvc7" --exe "D:\Games\Star
   `!!` marking the differing instructions.
 - `--report matching/status.csv` writes one row per annotated function. It
   feeds the progress tracker; see below.
-- `--function-table` takes an optional CSV of function starts (an `address`
-  column). Without one, function ends come from the annotations and the
-  original's direct call targets. That is slightly stricter: on the current
-  sources it reports 2 of the 5,096 matches as misses, and it has never
-  produced a false match.
+- Function ends come from `functions.csv` (the default `--function-table`),
+  the annotations and the original's direct call targets. A function the
+  table misses inside another one's range must be annotated too, or the
+  outer function can't match.
 - On Linux and macOS the compiler runs under Wine. `KOTOR_WINE` names the
   launcher.
 - Use the dash form of the flags (`-O2`, not `/O2`) from Git Bash, which
@@ -94,7 +99,8 @@ updates itself:
 1. After a matching change, rerun the tool with
    `--report matching/status.csv` and commit that file with the sources.
 2. On every push to `main` that changes `matching/status.csv`,
-   `matching/functions.csv`, `build-manifest.json` or the renderer, the
+   `matching/functions.csv`, `matching/crt_libcmt.csv`,
+   `build-manifest.json` or the renderer, the
    GitHub Actions workflow `update-progress-tracker.yml` runs
    `tools/render_banner.py` and commits the refreshed SVG. Its badge shows
    the change in byte-identical functions since the previous
@@ -103,10 +109,47 @@ updates itself:
 `matching/functions.csv` lists the executable's 20,397 function starts. It
 holds addresses only, and `kind` is `eh` for the 11,730 compiler-generated
 EH funclets, which are not counted. Annotated functions missing from the
-list (529 today) are added to it, giving 9,196 functions in total.
+list (585 today) are added to it, giving 9,252 functions in total.
 
 The playable-build row restates [STATUS.md](../STATUS.md). Update `PLAYABLE`
 in the script when that file changes.
+
+## The C runtime: stock LIBCMT.LIB
+
+The exe statically links the multi-threaded C runtime that ships with
+VS.NET 2002, unmodified. `tools/libmatch.py` splits every function out of
+the MSVC 7.0 `LIB\*.LIB` files, masks relocations and searches the exe:
+
+```powershell
+python .\matching\tools\libmatch.py "C:\Tools\msvc7\LIB\LIBCMT.LIB" "D:\Games\Star Wars - KotOR\swkotor.exe" out.csv
+```
+
+- In the CRT band (0x006FA390–0x0070C0A0 and 0x00713190–0x00713E80), 395 of
+  447 functions and 74,341 of 76,288 bytes are identical to `LIBCMT.LIB`.
+- The single-threaded `LIBC.LIB` matches less.
+- The Rich header agrees: 166 C and 41 MASM objects were built with
+  13.00.9466.
+- `crt_libcmt.csv` keeps the hits that have a single placement. Functions
+  under 6 bytes are skipped. The matching build will link the library
+  instead of reconstructing these.
+- The rest of the 0x006F0000+ range is not CRT: game code at
+  0x006F0260–0x006FA390, and import thunks plus glue at
+  0x0070C0A0–0x00713180.
+
+## Symbol map
+
+`tools/symbolmap.py` reads every byte-identical function's relocations
+against the original and writes `symbols.csv`, which maps each symbol (the
+mangled name, plus the readable form) to its original address. Roles:
+`defines` (the matched function itself), `calls` and `data`. Symbols that
+map to several addresses are left out and printed. Today that's 110: copies
+of identical code in the original, or naming slips in headers. Phase 2 in
+[STRUCTURE.md](../STRUCTURE.md) builds the playable-build bridge on this
+file. Rerun it after merging matches:
+
+```powershell
+python .\matching\tools\symbolmap.py --msvc "C:\Tools\msvc7" --exe "D:\Games\Star Wars - KotOR\swkotor.exe"
+```
 
 ## Source-shape notes
 
@@ -123,3 +166,14 @@ These patterns made functions match:
   offset.
 - An `fs:[0]` frame in the original means `-GX` plus a local object with a
   destructor.
+- An empty-state SEH frame in a constructor: give the list member a sized
+  constructor that contains a dead `new`.
+- Recursive tree walkers: `#pragma inline_recursion(on)` plus a
+  per-function `#pragma inline_depth(N)`, with N found by sweeping.
+- If ECX stays live across a call to a function compiled earlier in the same
+  `.cpp`, put the caller and callee in separate files.
+- Copying a member into a local just before the call that takes it can
+  change register allocation.
+- Still unsolved; skip after two or three tries: cross-function register
+  use, the placement of a merged `return 0` block, the else-after-return
+  layout, and some x87 scheduling ties.

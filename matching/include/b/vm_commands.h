@@ -136,6 +136,36 @@ public:
     int ExecuteCommandTalent(int nCommandId, int nParameters);
     int ExecuteCommandPlayMovie(int nCommandId, int nParameters);
     int ExecuteCommandCreateItemOnObject(int nCommandId, int nParameters);
+    int ExecuteCommandCreateItemOnFloor(int nCommandId, int nParameters);
+    int ExecuteCommandGetItemPossessedBy(int nCommandId, int nParameters);
+    int ExecuteCommandSpeakString(int nCommandId, int nParameters);
+    int ExecuteCommandGetSpellTargetLocation(int nCommandId, int nParameters);
+    int ExecuteCommandEffectHorrified(int nCommandId, int nParameters);
+    int ExecuteCommandPopUpGUIPanel(int nCommandId, int nParameters);
+    int ExecuteCommandSetJournalQuestEntryPicture(int nCommandId, int nParameters);
+    int ExecuteCommandStartNewModule(int nCommandId, int nParameters);
+    int ExecuteCommandGetLastConversation(int nCommandId, int nParameters);
+    int ExecuteCommandGetTag(int nCommandId, int nParameters);
+    int ExecuteCommandSetGlobalString(int nCommandId, int nParameters);
+    int ExecuteCommandSetEffectIcon(int nCommandId, int nParameters);
+    int ExecuteCommandEffectDamage(int nCommandId, int nParameters);
+    int ExecuteCommandIntToString(int nCommandId, int nParameters);
+    int ExecuteCommandGetIsLiveContentAvailable(int nCommandId, int nParameters);
+    int ExecuteCommandStringConversions(int nCommandId, int nParameters);
+    int ExecuteCommandFloatToString(int nCommandId, int nParameters);
+    int ExecuteCommandGetIsBusy(int nCommandId, int nParameters);       // 0x0053ECB0 (name guessed)
+    int ExecuteCommandGetNPCValue(int nCommandId, int nParameters);     // 0x0053ED70 (name guessed)
+    int ExecuteCommandGetIsEffectValid(int nCommandId, int nParameters); // 0x0053EE00 (name guessed)
+    int ExecuteCommandGetSameObject54(int nCommandId, int nParameters); // 0x0053EEC0 (name guessed)
+    int ExecuteCommandGetGuiValueB4(int nCommandId, int nParameters);   // 0x0053EF70 (name guessed)
+    int ExecuteCommandGetCreatureStat194Or1(int nCommandId, int nParameters); // 0x0053EFA0 (name guessed)
+    int ExecuteCommandGetTimeHour(int nCommandId, int nParameters);     // 0x0053E020 (name guessed)
+    int ExecuteCommandGetTimeMillisecond(int nCommandId, int nParameters); // 0x0053E060 (name guessed)
+    int ExecuteCommandGetTimeMinute(int nCommandId, int nParameters);   // 0x0053E0A0 (name guessed)
+    int ExecuteCommandGetTimeSecond(int nCommandId, int nParameters);   // 0x0053E0E0 (name guessed)
+    int ExecuteCommandGetEffectCount(int nCommandId, int nParameters);  // 0x0053E120 (name guessed)
+    int ExecuteCommandGetCreatureValue(int nCommandId, int nParameters); // 0x0053E1B0 (name guessed)
+    int ExecuteCommandGetObjectValue(int nCommandId, int nParameters);  // 0x0053E220 (name guessed)
 };
 
 #endif
