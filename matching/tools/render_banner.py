@@ -5,11 +5,10 @@ The tracker shows the two decompilations of swkotor.exe side by side, so
 they are never confused:
 
 - Modern-toolchain decompilation (src/, VS2022 + clang-cl): behaviour-equivalent
-  C++ built with modern Visual Studio. Shown as "Complete" while
-  build-manifest.json says game_complete. Detail counts the functions src/
-  defines under their original address (kotor_<cc>_<address>) and those it
-  only cites (folded into a caller or shared). Milestones restate STATUS.md;
-  edit PLAYABLE when it changes.
+  C++ built with modern Visual Studio. Counts functions src/ defines under
+  their original address (kotor_<cc>_<address>), functions it cites (folded
+  into a caller or shared), and C runtime functions that VS2022's library
+  supplies. Milestones restate STATUS.md; edit PLAYABLE when it changes.
 - Original-toolchain, byte-identical decompilation (matching/, MSVC 7.0): source that compiles
   to the original's exact bytes, from matching/status.csv (matchcmp.py
   --report). Functions identical to the stock LIBCMT.LIB come from
@@ -37,6 +36,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "matching" / "assets" / "progress.svg"
 LIBRARY = ROOT / "matching" / "crt_libcmt.csv"   # stock LIBCMT.LIB functions
+CRT_BANDS = ((0x006FA390, 0x0070C0A0), (0x00713190, 0x00713E80))   # statically linked C runtime
 
 TEXT_START, TEXT_END = 0x00401000, 0x0073D000   # .text of the 1.0.3.0 exe
 CELL_BYTES = 0x1000
@@ -104,7 +104,10 @@ def playable_coverage() -> dict[int, int]:
 
 
 def load_functions(status: dict[int, str], table: Path, playable: dict[int, int]):
-    """[(start, size, category, playable coverage 0/1/2)].
+    """[(start, size, category, playable coverage)].
+
+    Playable coverage: 2 own definition in src/, 1 cited in src/ (folded into
+    a caller or shared), 3 C runtime that VS2022's library supplies, 0 none.
 
     Category: M byte-identical, L identical to the stock VS.NET 2002
     LIBCMT.LIB, N matching attempt, T no matched source, CG EH funclet.
@@ -124,8 +127,10 @@ def load_functions(status: dict[int, str], table: Path, playable: dict[int, int]
         state = status.get(start)
         category = ("M" if state == "MATCH" else "CG" if kinds[start] == "eh"
                     else "L" if start in library else "N" if state else "T")
-        functions.append((start, max(0, min(end, TEXT_END) - start), category,
-                          playable.get(start, 0)))
+        level = playable.get(start, 0)
+        if not level and any(low <= start < high for low, high in CRT_BANDS):
+            level = 3
+        functions.append((start, max(0, min(end, TEXT_END) - start), category, level))
     return functions
 
 
@@ -202,13 +207,15 @@ def render(functions, units: int, complete: bool, old_status: dict[int, str] | N
     size = lambda pred: sum(f[1] for f in game if pred(f))
     defined = count(lambda f: f[3] == 2)
     folded = count(lambda f: f[3] == 1)
+    runtime = count(lambda f: f[3] == 3)
     defined_bytes, folded_bytes = size(lambda f: f[3] == 2), size(lambda f: f[3] == 1)
+    runtime_bytes = size(lambda f: f[3] == 3)
     matched, library = count(lambda f: f[2] == "M"), count(lambda f: f[2] == "L")
     near = count(lambda f: f[2] == "N")
     matched_bytes, library_bytes = size(lambda f: f[2] == "M"), size(lambda f: f[2] == "L")
     near_bytes = size(lambda f: f[2] == "N")
     either = count(lambda f: f[3] or f[2] in ("M", "L"))
-    played = defined + folded
+    played = defined + folded + runtime
 
     parts: list[str] = []
     add = parts.append
@@ -243,14 +250,10 @@ def render(functions, units: int, complete: bool, old_status: dict[int, str] | N
           "The compiler and libraries BioWare used: identical bytes.")
 
     y = top + 132
-    if complete:
-        text(add, left + 16, y, "Complete", 34, PLAY_COLOR, 700)
-        text(add, left + 185, y - 16, "builds the full game", 12.5, MUTED)
-        text(add, left + 185, y, f"game_complete in build-manifest.json", 11.5, DIM)
-    else:
-        text(add, left + 16, y, f"{played / total * 100:.1f}%", 34, PLAY_COLOR, 700)
-        text(add, left + 150, y - 16, "of functions decompiled", 12.5, MUTED)
-        text(add, left + 150, y, f"{played:,} / {total:,} functions", 11.5, DIM)
+    text(add, left + 16, y, f"{played / total * 100:.1f}%", 34, PLAY_COLOR, 700)
+    text(add, left + 150, y - 16, "of functions decompiled" + (" · builds the full game" if complete else ""),
+         12.5, MUTED)
+    text(add, left + 150, y, f"{played:,} / {total:,} · {total - played:,} not there yet", 11.5, DIM)
     text(add, right + 16, y, f"{matched / total * 100:.1f}%", 34, MATCH_COLOR, 700)
     text(add, right + 150, y - 16, "of functions decompiled byte-identical", 12.5, MUTED)
     text(add, right + 150, y, f"{matched:,} / {total:,} · {matched_bytes / game_bytes * 100:.1f}% of code "
@@ -258,12 +261,13 @@ def render(functions, units: int, complete: bool, old_status: dict[int, str] | N
 
     y += 16
     bar(add, left + 16, y, w - 32, 12, [(defined_bytes / game_bytes, PLAY_COLOR),
-                                        (folded_bytes / game_bytes, mix(PANEL, PLAY_COLOR, 0.55))])
+                                        (folded_bytes / game_bytes, mix(PANEL, PLAY_COLOR, 0.65)),
+                                        (runtime_bytes / game_bytes, mix(PANEL, PLAY_COLOR, 0.4))])
     bar(add, right + 16, y, w - 32, 12, [(matched_bytes / game_bytes, MATCH_COLOR),
                                          (library_bytes / game_bytes, LIB_COLOR),
                                          (near_bytes / game_bytes, NEAR_COLOR)])
     text(add, left + 16, y + 30, f"{defined:,} own definitions · {folded:,} folded into callers · "
-         f"C runtime from VS2022", 10.5, DIM)
+         f"{runtime:,} runtime (VS2022 library)", 10.5, DIM)
     text(add, right + 16, y + 30, f"+{library:,} identical to stock LIBCMT.LIB (no source needed) · "
          f"{near:,} attempts", 10.5, DIM)
 
@@ -314,8 +318,9 @@ def render(functions, units: int, complete: bool, old_status: dict[int, str] | N
     height = foot + 18
 
     desc = (f"Decompiled with Visual Studio 2022: "
-            f"{'complete, builds the full game' if complete else f'{played:,} of {total:,} functions'}"
-            f" ({defined:,} functions with their own definition, {folded:,} folded into others). "
+            f"{played:,} of {total:,} functions ({played / total * 100:.1f}%: {defined:,} with their own "
+            f"definition, {folded:,} folded into others, {runtime:,} C runtime from the VS2022 library)"
+            f"{', builds the full game' if complete else ''}. "
             f"Decompiled with the original Visual Studio .NET 2002 (MSVC 7.0), byte-identical: "
             f"{matched:,} functions "
             f"({matched / total * 100:.1f}%) compile to the original bytes, plus {library:,} "
@@ -352,8 +357,10 @@ def main() -> None:
         args.out.write_bytes(content.encode("utf-8"))  # LF on every OS
     defined = sum(1 for f in functions if f[3] == 2 and f[2] != "CG")
     matched = sum(1 for f in functions if f[2] == "M")
-    print(f"Tracker: modern toolchain {'complete' if complete else 'in progress'} "
-          f"({defined:,} own definitions), {matched:,} byte-identical -> {args.out}")
+    covered = sum(1 for f in functions if f[3] and f[2] != "CG")
+    total = sum(1 for f in functions if f[2] != "CG")
+    print(f"Tracker: modern toolchain {covered:,}/{total:,} ({defined:,} own definitions), "
+          f"{matched:,} byte-identical -> {args.out}")
 
 
 if __name__ == "__main__":

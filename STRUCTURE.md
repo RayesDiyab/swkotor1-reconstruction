@@ -12,9 +12,12 @@ that check each other:
 | Proof | Manual play (see [STATUS.md](STATUS.md)) | Each function compiles to the original's bytes |
 | Output | `swkotor-reconstructed.exe` | Per-function comparison now; the identical `swkotor.exe` later |
 
-Today the modern-toolchain build is complete: it builds the full game. Of
-the 9,252 functions, 7,232 have their own definition there and most of the
-rest are folded into other functions. The C runtime comes from VS2022.
+Today the modern-toolchain build covers 95.3% of the 9,252 functions and
+builds the full game:
+- 7,232 have their own definition
+- 1,323 are folded into other functions
+- 264 C runtime functions come from VS2022's library
+
 5,252 (56.8%) are byte-identical. The tracker in
 the README shows both, clearly separated.
 

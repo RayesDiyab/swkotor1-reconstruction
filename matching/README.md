@@ -106,11 +106,15 @@ so they are never added together:
 
 - **Modern toolchain** (blue, `src/`): decompiled C++ built with Visual
   Studio 2022 and its libraries. It behaves like the original, but the
-  bytes differ. It shows "Complete" while `build-manifest.json` says
-  `game_complete`. The bar and detail line split the functions into those
-  `src/` defines under their original address (`kotor_<cc>_<address>`) and
-  those it only cites, because they are folded into a caller or shared with
-  an identical function. The C runtime comes from VS2022. Its milestones
+  bytes differ. Its percentage counts three kinds of function:
+  - those `src/` defines under their original address
+    (`kotor_<cc>_<address>`)
+  - those it only cites, because they are folded into a caller or shared
+    with an identical function
+  - C runtime functions that VS2022's library supplies
+
+  What remains is code `src/` doesn't reference yet, such as the minigames
+  and probable leftovers, plus tiny stubs. Its milestones
   restate [STATUS.md](../STATUS.md); update `PLAYABLE` in the script when
   that file changes.
 - **Original toolchain, byte-identical** (green, `matching/`): decompiled
