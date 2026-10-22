@@ -11,6 +11,10 @@ that check each other:
 | Proof | Manual play (see [STATUS.md](STATUS.md)) | Each function compiles to the original's bytes |
 | Output | `swkotor-reconstructed.exe` | Per-function comparison now; the identical `swkotor.exe` later |
 
+Today the playable build defines 7,232 of the 9,252 functions (78.2%) and
+5,251 (56.8%) are byte-identical. Together they cover 91.4%. The tracker in
+the README shows both, clearly separated.
+
 Neither proof covers the other. Matching proves each function exact but
 can't show the game works as a whole. Play shows the game works but can't
 show any function is exact. The plan is to move functions from the playable

@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'src/**'
       - 'matching/status.csv'
       - 'matching/functions.csv'
       - 'matching/crt_libcmt.csv'

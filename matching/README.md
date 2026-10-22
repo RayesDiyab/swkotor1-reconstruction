@@ -94,25 +94,38 @@ python .\matching\tools\matchcmp.py --msvc "C:\Tools\msvc7" --exe "D:\Games\Star
 ## Progress tracker
 
 The tracker at the top of both READMEs, `matching/assets/progress.svg`,
-updates itself:
+shows the two decompilations side by side. They measure different things,
+so they are never added together:
+
+- **Playable decompilation** (blue, `src/`): behaviour-equivalent C++ built
+  with VS2022 and clang-cl. It runs the game, but its machine code differs
+  from the original. It counts the functions `src/` defines under their
+  original address (`kotor_<cc>_<address>`). That's a lower bound, because
+  the C runtime comes from VS2022 and some code is generated. Its
+  milestones restate [STATUS.md](../STATUS.md); update `PLAYABLE` in the
+  script when that file changes.
+- **Byte-identical decompilation** (green, `matching/`): source that MSVC
+  7.0 compiles to the original's exact bytes, from `status.csv`. Functions
+  identical to the stock `LIBCMT.LIB` (grey) need no source.
+- **Address map:** for every 4 KiB of the original code it shows what is
+  byte-identical, what is stock library, what exists only as playable C++,
+  and what neither has yet.
+
+It updates itself:
 
 1. After a matching change, rerun the tool with
    `--report matching/status.csv` and commit that file with the sources.
-2. On every push to `main` that changes `matching/status.csv`,
+2. The GitHub Actions workflow `update-progress-tracker.yml` runs
+   `tools/render_banner.py` and commits the refreshed SVG. It does this on
+   every push to `main` that changes `src/`, `matching/status.csv`,
    `matching/functions.csv`, `matching/crt_libcmt.csv`,
-   `build-manifest.json` or the renderer, the
-   GitHub Actions workflow `update-progress-tracker.yml` runs
-   `tools/render_banner.py` and commits the refreshed SVG. Its badge shows
-   the change in byte-identical functions since the previous
-   `status.csv`.
+   `build-manifest.json` or the renderer. Its badge shows the change in
+   byte-identical functions since the previous `status.csv`.
 
 `matching/functions.csv` lists the executable's 20,397 function starts. It
 holds addresses only, and `kind` is `eh` for the 11,730 compiler-generated
 EH funclets, which are not counted. Annotated functions missing from the
 list (585 today) are added to it, giving 9,252 functions in total.
-
-The playable-build row restates [STATUS.md](../STATUS.md). Update `PLAYABLE`
-in the script when that file changes.
 
 ## The C runtime: stock LIBCMT.LIB
 
