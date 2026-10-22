@@ -22,7 +22,7 @@ the original.
 
 ## Status
 
-When this directory was added, 5,755 functions were annotated and 5,251 of
+When this directory was added, 5,756 functions were annotated and 5,252 of
 them were byte-identical. The other 504 are best attempts (`NONMATCH`) kept
 for later passes. Another 395 functions are identical to the stock
 `LIBCMT.LIB` and need no source (see below). `status.csv` records every function's current result, and

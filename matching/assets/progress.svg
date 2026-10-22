@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="604" viewBox="0 0 960 604" role="img" aria-labelledby="card-title card-desc">
   <title id="card-title">KOTOR decompilation progress</title>
-  <desc id="card-desc">Decompiled with Visual Studio 2022: 7,232 of 9,252 functions. Decompiled with the original Visual Studio .NET 2002 (MSVC 7.0), byte-identical: 5,251 functions (56.8%) compile to the original bytes, plus 368 identical to the stock LIBCMT.LIB.</desc>
+  <desc id="card-desc">Decompiled with Visual Studio 2022: 7,232 of 9,252 functions. Decompiled with the original Visual Studio .NET 2002 (MSVC 7.0), byte-identical: 5,252 functions (56.8%) compile to the original bytes, plus 368 identical to the stock LIBCMT.LIB.</desc>
   <rect x="1" y="1" width="958" height="602" rx="14" fill="#090909" stroke="#343434" stroke-width="1.5"/>
   <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif">
     <text x="23" y="34" font-size="15" fill="#dedede" font-weight="600">Star Wars: Knights of the Old Republic — two decompilations of swkotor.exe 1.0.3.0 (GOG)</text>
     <text x="23" y="54" font-size="12" fill="#8a8a8a">Same executable, two toolchains: modern Visual Studio and its libraries, or the original compiler and libraries (byte-identical). Unofficial.</text>
-    <rect x="763.6" y="17" width="174.4" height="27" rx="14" fill="#062514"/>
-    <text x="850.8" y="35" font-size="12.5" fill="#33db73" font-weight="600" text-anchor="middle">+155 byte-identical</text>
+    <rect x="778.8" y="17" width="159.2" height="27" rx="14" fill="#062514"/>
+    <text x="858.4" y="35" font-size="12.5" fill="#33db73" font-weight="600" text-anchor="middle">+1 byte-identical</text>
     <rect x="23" y="72" width="450" height="236" rx="10" fill="#111214" stroke="#343434"/>
     <rect x="23" y="72" width="450" height="4" rx="2" fill="#6ba8ff"/>
     <text x="39" y="98" font-size="11" fill="#6ba8ff" font-weight="700">① MODERN TOOLCHAIN</text>
@@ -26,14 +26,14 @@
     <text x="173" y="204" font-size="11.5" fill="#8a8a8a">7,232 / 9,252 · 82.8% of code bytes</text>
     <text x="505" y="204" font-size="34" fill="#5be3a8" font-weight="700">56.8%</text>
     <text x="639" y="188" font-size="12.5" fill="#c9c9c9">of functions decompiled byte-identical</text>
-    <text x="639" y="204" font-size="11.5" fill="#8a8a8a">5,251 / 9,252 · 22.8% of code bytes</text>
+    <text x="639" y="204" font-size="11.5" fill="#8a8a8a">5,252 / 9,252 · 22.8% of code bytes</text>
     <rect x="39" y="220" width="418" height="12" rx="6.0" fill="#272727"/>
     <rect x="39.00" y="220" width="346.27" height="12" fill="#6ba8ff"/>
     <rect x="39" y="220" width="418" height="12" rx="6.0" fill="none" stroke="#111214" stroke-width="2"/>
     <rect x="505" y="220" width="418" height="12" rx="6.0" fill="#272727"/>
     <rect x="505.00" y="220" width="95.25" height="12" fill="#5be3a8"/>
     <rect x="600.25" y="220" width="9.14" height="12" fill="#9aa5b1"/>
-    <rect x="609.38" y="220" width="22.72" height="12" fill="#c9963a"/>
+    <rect x="609.39" y="220" width="22.72" height="12" fill="#c9963a"/>
     <rect x="505" y="220" width="418" height="12" rx="6.0" fill="none" stroke="#111214" stroke-width="2"/>
     <text x="39" y="250" font-size="10.5" fill="#8a8a8a">Count = functions src/ defines under their original address (lower bound).</text>
     <text x="505" y="250" font-size="10.5" fill="#8a8a8a">+368 identical to stock LIBCMT.LIB (no source needed) · 504 attempts</text>
@@ -645,7 +645,7 @@
     <text x="78" y="501" font-size="10" text-anchor="end" fill="#8a8a8a" font-family="Consolas, Menlo, monospace">0x00629000</text>
     <rect x="86.0" y="492" width="16.6" height="10" rx="2" fill="#6ba8ff"/>
     <rect x="104.6" y="492" width="16.6" height="10" rx="2" fill="#639ae7"/>
-    <rect x="123.2" y="492" width="16.6" height="10" rx="2" fill="#4eb589"/>
+    <rect x="123.2" y="492" width="16.6" height="10" rx="2" fill="#4eb689"/>
     <rect x="141.8" y="492" width="16.6" height="10" rx="2" fill="#5d8dd3"/>
     <rect x="160.4" y="492" width="16.6" height="10" rx="2" fill="#5c8ccf"/>
     <rect x="179.0" y="492" width="16.6" height="10" rx="2" fill="#5a87c8"/>

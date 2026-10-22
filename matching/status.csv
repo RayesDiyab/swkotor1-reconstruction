@@ -4913,6 +4913,7 @@ address,name,status,diff_insns,file
 0x0062AB30,CGuiInGame::ShowBarkBubble,MATCH,0,matching/src/c/gui_in_game.cpp
 0x0062ABF0,CGuiInGame::StartGlobalFade,MATCH,0,matching/src/c/gui_in_game.cpp
 0x0062AD60,CGuiInGame::UpdateMessageGUI,MATCH,0,matching/src/c/gui_in_game.cpp
+0x0062B050,CGuiInGame::UpdateCombatMode,MATCH,0,matching/src/n/gui_in_game_n.cpp
 0x0062B150,CGuiInGame::RemoveGUIPopUps,NONMATCH,2,matching/src/c/gui_in_game_dialog.cpp
 0x0062B1E0,CGuiInGame::SetCurrentPanel,MATCH,0,matching/src/c/gui_in_game_dialog.cpp
 0x0062B440,CGuiInGame::SetLipSyncData,MATCH,0,matching/src/c/gui_in_game_dialog.cpp

@@ -6041,7 +6041,7 @@ _NewCAurGUIImage,_NewCAurGUIImage,0x0045A260,calls,4
 ?UpdateMessageGUI@CGuiInGame@@QAEHXZ,public: int __thiscall CGuiInGame::UpdateMessageGUI(void),0x0062AD60,defines,2
 ?SelectReply@CGuiInGame@@QAEXHHH@Z,"public: void __thiscall CGuiInGame::SelectReply(int,int,int)",0x0062ADA0,calls,2
 ?IndicateObject@CGuiInGame@@QAEXK@Z,public: void __thiscall CGuiInGame::IndicateObject(unsigned long),0x0062B000,calls,2
-?UpdateCombatMode@CGuiInGame@@QAEXXZ,public: void __thiscall CGuiInGame::UpdateCombatMode(void),0x0062B050,calls,1
+?UpdateCombatMode@CGuiInGame@@QAEXXZ,public: void __thiscall CGuiInGame::UpdateCombatMode(void),0x0062B050,defines,2
 ?GetMapPanel@CGuiInGame@@QAEPAVCSWGuiInGameMap@@HH@Z,"public: class CSWGuiInGameMap * __thiscall CGuiInGame::GetMapPanel(int,int)",0x0062B060,calls,1
 ?FlashStatus@CGuiInGame@@QAEXH@Z,public: void __thiscall CGuiInGame::FlashStatus(int),0x0062B0B0,calls,1
 ?TestTutorialWindow@CGuiInGame@@QAEHH@Z,public: int __thiscall CGuiInGame::TestTutorialWindow(int),0x0062B0D0,calls,1
@@ -6653,7 +6653,7 @@ _NewCAurGUIImage,_NewCAurGUIImage,0x0045A260,calls,4
 ?DoAction@CSWGuiMainInterfaceBC@@QAEXHH@Z,"public: void __thiscall CSWGuiMainInterfaceBC::DoAction(int,int)",0x00689610,calls,1
 ??0CSWGuiMainInterfaceChar@@QAE@XZ,public: __thiscall CSWGuiMainInterfaceChar::CSWGuiMainInterfaceChar(void),0x00689C00,defines,1
 ??1CSWGuiMainInterfaceChar@@QAE@XZ,public: __thiscall CSWGuiMainInterfaceChar::~CSWGuiMainInterfaceChar(void),0x00689CC0,defines,3
-?UpdateActions@CSWGuiMainInterface@@QAEXXZ,public: void __thiscall CSWGuiMainInterface::UpdateActions(void),0x00689D80,calls,1
+?UpdateActions@CSWGuiMainInterface@@QAEXXZ,public: void __thiscall CSWGuiMainInterface::UpdateActions(void),0x00689D80,calls,2
 ?UpdateQueue@CSWGuiMainInterface@@QAEXXZ,public: void __thiscall CSWGuiMainInterface::UpdateQueue(void),0x0068A010,calls,1
 ?UpdateParty@CSWGuiMainInterface@@QAEXM@Z,public: void __thiscall CSWGuiMainInterface::UpdateParty(float),0x0068A310,calls,1
 ?DrawMap@CSWGuiMainInterface@@QAEXM@Z,public: void __thiscall CSWGuiMainInterface::DrawMap(float),0x0068AB10,calls,1

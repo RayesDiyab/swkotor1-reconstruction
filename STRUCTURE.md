@@ -13,7 +13,7 @@ that check each other:
 | Output | `swkotor-reconstructed.exe` | Per-function comparison now; the identical `swkotor.exe` later |
 
 Today the playable build defines 7,232 of the 9,252 functions (78.2%) and
-5,251 (56.8%) are byte-identical. Together they cover 91.4%. The tracker in
+5,252 (56.8%) are byte-identical. Together they cover 91.4%. The tracker in
 the README shows both, clearly separated.
 
 Neither proof covers the other. Matching proves each function exact but
@@ -69,7 +69,7 @@ proceed without touching the same files, and say nothing about subsystems.
 ### 1. Side by side (this change)
 
 The matching track lives next to the playable build. Today:
-- **5,251** functions are byte-identical and **504** are attempts not yet
+- **5,252** functions are byte-identical and **504** are attempts not yet
   identical, out of about 9,250 functions. EH funclets are excluded; the
   compiler emits those from their parent functions.
 - **The C runtime is the stock VS.NET 2002 `LIBCMT.LIB`.** In the CRT band,
@@ -86,8 +86,8 @@ connects the two automatically. Each relocation in a byte-identical
 function sits where the original holds the real address, so reading the
 original there tells you which address each symbol stands for.
 `matching/symbols.csv` currently maps 9,510 symbols:
-- 5,231 functions defined by matched code
-- 1,963 functions it calls
+- 5,232 functions defined by matched code
+- 1,962 functions it calls
 - 2,316 data symbols: globals, vtables and strings
 
 With that map, `build.py` could gain an opt-in switch (proposed, not
@@ -134,7 +134,7 @@ to run the tools, and the source-shape patterns that make functions match.
 2. **Reproduce the numbers** (needs MSVC 7.0 and your exe; see
    [matching/CONTRIBUTING.md](matching/CONTRIBUTING.md)):
    ```powershell
-   python .\matching\tools\matchcmp.py -q matching\src                 # 5,251 / 5,755
+   python .\matching\tools\matchcmp.py -q matching\src                 # 5,252 / 5,756
    python .\matching\tools\libmatch.py "<msvc7>\LIB\LIBCMT.LIB" "<swkotor.exe>" out.csv
    python .\matching\tools\render_banner.py                            # tracker, no compiler needed
    ```
