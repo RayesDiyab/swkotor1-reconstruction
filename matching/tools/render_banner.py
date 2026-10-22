@@ -5,9 +5,11 @@ The tracker shows the two decompilations of swkotor.exe side by side, so
 they are never confused:
 
 - Modern-toolchain decompilation (src/, VS2022 + clang-cl): behaviour-equivalent
-  C++ built with modern Visual Studio. Coverage counts the functions src/
-  defines under their original address (kotor_<cc>_<address>), which is a
-  lower bound. Milestones restate STATUS.md; edit PLAYABLE when it changes.
+  C++ built with modern Visual Studio. Shown as "Complete" while
+  build-manifest.json says game_complete. Detail counts the functions src/
+  defines under their original address (kotor_<cc>_<address>) and those it
+  only cites (folded into a caller or shared). Milestones restate STATUS.md;
+  edit PLAYABLE when it changes.
 - Original-toolchain, byte-identical decompilation (matching/, MSVC 7.0): source that compiles
   to the original's exact bytes, from matching/status.csv (matchcmp.py
   --report). Functions identical to the stock LIBCMT.LIB come from
@@ -83,18 +85,26 @@ def previous_status(report: Path, current: dict[int, str]) -> dict[int, str] | N
     return None
 
 
-def playable_definitions() -> set[int]:
-    """Original addresses that src/ defines a function for."""
-    found = set()
+CITED = re.compile(r"(?<![0-9A-Fa-fx])(00[4-7][0-9A-Fa-f]{5})(?![0-9A-Fa-f])")
+
+
+def playable_coverage() -> dict[int, int]:
+    """Original address -> 2 if src/ defines a function under that address,
+    1 if src/ only cites it (inlined, folded into a caller, or shared with an
+    identical function)."""
+    coverage: dict[int, int] = {}
     for path in (ROOT / "src").rglob("*"):
         if path.suffix in SOURCE_SUFFIXES:
             text = path.read_text(encoding="utf-8", errors="replace")
-            found.update(int(m.group(1), 16) for m in DEFINITION.finditer(text))
-    return found
+            for m in CITED.finditer(text):
+                coverage.setdefault(int(m.group(1), 16), 1)
+            for m in DEFINITION.finditer(text):
+                coverage[int(m.group(1), 16)] = 2
+    return coverage
 
 
-def load_functions(status: dict[int, str], table: Path, playable: set[int]):
-    """[(start, size, category, in playable build)].
+def load_functions(status: dict[int, str], table: Path, playable: dict[int, int]):
+    """[(start, size, category, playable coverage 0/1/2)].
 
     Category: M byte-identical, L identical to the stock VS.NET 2002
     LIBCMT.LIB, N matching attempt, T no matched source, CG EH funclet.
@@ -115,7 +125,7 @@ def load_functions(status: dict[int, str], table: Path, playable: set[int]):
         category = ("M" if state == "MATCH" else "CG" if kinds[start] == "eh"
                     else "L" if start in library else "N" if state else "T")
         functions.append((start, max(0, min(end, TEXT_END) - start), category,
-                          start in playable))
+                          playable.get(start, 0)))
     return functions
 
 
@@ -183,20 +193,22 @@ def panel(add, x0, y0, w, h, color, kicker, author, title, toolchain, claim) -> 
     text(add, x0 + 16, y0 + 82, claim, 12, MUTED)
 
 
-def render(functions, units: int, old_status: dict[int, str] | None) -> str:
+def render(functions, units: int, complete: bool, old_status: dict[int, str] | None) -> str:
     game = [f for f in functions if f[2] != "CG"]
     total = len(game)
     game_bytes = sum(f[1] for f in game) or 1
     eh = len(functions) - total
     count = lambda pred: sum(1 for f in game if pred(f))
     size = lambda pred: sum(f[1] for f in game if pred(f))
-    played = count(lambda f: f[3])
-    played_bytes = size(lambda f: f[3])
+    defined = count(lambda f: f[3] == 2)
+    folded = count(lambda f: f[3] == 1)
+    defined_bytes, folded_bytes = size(lambda f: f[3] == 2), size(lambda f: f[3] == 1)
     matched, library = count(lambda f: f[2] == "M"), count(lambda f: f[2] == "L")
     near = count(lambda f: f[2] == "N")
     matched_bytes, library_bytes = size(lambda f: f[2] == "M"), size(lambda f: f[2] == "L")
     near_bytes = size(lambda f: f[2] == "N")
     either = count(lambda f: f[3] or f[2] in ("M", "L"))
+    played = defined + folded
 
     parts: list[str] = []
     add = parts.append
@@ -231,22 +243,27 @@ def render(functions, units: int, old_status: dict[int, str] | None) -> str:
           "The compiler and libraries BioWare used: identical bytes.")
 
     y = top + 132
-    text(add, left + 16, y, f"{played / total * 100:.1f}%", 34, PLAY_COLOR, 700)
-    text(add, left + 150, y - 16, "of functions decompiled", 12.5, MUTED)
-    text(add, left + 150, y, f"{played:,} / {total:,} · {played_bytes / game_bytes * 100:.1f}% of code "
-         f"bytes", 11.5, DIM)
+    if complete:
+        text(add, left + 16, y, "Complete", 34, PLAY_COLOR, 700)
+        text(add, left + 185, y - 16, "builds the full game", 12.5, MUTED)
+        text(add, left + 185, y, f"game_complete in build-manifest.json", 11.5, DIM)
+    else:
+        text(add, left + 16, y, f"{played / total * 100:.1f}%", 34, PLAY_COLOR, 700)
+        text(add, left + 150, y - 16, "of functions decompiled", 12.5, MUTED)
+        text(add, left + 150, y, f"{played:,} / {total:,} functions", 11.5, DIM)
     text(add, right + 16, y, f"{matched / total * 100:.1f}%", 34, MATCH_COLOR, 700)
     text(add, right + 150, y - 16, "of functions decompiled byte-identical", 12.5, MUTED)
     text(add, right + 150, y, f"{matched:,} / {total:,} · {matched_bytes / game_bytes * 100:.1f}% of code "
          f"bytes", 11.5, DIM)
 
     y += 16
-    bar(add, left + 16, y, w - 32, 12, [(played_bytes / game_bytes, PLAY_COLOR)])
+    bar(add, left + 16, y, w - 32, 12, [(defined_bytes / game_bytes, PLAY_COLOR),
+                                        (folded_bytes / game_bytes, mix(PANEL, PLAY_COLOR, 0.55))])
     bar(add, right + 16, y, w - 32, 12, [(matched_bytes / game_bytes, MATCH_COLOR),
                                          (library_bytes / game_bytes, LIB_COLOR),
                                          (near_bytes / game_bytes, NEAR_COLOR)])
-    text(add, left + 16, y + 30, "Count = functions src/ defines under their original address "
-         "(lower bound).", 10.5, DIM)
+    text(add, left + 16, y + 30, f"{defined:,} own definitions · {folded:,} folded into callers · "
+         f"C runtime from VS2022", 10.5, DIM)
     text(add, right + 16, y + 30, f"+{library:,} identical to stock LIBCMT.LIB (no source needed) · "
          f"{near:,} attempts", 10.5, DIM)
 
@@ -263,7 +280,7 @@ def render(functions, units: int, old_status: dict[int, str] | None) -> str:
     map_top = top + h + 40
     text(add, 23, map_top - 10, "Address map — 4 KiB per cell", 13, "#dedede", 550)
     key = [(MATCH_COLOR, "byte-identical"), (LIB_COLOR, "stock LIBCMT"),
-           (PLAY_COLOR, "modern toolchain only"), (CG_COLOR, "compiler-generated"),
+           (PLAY_COLOR, "modern toolchain"), (CG_COLOR, "compiler-generated"),
            (TODO_COLOR, "neither yet")]
     kx = 939
     for color, label in reversed(key):
@@ -296,7 +313,9 @@ def render(functions, units: int, old_status: dict[int, str] | None) -> str:
          f"{eh:,} EH funclets excluded.", 11.5, DIM)
     height = foot + 18
 
-    desc = (f"Decompiled with Visual Studio 2022: {played:,} of {total:,} functions. "
+    desc = (f"Decompiled with Visual Studio 2022: "
+            f"{'complete, builds the full game' if complete else f'{played:,} of {total:,} functions'}"
+            f" ({defined:,} functions with their own definition, {folded:,} folded into others). "
             f"Decompiled with the original Visual Studio .NET 2002 (MSVC 7.0), byte-identical: "
             f"{matched:,} functions "
             f"({matched / total * 100:.1f}%) compile to the original bytes, plus {library:,} "
@@ -325,14 +344,16 @@ def main() -> None:
     manifest = json.loads((ROOT / "build-manifest.json").read_text(encoding="utf-8"))
     units = len(manifest["targets"]["game"]["units"])
     status = read_status(args.report.read_text(encoding="utf-8"))
-    functions = load_functions(status, args.function_table, playable_definitions())
+    complete = bool(manifest.get("game_complete"))
+    functions = load_functions(status, args.function_table, playable_coverage())
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    content = render(functions, units, previous_status(args.report, status))
+    content = render(functions, units, complete, previous_status(args.report, status))
     if not args.out.exists() or args.out.read_bytes() != content.encode("utf-8"):
         args.out.write_bytes(content.encode("utf-8"))  # LF on every OS
-    played = sum(1 for f in functions if f[3] and f[2] != "CG")
+    defined = sum(1 for f in functions if f[3] == 2 and f[2] != "CG")
     matched = sum(1 for f in functions if f[2] == "M")
-    print(f"Tracker: {played:,} playable, {matched:,} byte-identical -> {args.out}")
+    print(f"Tracker: modern toolchain {'complete' if complete else 'in progress'} "
+          f"({defined:,} own definitions), {matched:,} byte-identical -> {args.out}")
 
 
 if __name__ == "__main__":
