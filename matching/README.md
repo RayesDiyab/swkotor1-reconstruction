@@ -1,5 +1,7 @@
 # Matching reconstruction (MSVC 7.0)
 
+![Reconstruction progress: playable build and MSVC 7.0 matching track](assets/progress.svg)
+
 This directory holds a second, independent track: C++ source that compiles
 with the original toolchain to the **same machine code** as the GOG 1.03
 `swkotor.exe`, function by function. It does not change or replace the
