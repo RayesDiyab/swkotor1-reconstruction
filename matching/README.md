@@ -45,8 +45,9 @@ the tracker above is rebuilt from it.
 - `status.csv`, `functions.csv`: the tracker's inputs.
 
 Some file comments cite paths in the upstream working repository
-(`src/batches/...`, `functions.csv`). These were navigation notes there and
-have no counterpart here.
+(`src/batches/...`, `docs/batches/worker-*-notes.md`, `reverse/functions.csv`)
+or name the parallel worker that wrote them ("worker C"). These were
+navigation notes there and have no counterpart here.
 
 ## Annotations
 

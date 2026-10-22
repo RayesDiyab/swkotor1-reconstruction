@@ -4,7 +4,7 @@ For every code section in every member object, split it at its function
 symbols, mask bytes covered by relocations, and search the exe's .text for
 an exact masked match. Prints a CSV of (exe address, symbol, size, object).
 
-usage: python tools/matching/libmatch.py "C:/KoTor RE/tools/msvc7/LIB/LIBCMT.LIB" swkotor.exe out.csv
+usage: python matching/tools/libmatch.py <msvc7>/LIB/LIBCMT.LIB <swkotor.exe> out.csv
 
 matching/crt_libcmt.csv keeps the hits at 0x006F0000 and up with a single
 placement (LIBCMT, LIBCPMT, LIBCIMT). Functions under 6 bytes are skipped.
