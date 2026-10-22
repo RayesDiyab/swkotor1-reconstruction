@@ -123,7 +123,7 @@ def main():
                              len(hits)))
     rows.sort()
     with open(out, "w", newline="") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")
         w.writerow(["address", "symbol", "size", "object", "hits"])
         w.writerows(rows)
     print(f"{lib}: {objs} objects, {total} functions, {len(rows)} placements, "

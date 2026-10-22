@@ -10,12 +10,14 @@
     <rect x="23" y="72" width="450" height="236" rx="10" fill="#111214" stroke="#343434"/>
     <rect x="23" y="72" width="450" height="4" rx="2" fill="#6ba8ff"/>
     <text x="39" y="98" font-size="11" fill="#6ba8ff" font-weight="700">① MODERN TOOLCHAIN</text>
+    <text x="457" y="98" font-size="11" fill="#c9c9c9" font-weight="600" text-anchor="end">by mattlgroff</text>
     <text x="39" y="118" font-size="15" fill="#f4f4f5" font-weight="650">Decompiled with Visual Studio 2022</text>
     <text x="39" y="136" font-size="11.5" fill="#8a8a8a">src/ · VS2022 MSVC + clang-cl · C++17 · 1,862 units</text>
     <text x="39" y="154" font-size="12" fill="#c9c9c9">Modern compiler and libraries: same behaviour, different bytes.</text>
     <rect x="489" y="72" width="450" height="236" rx="10" fill="#111214" stroke="#343434"/>
     <rect x="489" y="72" width="450" height="4" rx="2" fill="#5be3a8"/>
     <text x="505" y="98" font-size="11" fill="#5be3a8" font-weight="700">② ORIGINAL TOOLCHAIN · BYTE-IDENTICAL</text>
+    <text x="923" y="98" font-size="11" fill="#c9c9c9" font-weight="600" text-anchor="end">by RayesDiyab</text>
     <text x="505" y="118" font-size="15" fill="#f4f4f5" font-weight="650">Decompiled with Visual Studio .NET 2002</text>
     <text x="505" y="136" font-size="11.5" fill="#8a8a8a">matching/ · MSVC 7.0 (cl 13.00.9466) + original LIBCMT.LIB</text>
     <text x="505" y="154" font-size="12" fill="#c9c9c9">The compiler and libraries BioWare used: identical bytes.</text>

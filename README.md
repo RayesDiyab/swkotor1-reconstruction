@@ -4,7 +4,12 @@ This project reconstructs the **GOG Windows 1.03** version of **Star Wars: Knigh
 
 ![Reconstruction progress: playable build and MSVC 7.0 matching track](matching/assets/progress.svg)
 
-*This project has two builds from one source: the playable build in `src/` and a byte-identical MSVC 7.0 matching build in `matching/`. See [STRUCTURE.md](STRUCTURE.md). Playable-build milestones follow [STATUS.md](STATUS.md).*
+This project has two decompilations of the same executable:
+
+- `src/`: built with modern Visual Studio 2022 and its libraries. Work of [mattlgroff](https://github.com/mattlgroff).
+- `matching/`: built with the original Visual Studio .NET 2002 and its libraries, so it is byte-identical. Work of [RayesDiyab](https://github.com/RayesDiyab).
+
+See [STRUCTURE.md](STRUCTURE.md). Milestones follow [STATUS.md](STATUS.md).
 
 ## Supported version
 

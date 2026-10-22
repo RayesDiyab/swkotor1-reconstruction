@@ -173,10 +173,11 @@ def steps(add, x0, y0, width, items, color) -> None:
         text(add, f"{x + 16:.1f}", y0 + 4, label, 10.5, TEXT if state != "todo" else DIM)
 
 
-def panel(add, x0, y0, w, h, color, kicker, title, toolchain, claim) -> None:
+def panel(add, x0, y0, w, h, color, kicker, author, title, toolchain, claim) -> None:
     add(f'<rect x="{x0}" y="{y0}" width="{w}" height="{h}" rx="10" fill="{PANEL}" stroke="{BORDER}"/>')
     add(f'<rect x="{x0}" y="{y0}" width="{w}" height="4" rx="2" fill="{color}"/>')
     text(add, x0 + 16, y0 + 26, kicker, 11, color, 700)
+    text(add, x0 + w - 16, y0 + 26, author, 11, MUTED, 600, "end")
     text(add, x0 + 16, y0 + 46, title, 15, TEXT, 650)
     text(add, x0 + 16, y0 + 64, toolchain, 11.5, DIM)
     text(add, x0 + 16, y0 + 82, claim, 12, MUTED)
@@ -220,11 +221,11 @@ def render(functions, units: int, old_status: dict[int, str] | None) -> str:
     # Two panels.
     top, w, h = 72, 450, 236
     left, right = 23, 489
-    panel(add, left, top, w, h, PLAY_COLOR, "① MODERN TOOLCHAIN",
+    panel(add, left, top, w, h, PLAY_COLOR, "① MODERN TOOLCHAIN", "by mattlgroff",
           "Decompiled with Visual Studio 2022",
           f"src/ · VS2022 MSVC + clang-cl · C++17 · {units:,} units",
           "Modern compiler and libraries: same behaviour, different bytes.")
-    panel(add, right, top, w, h, MATCH_COLOR, "② ORIGINAL TOOLCHAIN · BYTE-IDENTICAL",
+    panel(add, right, top, w, h, MATCH_COLOR, "② ORIGINAL TOOLCHAIN · BYTE-IDENTICAL", "by RayesDiyab",
           "Decompiled with Visual Studio .NET 2002",
           "matching/ · MSVC 7.0 (cl 13.00.9466) + original LIBCMT.LIB",
           "The compiler and libraries BioWare used: identical bytes.")
@@ -327,8 +328,8 @@ def main() -> None:
     functions = load_functions(status, args.function_table, playable_definitions())
     args.out.parent.mkdir(parents=True, exist_ok=True)
     content = render(functions, units, previous_status(args.report, status))
-    if not args.out.exists() or args.out.read_text(encoding="utf-8") != content:
-        args.out.write_text(content, encoding="utf-8")
+    if not args.out.exists() or args.out.read_bytes() != content.encode("utf-8"):
+        args.out.write_bytes(content.encode("utf-8"))  # LF on every OS
     played = sum(1 for f in functions if f[3] and f[2] != "CG")
     matched = sum(1 for f in functions if f[2] == "M")
     print(f"Tracker: {played:,} playable, {matched:,} byte-identical -> {args.out}")

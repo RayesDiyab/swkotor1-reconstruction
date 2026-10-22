@@ -5,6 +5,7 @@ that check each other:
 
 | | Playable build | Matching build |
 | --- | --- | --- |
+| Work of | [mattlgroff](https://github.com/mattlgroff) | [RayesDiyab](https://github.com/RayesDiyab) |
 | Goal | The game runs and can be modded | The source is the original, byte for byte |
 | Toolchain | VS2022 MSVC + clang-cl, C++17 | Visual Studio .NET 2002 (MSVC 7.0, `cl` 13.00.9466), as named in the exe's Rich header |
 | Where | `src/`, `build.py`, `build-manifest.json` | `matching/` |
@@ -20,6 +21,15 @@ can't show the game works as a whole. Play shows the game works but can't
 show any function is exact. The plan is to move functions from the playable
 build to matched source one at a time, without ever breaking the playable
 build.
+
+## Credit
+
+The modern-toolchain decompilation (`src/`, `build.py`, the generators, the
+build manifest and STATUS.md) is mattlgroff's work. The byte-identical
+decompilation (`matching/`: the matched sources and headers, the tools,
+the LIBCMT and symbol-map findings, and the tracker) is RayesDiyab's work.
+Both are co-maintained here. Contributions keep their authors' credit
+through git history.
 
 ## Layout
 

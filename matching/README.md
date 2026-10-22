@@ -1,4 +1,9 @@
-# Matching reconstruction (MSVC 7.0)
+# Byte-identical decompilation (MSVC 7.0)
+
+The byte-identical decompilation is the work of
+[RayesDiyab](https://github.com/RayesDiyab). The modern-toolchain
+decompilation in `src/` is the work of
+[mattlgroff](https://github.com/mattlgroff).
 
 ![Reconstruction progress: playable build and MSVC 7.0 matching track](assets/progress.svg)
 
