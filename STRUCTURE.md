@@ -145,5 +145,3 @@ to run the tools, and the source-shape patterns that make functions match.
    ```
 3. **Contributing afterwards:** people and AI agents follow
    [matching/CONTRIBUTING.md](matching/CONTRIBUTING.md).
-   `matching/CLAUDE.md` gives Claude Code the same rules whenever it works
-   inside `matching/`.
