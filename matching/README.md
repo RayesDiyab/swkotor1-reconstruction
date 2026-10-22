@@ -16,7 +16,8 @@ the original.
 
 When this directory was added, 5,592 functions were annotated and 5,096 of
 them were byte-identical. The other 496 are best attempts (`NONMATCH`) kept
-for later passes. Rerun the tool with `--report` for current numbers.
+for later passes. `status.csv` records every function's current result, and
+the tracker above is rebuilt from it.
 
 ## Layout
 
@@ -28,6 +29,8 @@ for later passes. Rerun the tool with `--report` for current numbers.
   at their original offsets, virtuals in vtable order, and callees declared
   but not defined.
 - `tools/matchcmp.py`: the compile-and-compare tool.
+- `tools/render_banner.py`, `assets/progress.svg`: the progress tracker.
+- `status.csv`, `functions.csv`: the tracker's inputs.
 
 Some file comments cite paths in the upstream working repository
 (`src/batches/...`, `functions.csv`). These were navigation notes there and
@@ -71,8 +74,8 @@ python .\matching\tools\matchcmp.py --msvc "C:\Tools\msvc7" --exe "D:\Games\Star
 
 - `-v` prints a side-by-side disassembly (original | ours) for misses, with
   `!!` marking the differing instructions.
-- `--report status.csv` writes one row per annotated function. Write it
-  outside the checkout.
+- `--report matching/status.csv` writes one row per annotated function. It
+  feeds the progress tracker; see below.
 - `--function-table` takes an optional CSV of function starts (an `address`
   column). Without one, function ends come from the annotations and the
   original's direct call targets. That is slightly stricter: on the current
@@ -83,15 +86,27 @@ python .\matching\tools\matchcmp.py --msvc "C:\Tools\msvc7" --exe "D:\Games\Star
 - Use the dash form of the flags (`-O2`, not `/O2`) from Git Bash, which
   rewrites `/O2` into a path.
 
-## Banner
+## Progress tracker
 
-`matching/assets/progress.svg` (shown in the top-level README) is written by
-`tools/render_banner.py` from a `--report` CSV and a function table. The
-playable-build milestones in it are copied from [STATUS.md](../STATUS.md);
-update `PLAYABLE` in the script when that changes. The committed banner
-counts 9,196 functions: the 8,667 non-compiler-generated entries of the
-upstream Ghidra function table, plus 529 annotated functions that table had
-missed.
+The tracker at the top of both READMEs, `matching/assets/progress.svg`,
+updates itself:
+
+1. After a matching change, rerun the tool with
+   `--report matching/status.csv` and commit that file with the sources.
+2. On every push to `main` that changes `matching/status.csv`,
+   `matching/functions.csv`, `build-manifest.json` or the renderer, the
+   GitHub Actions workflow `update-progress-tracker.yml` runs
+   `tools/render_banner.py` and commits the refreshed SVG. Its badge shows
+   the change in byte-identical functions since the previous
+   `status.csv`.
+
+`matching/functions.csv` lists the executable's 20,397 function starts. It
+holds addresses only, and `kind` is `eh` for the 11,730 compiler-generated
+EH funclets, which are not counted. Annotated functions missing from the
+list (529 today) are added to it, giving 9,196 functions in total.
+
+The playable-build row restates [STATUS.md](../STATUS.md). Update `PLAYABLE`
+in the script when that file changes.
 
 ## Source-shape notes
 

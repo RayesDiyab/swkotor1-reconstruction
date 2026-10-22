@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
-"""Render matching/assets/progress.svg, the project banner.
+"""Render matching/assets/progress.svg, the project's progress tracker.
 
 The top half restates the playable build's state from STATUS.md (edit
 PLAYABLE when it changes). The bottom half measures the matching track from
-a matchcmp.py --report CSV.
-
-Percentages need a list of the executable's functions: pass a CSV with an
-"address" column (and optionally "validation_level", where "CG" marks
+matching/status.csv (written by matchcmp.py --report) against
+matching/functions.csv, the executable's function starts ("kind" eh marks
 compiler-generated EH funclets, which are excluded). Annotated addresses
 missing from that list are added to it. Function sizes run from each start
 to the next, so byte figures include alignment padding.
 
-usage: python render_banner.py --report status.csv --function-table functions.csv
+The change badge compares matching/status.csv with its previous committed
+revision. CI reruns this on every push that changes those files.
 """
 
 from __future__ import annotations
@@ -20,6 +19,7 @@ import argparse
 import bisect
 import csv
 import json
+import subprocess
 from html import escape
 from pathlib import Path
 
@@ -46,12 +46,31 @@ TODO_COLOR, CG_COLOR, PENDING = "#272727", "#4a3f6b", "#3a3a3a"
 STATE_COLOR = {"done": PLAY_COLOR, "open": NEAR_COLOR, "todo": PENDING}
 
 
-def load_functions(report: Path, table: Path) -> list[tuple[int, int, str]]:
+def read_status(text: str) -> dict[int, str]:
+    return {int(r["address"], 16): r["status"] for r in csv.DictReader(text.splitlines())}
+
+
+def previous_status(report: Path, current: dict[int, str]) -> dict[int, str] | None:
+    """The most recent committed revision of the report that differs from now."""
+    try:
+        relative = report.resolve().relative_to(ROOT).as_posix()
+        history = subprocess.run(["git", "log", "-n", "3", "--format=%H", "--", relative],
+                                 cwd=ROOT, capture_output=True, text=True, check=True).stdout.split()
+        for rev in history:
+            text = subprocess.run(["git", "show", f"{rev}:{relative}"], cwd=ROOT,
+                                  capture_output=True, text=True, check=True).stdout
+            old = read_status(text)
+            if old != current:
+                return old
+    except (OSError, ValueError, KeyError, subprocess.CalledProcessError):
+        pass
+    return None
+
+
+def load_functions(status: dict[int, str], table: Path) -> list[tuple[int, int, str]]:
     """(start, size, category): M byte-identical, N attempt, T to do, CG."""
-    with report.open(encoding="utf-8") as source:
-        status = {int(r["address"], 16): r["status"] for r in csv.DictReader(source)}
     with table.open(encoding="utf-8") as source:
-        levels = {int(r["address"], 16): r.get("validation_level", "")
+        levels = {int(r["address"], 16): "CG" if r.get("kind") == "eh" else ""
                   for r in csv.DictReader(source)}
     for address in status:
         levels.setdefault(address, "")
@@ -108,7 +127,7 @@ def heading(add, y, text) -> None:
     add(f'<text x="23" y="{y}" font-size="13" font-weight="550" fill="#dedede">{escape(text)}</text>')
 
 
-def render(functions, units: int) -> str:
+def render(functions, units: int, old_status: dict[int, str] | None) -> str:
     counts = {c: sum(1 for f in functions if f[2] == c) for c in ("M", "N", "T", "CG")}
     matched, near = counts["M"], counts["N"]
     total = matched + near + counts["T"]
@@ -123,6 +142,20 @@ def render(functions, units: int) -> str:
         'Star Wars: Knights of the Old Republic reconstruction — GOG 1.03 swkotor.exe 1.0.3.0</text>')
     add(f'<text x="23" y="54" font-size="12" fill="{DIM}">Unofficial. Bring your own purchased game; '
         f'no original code or assets are distributed.</text>')
+    badge, badge_fg, badge_bg = "Tracking", "#a1a1aa", "#222225"
+    if old_status is not None:
+        diff = matched - sum(1 for v in old_status.values() if v == "MATCH")
+        if diff > 0:
+            badge, badge_fg, badge_bg = f"+{diff:,} matching", "#33db73", "#062514"
+        elif diff < 0:
+            badge, badge_fg, badge_bg = f"{diff:,} matching", "#fca5a5", "#371517"
+        else:
+            badge = "No change"
+    badge_w = max(112, 30 + len(badge) * 8.0)
+    badge_x = 938 - badge_w
+    add(f'<rect x="{badge_x:.1f}" y="17" width="{badge_w:.1f}" height="27" rx="14" fill="{badge_bg}"/>')
+    add(f'<text x="{badge_x + badge_w / 2:.1f}" y="35" font-size="13" font-weight="600" '
+        f'text-anchor="middle" fill="{badge_fg}">{badge}</text>')
 
     # Playable build.
     heading(add, 90, f"Playable build (src/) — {units:,} source units, links swkotor-reconstructed.exe")
@@ -203,16 +236,20 @@ def render(functions, units: int) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--report", type=Path, required=True, help="matchcmp.py --report CSV")
-    parser.add_argument("--function-table", type=Path, required=True,
-                        help="CSV of function starts (address, optional validation_level)")
+    parser.add_argument("--report", type=Path, default=ROOT / "matching" / "status.csv",
+                        help="matchcmp.py --report CSV")
+    parser.add_argument("--function-table", type=Path, default=ROOT / "matching" / "functions.csv",
+                        help="CSV of function starts (address, kind)")
     parser.add_argument("--out", type=Path, default=OUTPUT)
     args = parser.parse_args()
     manifest = json.loads((ROOT / "build-manifest.json").read_text(encoding="utf-8"))
     units = len(manifest["targets"]["game"]["units"])
-    functions = load_functions(args.report, args.function_table)
+    status = read_status(args.report.read_text(encoding="utf-8"))
+    functions = load_functions(status, args.function_table)
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(render(functions, units), encoding="utf-8")
+    content = render(functions, units, previous_status(args.report, status))
+    if not args.out.exists() or args.out.read_text(encoding="utf-8") != content:
+        args.out.write_text(content, encoding="utf-8")
     print(f"Banner: {sum(1 for f in functions if f[2] == 'M'):,} byte-identical functions -> {args.out}")
 
 
