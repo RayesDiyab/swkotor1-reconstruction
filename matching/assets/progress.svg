@@ -1,29 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="604" viewBox="0 0 960 604" role="img" aria-labelledby="card-title card-desc">
   <title id="card-title">KOTOR decompilation progress</title>
-  <desc id="card-desc">Playable decompilation (VS2022): 7,232 of 9,252 functions reconstructed in behaviour-equivalent C++; the game builds and plays through the Endar Spire to Taris. Byte-identical decompilation (MSVC 7.0): 5,251 functions (56.8%) compile to the original bytes, plus 368 identical to the stock LIBCMT.LIB.</desc>
+  <desc id="card-desc">Decompiled with Visual Studio 2022: 7,232 of 9,252 functions. Decompiled with the original Visual Studio .NET 2002 (MSVC 7.0), byte-identical: 5,251 functions (56.8%) compile to the original bytes, plus 368 identical to the stock LIBCMT.LIB.</desc>
   <rect x="1" y="1" width="958" height="602" rx="14" fill="#090909" stroke="#343434" stroke-width="1.5"/>
   <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif">
     <text x="23" y="34" font-size="15" fill="#dedede" font-weight="600">Star Wars: Knights of the Old Republic — two decompilations of swkotor.exe 1.0.3.0 (GOG)</text>
-    <text x="23" y="54" font-size="12" fill="#8a8a8a">Same executable, two different goals: one builds a game that plays, the other proves the source is the original. Unofficial; bring your own game.</text>
+    <text x="23" y="54" font-size="12" fill="#8a8a8a">Same executable, two toolchains: modern Visual Studio and its libraries, or the original compiler and libraries (byte-identical). Unofficial.</text>
     <rect x="763.6" y="17" width="174.4" height="27" rx="14" fill="#062514"/>
     <text x="850.8" y="35" font-size="12.5" fill="#33db73" font-weight="600" text-anchor="middle">+155 byte-identical</text>
     <rect x="23" y="72" width="450" height="236" rx="10" fill="#111214" stroke="#343434"/>
     <rect x="23" y="72" width="450" height="4" rx="2" fill="#6ba8ff"/>
-    <text x="39" y="98" font-size="11" fill="#6ba8ff" font-weight="700">① PLAYABLE DECOMPILATION</text>
-    <text x="39" y="118" font-size="15" fill="#f4f4f5" font-weight="650">Runs the game — not byte-identical</text>
+    <text x="39" y="98" font-size="11" fill="#6ba8ff" font-weight="700">① MODERN TOOLCHAIN</text>
+    <text x="39" y="118" font-size="15" fill="#f4f4f5" font-weight="650">Decompiled with Visual Studio 2022</text>
     <text x="39" y="136" font-size="11.5" fill="#8a8a8a">src/ · VS2022 MSVC + clang-cl · C++17 · 1,862 units</text>
-    <text x="39" y="154" font-size="12" fill="#c9c9c9">Behaviour-equivalent C++, play-tested; machine code differs.</text>
+    <text x="39" y="154" font-size="12" fill="#c9c9c9">Modern compiler and libraries: same behaviour, different bytes.</text>
     <rect x="489" y="72" width="450" height="236" rx="10" fill="#111214" stroke="#343434"/>
     <rect x="489" y="72" width="450" height="4" rx="2" fill="#5be3a8"/>
-    <text x="505" y="98" font-size="11" fill="#5be3a8" font-weight="700">② BYTE-IDENTICAL DECOMPILATION</text>
-    <text x="505" y="118" font-size="15" fill="#f4f4f5" font-weight="650">Proven identical — not yet a whole game</text>
-    <text x="505" y="136" font-size="11.5" fill="#8a8a8a">matching/ · Visual Studio .NET 2002 · MSVC 7.0 (cl 13.00.9466)</text>
-    <text x="505" y="154" font-size="12" fill="#c9c9c9">Each function compiles to the original&#x27;s exact bytes.</text>
+    <text x="505" y="98" font-size="11" fill="#5be3a8" font-weight="700">② ORIGINAL TOOLCHAIN · BYTE-IDENTICAL</text>
+    <text x="505" y="118" font-size="15" fill="#f4f4f5" font-weight="650">Decompiled with Visual Studio .NET 2002</text>
+    <text x="505" y="136" font-size="11.5" fill="#8a8a8a">matching/ · MSVC 7.0 (cl 13.00.9466) + original LIBCMT.LIB</text>
+    <text x="505" y="154" font-size="12" fill="#c9c9c9">The compiler and libraries BioWare used: identical bytes.</text>
     <text x="39" y="204" font-size="34" fill="#6ba8ff" font-weight="700">78.2%</text>
-    <text x="173" y="188" font-size="12.5" fill="#c9c9c9">of functions reconstructed in C++</text>
+    <text x="173" y="188" font-size="12.5" fill="#c9c9c9">of functions decompiled</text>
     <text x="173" y="204" font-size="11.5" fill="#8a8a8a">7,232 / 9,252 · 82.8% of code bytes</text>
     <text x="505" y="204" font-size="34" fill="#5be3a8" font-weight="700">56.8%</text>
-    <text x="639" y="188" font-size="12.5" fill="#c9c9c9">of functions byte-identical</text>
+    <text x="639" y="188" font-size="12.5" fill="#c9c9c9">of functions decompiled byte-identical</text>
     <text x="639" y="204" font-size="11.5" fill="#8a8a8a">5,251 / 9,252 · 22.8% of code bytes</text>
     <rect x="39" y="220" width="418" height="12" rx="6.0" fill="#272727"/>
     <rect x="39.00" y="220" width="346.27" height="12" fill="#6ba8ff"/>
@@ -70,12 +70,12 @@
     <text x="860.1" y="338" font-size="11" fill="#8a8a8a">neither yet</text>
     <rect x="711.9" y="329" width="10" height="10" rx="2" fill="#4a3f6b"/>
     <text x="725.9" y="338" font-size="11" fill="#8a8a8a">compiler-generated</text>
-    <rect x="583.6" y="329" width="10" height="10" rx="2" fill="#6ba8ff"/>
-    <text x="597.6" y="338" font-size="11" fill="#8a8a8a">playable C++ only</text>
-    <rect x="484.8" y="329" width="10" height="10" rx="2" fill="#9aa5b1"/>
-    <text x="498.8" y="338" font-size="11" fill="#8a8a8a">stock LIBCMT</text>
-    <rect x="374.2" y="329" width="10" height="10" rx="2" fill="#5be3a8"/>
-    <text x="388.2" y="338" font-size="11" fill="#8a8a8a">byte-identical</text>
+    <rect x="560.0" y="329" width="10" height="10" rx="2" fill="#6ba8ff"/>
+    <text x="574.0" y="338" font-size="11" fill="#8a8a8a">modern toolchain only</text>
+    <rect x="461.2" y="329" width="10" height="10" rx="2" fill="#9aa5b1"/>
+    <text x="475.2" y="338" font-size="11" fill="#8a8a8a">stock LIBCMT</text>
+    <rect x="350.6" y="329" width="10" height="10" rx="2" fill="#5be3a8"/>
+    <text x="364.6" y="338" font-size="11" fill="#8a8a8a">byte-identical</text>
     <text x="78" y="357" font-size="10" text-anchor="end" fill="#8a8a8a" font-family="Consolas, Menlo, monospace">0x00401000</text>
     <rect x="86.0" y="348" width="16.6" height="10" rx="2" fill="#52c392"/>
     <rect x="104.6" y="348" width="16.6" height="10" rx="2" fill="#659ceb"/>
@@ -922,6 +922,6 @@
     <rect x="885.8" y="552" width="16.6" height="10" rx="2" fill="#4a3f6b"/>
     <rect x="904.4" y="552" width="16.6" height="10" rx="2" fill="#4a3f6b"/>
     <rect x="923.0" y="552" width="16.6" height="10" rx="2" fill="#4a3f6b"/>
-    <text x="23" y="586" font-size="11.5" fill="#8a8a8a">Together the two cover 91.4% of the 9,252 functions. Matched code will replace playable code function by function (see STRUCTURE.md). 11,730 EH funclets excluded.</text>
+    <text x="23" y="586" font-size="11.5" fill="#8a8a8a">Together the two cover 91.4% of the 9,252 functions. Byte-identical code replaces modern-toolchain code function by function (STRUCTURE.md). 11,730 EH funclets excluded.</text>
   </g>
 </svg>

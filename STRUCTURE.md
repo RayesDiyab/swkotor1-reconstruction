@@ -114,3 +114,21 @@ with the original.
 
 See [matching/README.md](matching/README.md) for the annotation format, how
 to run the tools, and the source-shape patterns that make functions match.
+
+## Reviewing this change
+
+1. **Scope:** `git diff main --stat` touches only `matching/`,
+   `STRUCTURE.md`, `.github/workflows/update-progress-tracker.yml` and four
+   lines of `README.md`. Nothing in `src/`, `build.py` or the build
+   manifest changes, so the playable build is unaffected.
+2. **Reproduce the numbers** (needs MSVC 7.0 and your exe; see
+   [matching/CONTRIBUTING.md](matching/CONTRIBUTING.md)):
+   ```powershell
+   python .\matching\tools\matchcmp.py -q matching\src                 # 5,251 / 5,755
+   python .\matching\tools\libmatch.py "<msvc7>\LIB\LIBCMT.LIB" "<swkotor.exe>" out.csv
+   python .\matching\tools\render_banner.py                            # tracker, no compiler needed
+   ```
+3. **Contributing afterwards:** people and AI agents follow
+   [matching/CONTRIBUTING.md](matching/CONTRIBUTING.md).
+   `matching/CLAUDE.md` gives Claude Code the same rules whenever it works
+   inside `matching/`.

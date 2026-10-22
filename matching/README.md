@@ -7,7 +7,8 @@ with the original toolchain to the **same machine code** as the GOG 1.03
 `swkotor.exe`, function by function. It does not change or replace the
 playable build under `src/` and is not part of `build.py`. How the two
 builds relate, and the plan to bring matched code into the playable build, is
-in [STRUCTURE.md](../STRUCTURE.md).
+in [STRUCTURE.md](../STRUCTURE.md). To contribute, as a person or an AI agent, follow
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 `swkotor.exe`'s Rich header names the toolchain: Visual Studio .NET 2002
 (MSVC 7.0, `cl` 13.00.9466), linked 2004-02-12. With that compiler and
@@ -97,18 +98,19 @@ The tracker at the top of both READMEs, `matching/assets/progress.svg`,
 shows the two decompilations side by side. They measure different things,
 so they are never added together:
 
-- **Playable decompilation** (blue, `src/`): behaviour-equivalent C++ built
-  with VS2022 and clang-cl. It runs the game, but its machine code differs
-  from the original. It counts the functions `src/` defines under their
+- **Modern toolchain** (blue, `src/`): decompiled C++ built with Visual
+  Studio 2022 and its libraries. It behaves like the original, but the
+  bytes differ. It counts the functions `src/` defines under their
   original address (`kotor_<cc>_<address>`). That's a lower bound, because
-  the C runtime comes from VS2022 and some code is generated. Its
-  milestones restate [STATUS.md](../STATUS.md); update `PLAYABLE` in the
-  script when that file changes.
-- **Byte-identical decompilation** (green, `matching/`): source that MSVC
-  7.0 compiles to the original's exact bytes, from `status.csv`. Functions
+  the C runtime comes from VS2022. Its milestones restate
+  [STATUS.md](../STATUS.md); update `PLAYABLE` in the script when that file
+  changes.
+- **Original toolchain, byte-identical** (green, `matching/`): decompiled
+  with Visual Studio .NET 2002 (MSVC 7.0) and the original libraries, so it
+  compiles to the original's exact bytes, from `status.csv`. Functions
   identical to the stock `LIBCMT.LIB` (grey) need no source.
 - **Address map:** for every 4 KiB of the original code it shows what is
-  byte-identical, what is stock library, what exists only as playable C++,
+  byte-identical, what is stock library, what exists only in the modern-toolchain version,
   and what neither has yet.
 
 It updates itself:

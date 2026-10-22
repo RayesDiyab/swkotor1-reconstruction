@@ -4,11 +4,11 @@
 The tracker shows the two decompilations of swkotor.exe side by side, so
 they are never confused:
 
-- Playable decompilation (src/, VS2022 + clang-cl): behaviour-equivalent
-  C++ that builds and runs the game. Coverage counts the functions src/
+- Modern-toolchain decompilation (src/, VS2022 + clang-cl): behaviour-equivalent
+  C++ built with modern Visual Studio. Coverage counts the functions src/
   defines under their original address (kotor_<cc>_<address>), which is a
   lower bound. Milestones restate STATUS.md; edit PLAYABLE when it changes.
-- Byte-identical decompilation (matching/, MSVC 7.0): source that compiles
+- Original-toolchain, byte-identical decompilation (matching/, MSVC 7.0): source that compiles
   to the original's exact bytes, from matching/status.csv (matchcmp.py
   --report). Functions identical to the stock LIBCMT.LIB come from
   matching/crt_libcmt.csv.
@@ -126,7 +126,7 @@ def mix(color_a: str, color_b: str, t: float) -> str:
 
 
 def map_class(category: str, playable: bool) -> str:
-    """Map key: byte-identical, stock library, playable C++ only, none, EH."""
+    """Map key: byte-identical, stock library, modern toolchain only, none, EH."""
     if category in ("M", "L", "CG"):
         return category
     return "P" if playable else "T"
@@ -203,8 +203,8 @@ def render(functions, units: int, old_status: dict[int, str] | None) -> str:
     # Header.
     text(add, 23, 34, "Star Wars: Knights of the Old Republic — two decompilations of "
          "swkotor.exe 1.0.3.0 (GOG)", 15, "#dedede", 600)
-    text(add, 23, 54, "Same executable, two different goals: one builds a game that plays, the "
-         "other proves the source is the original. Unofficial; bring your own game.", 12, DIM)
+    text(add, 23, 54, "Same executable, two toolchains: modern Visual Studio and its libraries, or the "
+         "original compiler and libraries (byte-identical). Unofficial.", 12, DIM)
     badge, badge_fg, badge_bg = "Tracking", "#a1a1aa", "#222225"
     if old_status is not None:
         diff = matched - sum(1 for v in old_status.values() if v == "MATCH")
@@ -220,22 +220,22 @@ def render(functions, units: int, old_status: dict[int, str] | None) -> str:
     # Two panels.
     top, w, h = 72, 450, 236
     left, right = 23, 489
-    panel(add, left, top, w, h, PLAY_COLOR, "① PLAYABLE DECOMPILATION",
-          "Runs the game — not byte-identical",
+    panel(add, left, top, w, h, PLAY_COLOR, "① MODERN TOOLCHAIN",
+          "Decompiled with Visual Studio 2022",
           f"src/ · VS2022 MSVC + clang-cl · C++17 · {units:,} units",
-          "Behaviour-equivalent C++, play-tested; machine code differs.")
-    panel(add, right, top, w, h, MATCH_COLOR, "② BYTE-IDENTICAL DECOMPILATION",
-          "Proven identical — not yet a whole game",
-          "matching/ · Visual Studio .NET 2002 · MSVC 7.0 (cl 13.00.9466)",
-          "Each function compiles to the original's exact bytes.")
+          "Modern compiler and libraries: same behaviour, different bytes.")
+    panel(add, right, top, w, h, MATCH_COLOR, "② ORIGINAL TOOLCHAIN · BYTE-IDENTICAL",
+          "Decompiled with Visual Studio .NET 2002",
+          "matching/ · MSVC 7.0 (cl 13.00.9466) + original LIBCMT.LIB",
+          "The compiler and libraries BioWare used: identical bytes.")
 
     y = top + 132
     text(add, left + 16, y, f"{played / total * 100:.1f}%", 34, PLAY_COLOR, 700)
-    text(add, left + 150, y - 16, "of functions reconstructed in C++", 12.5, MUTED)
+    text(add, left + 150, y - 16, "of functions decompiled", 12.5, MUTED)
     text(add, left + 150, y, f"{played:,} / {total:,} · {played_bytes / game_bytes * 100:.1f}% of code "
          f"bytes", 11.5, DIM)
     text(add, right + 16, y, f"{matched / total * 100:.1f}%", 34, MATCH_COLOR, 700)
-    text(add, right + 150, y - 16, "of functions byte-identical", 12.5, MUTED)
+    text(add, right + 150, y - 16, "of functions decompiled byte-identical", 12.5, MUTED)
     text(add, right + 150, y, f"{matched:,} / {total:,} · {matched_bytes / game_bytes * 100:.1f}% of code "
          f"bytes", 11.5, DIM)
 
@@ -262,7 +262,7 @@ def render(functions, units: int, old_status: dict[int, str] | None) -> str:
     map_top = top + h + 40
     text(add, 23, map_top - 10, "Address map — 4 KiB per cell", 13, "#dedede", 550)
     key = [(MATCH_COLOR, "byte-identical"), (LIB_COLOR, "stock LIBCMT"),
-           (PLAY_COLOR, "playable C++ only"), (CG_COLOR, "compiler-generated"),
+           (PLAY_COLOR, "modern toolchain only"), (CG_COLOR, "compiler-generated"),
            (TODO_COLOR, "neither yet")]
     kx = 939
     for color, label in reversed(key):
@@ -291,13 +291,13 @@ def render(functions, units: int, old_status: dict[int, str] | None) -> str:
             f'width="{pitch_x - 2:.1f}" height="{size_y}" rx="2" fill="{cell_color(shares)}"/>')
     foot = map_top + rows * pitch_y + 22
     text(add, 23, foot, f"Together the two cover {either / total * 100:.1f}% of the {total:,} functions. "
-         f"Matched code will replace playable code function by function (see STRUCTURE.md). "
+         f"Byte-identical code replaces modern-toolchain code function by function (STRUCTURE.md). "
          f"{eh:,} EH funclets excluded.", 11.5, DIM)
     height = foot + 18
 
-    desc = (f"Playable decompilation (VS2022): {played:,} of {total:,} functions reconstructed in "
-            f"behaviour-equivalent C++; the game builds and plays through the Endar Spire to Taris. "
-            f"Byte-identical decompilation (MSVC 7.0): {matched:,} functions "
+    desc = (f"Decompiled with Visual Studio 2022: {played:,} of {total:,} functions. "
+            f"Decompiled with the original Visual Studio .NET 2002 (MSVC 7.0), byte-identical: "
+            f"{matched:,} functions "
             f"({matched / total * 100:.1f}%) compile to the original bytes, plus {library:,} "
             f"identical to the stock LIBCMT.LIB.")
     body = "\n    ".join(parts)
